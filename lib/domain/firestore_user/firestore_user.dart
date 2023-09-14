@@ -7,7 +7,6 @@ part 'firestore_user.g.dart';
 abstract class FirestoreUser with _$FirestoreUser {
   const factory FirestoreUser({
     required dynamic createdAt,
-    required String email,
     required int followerCount,
     required int followingCount,
     required bool isAdmin,

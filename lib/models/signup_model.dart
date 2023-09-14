@@ -25,7 +25,6 @@ class SignupModel extends ChangeNotifier {
     final Timestamp now = Timestamp.now();
     final FirestoreUser firestoreUser = FirestoreUser(
       createdAt: now,
-      email: email,
       followerCount: 0,
       followingCount: 0,
       isAdmin: false,

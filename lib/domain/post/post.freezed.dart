@@ -27,6 +27,8 @@ mixin _$Post {
   String get text => throw _privateConstructorUsedError;
   String get postId => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
+  String get userName => throw _privateConstructorUsedError;
+  String get userImageURL => throw _privateConstructorUsedError;
   dynamic get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,6 +49,8 @@ abstract class $PostCopyWith<$Res> {
       String text,
       String postId,
       String uid,
+      String userName,
+      String userImageURL,
       dynamic updatedAt});
 }
 
@@ -70,6 +74,8 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
     Object? text = null,
     Object? postId = null,
     Object? uid = null,
+    Object? userName = null,
+    Object? userImageURL = null,
     Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -101,6 +107,14 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String,
+      userName: null == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
+      userImageURL: null == userImageURL
+          ? _value.userImageURL
+          : userImageURL // ignore: cast_nullable_to_non_nullable
+              as String,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -123,6 +137,8 @@ abstract class _$$_PostCopyWith<$Res> implements $PostCopyWith<$Res> {
       String text,
       String postId,
       String uid,
+      String userName,
+      String userImageURL,
       dynamic updatedAt});
 }
 
@@ -142,6 +158,8 @@ class __$$_PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res, _$_Post>
     Object? text = null,
     Object? postId = null,
     Object? uid = null,
+    Object? userName = null,
+    Object? userImageURL = null,
     Object? updatedAt = freezed,
   }) {
     return _then(_$_Post(
@@ -173,6 +191,14 @@ class __$$_PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res, _$_Post>
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String,
+      userName: null == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
+      userImageURL: null == userImageURL
+          ? _value.userImageURL
+          : userImageURL // ignore: cast_nullable_to_non_nullable
+              as String,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -192,6 +218,8 @@ class _$_Post implements _Post {
       required this.text,
       required this.postId,
       required this.uid,
+      required this.userName,
+      required this.userImageURL,
       required this.updatedAt})
       : _hashTags = hashTags;
 
@@ -218,11 +246,15 @@ class _$_Post implements _Post {
   @override
   final String uid;
   @override
+  final String userName;
+  @override
+  final String userImageURL;
+  @override
   final dynamic updatedAt;
 
   @override
   String toString() {
-    return 'Post(createdAt: $createdAt, hashTags: $hashTags, imageURL: $imageURL, likeCount: $likeCount, text: $text, postId: $postId, uid: $uid, updatedAt: $updatedAt)';
+    return 'Post(createdAt: $createdAt, hashTags: $hashTags, imageURL: $imageURL, likeCount: $likeCount, text: $text, postId: $postId, uid: $uid, userName: $userName, userImageURL: $userImageURL, updatedAt: $updatedAt)';
   }
 
   @override
@@ -239,6 +271,10 @@ class _$_Post implements _Post {
             (identical(other.text, text) || other.text == text) &&
             (identical(other.postId, postId) || other.postId == postId) &&
             (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
+            (identical(other.userImageURL, userImageURL) ||
+                other.userImageURL == userImageURL) &&
             const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
   }
 
@@ -253,6 +289,8 @@ class _$_Post implements _Post {
       text,
       postId,
       uid,
+      userName,
+      userImageURL,
       const DeepCollectionEquality().hash(updatedAt));
 
   @JsonKey(ignore: true)
@@ -278,6 +316,8 @@ abstract class _Post implements Post {
       required final String text,
       required final String postId,
       required final String uid,
+      required final String userName,
+      required final String userImageURL,
       required final dynamic updatedAt}) = _$_Post;
 
   factory _Post.fromJson(Map<String, dynamic> json) = _$_Post.fromJson;
@@ -296,6 +336,10 @@ abstract class _Post implements Post {
   String get postId;
   @override
   String get uid;
+  @override
+  String get userName;
+  @override
+  String get userImageURL;
   @override
   dynamic get updatedAt;
   @override

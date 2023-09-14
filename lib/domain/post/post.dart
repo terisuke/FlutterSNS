@@ -13,6 +13,8 @@ abstract class Post with _$Post {
     required String text,
     required String postId,
     required String uid,
+    required String userName,
+    required String userImageURL,
     required dynamic updatedAt,
   }) = _Post;
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);

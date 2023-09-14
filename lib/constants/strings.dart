@@ -2,7 +2,6 @@
 import 'package:uuid/uuid.dart';
 
 // titles
-const String reloadText = "再読み込みを行う";
 const String appTitle = "SNS";
 const String signupTitle = "新規登録";
 const String loginTitle = "ログイン";
@@ -11,6 +10,7 @@ const String themeTitle = "テーマ";
 const String profileTitle = "プロフィール";
 const String adminTitle = "管理者";
 const String createPostTitle = "投稿を作成";
+const String commentTitle = "コメント";
 // texts
 const String mailAddressText = "メールアドレス";
 const String passwordText = "パスワード";
@@ -20,6 +20,8 @@ const String loginText = "ログインする";
 const String logoutText = "ログアウトを行う";
 const String loadingText = "Loading";
 const String uploadText = "アップロードする";
+const String reloadText = "再読み込みを行う";
+const String createCommentText = "コメントを作成";
 // FieldKey
 const String usersFieldKey = "users";
 // message

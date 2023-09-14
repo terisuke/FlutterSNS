@@ -13,10 +13,9 @@ final homeProvider = ChangeNotifierProvider(((ref) => HomeModel()));
 class HomeModel extends ChangeNotifier {
   // フォローしているユーザーの投稿の取得に使用する
   List<DocumentSnapshot<Map<String, dynamic>>> postDocs = [];
-  late User? currentUser;
   final RefreshController refreshController = RefreshController();
   Query<Map<String, dynamic>> returnQuery() {
-    currentUser = returnAuthUser();
+    final User? currentUser = returnAuthUser();
     return FirebaseFirestore.instance
         .collection('users')
         .doc(currentUser!.uid)
@@ -30,22 +29,9 @@ class HomeModel extends ChangeNotifier {
   }
 
   Future<void> init() async {
-    startLoading();
     final query = returnQuery();
     final qshot = await query.get();
     postDocs = qshot.docs;
-    endLoading();
-  }
-
-  bool isLoading = false;
-  void startLoading() {
-    isLoading = true;
-    notifyListeners();
-  }
-
-  void endLoading() {
-    isLoading = false;
-    notifyListeners();
   }
 
   Future<void> onRefresh() async {
@@ -62,10 +48,9 @@ class HomeModel extends ChangeNotifier {
   }
 
   Future<void> onReload() async {
-    startLoading();
     final qshot = await returnQuery().get();
     postDocs = qshot.docs;
-    endLoading();
+    notifyListeners();
   }
 
   Future<void> onLoading() async {

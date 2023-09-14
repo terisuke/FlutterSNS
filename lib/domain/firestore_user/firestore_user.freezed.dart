@@ -21,7 +21,6 @@ FirestoreUser _$FirestoreUserFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$FirestoreUser {
   dynamic get createdAt => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
   int get followerCount => throw _privateConstructorUsedError;
   int get followingCount => throw _privateConstructorUsedError;
   bool get isAdmin => throw _privateConstructorUsedError;
@@ -44,7 +43,6 @@ abstract class $FirestoreUserCopyWith<$Res> {
   @useResult
   $Res call(
       {dynamic createdAt,
-      String email,
       int followerCount,
       int followingCount,
       bool isAdmin,
@@ -68,7 +66,6 @@ class _$FirestoreUserCopyWithImpl<$Res, $Val extends FirestoreUser>
   @override
   $Res call({
     Object? createdAt = freezed,
-    Object? email = null,
     Object? followerCount = null,
     Object? followingCount = null,
     Object? isAdmin = null,
@@ -82,10 +79,6 @@ class _$FirestoreUserCopyWithImpl<$Res, $Val extends FirestoreUser>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
       followerCount: null == followerCount
           ? _value.followerCount
           : followerCount // ignore: cast_nullable_to_non_nullable
@@ -128,7 +121,6 @@ abstract class _$$_FirestoreUserCopyWith<$Res>
   @useResult
   $Res call(
       {dynamic createdAt,
-      String email,
       int followerCount,
       int followingCount,
       bool isAdmin,
@@ -150,7 +142,6 @@ class __$$_FirestoreUserCopyWithImpl<$Res>
   @override
   $Res call({
     Object? createdAt = freezed,
-    Object? email = null,
     Object? followerCount = null,
     Object? followingCount = null,
     Object? isAdmin = null,
@@ -164,10 +155,6 @@ class __$$_FirestoreUserCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
       followerCount: null == followerCount
           ? _value.followerCount
           : followerCount // ignore: cast_nullable_to_non_nullable
@@ -205,7 +192,6 @@ class __$$_FirestoreUserCopyWithImpl<$Res>
 class _$_FirestoreUser implements _FirestoreUser {
   const _$_FirestoreUser(
       {required this.createdAt,
-      required this.email,
       required this.followerCount,
       required this.followingCount,
       required this.isAdmin,
@@ -219,8 +205,6 @@ class _$_FirestoreUser implements _FirestoreUser {
 
   @override
   final dynamic createdAt;
-  @override
-  final String email;
   @override
   final int followerCount;
   @override
@@ -238,7 +222,7 @@ class _$_FirestoreUser implements _FirestoreUser {
 
   @override
   String toString() {
-    return 'FirestoreUser(createdAt: $createdAt, email: $email, followerCount: $followerCount, followingCount: $followingCount, isAdmin: $isAdmin, userName: $userName, userImageURL: $userImageURL, uid: $uid, updatedAt: $updatedAt)';
+    return 'FirestoreUser(createdAt: $createdAt, followerCount: $followerCount, followingCount: $followingCount, isAdmin: $isAdmin, userName: $userName, userImageURL: $userImageURL, uid: $uid, updatedAt: $updatedAt)';
   }
 
   @override
@@ -247,7 +231,6 @@ class _$_FirestoreUser implements _FirestoreUser {
         (other.runtimeType == runtimeType &&
             other is _$_FirestoreUser &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
-            (identical(other.email, email) || other.email == email) &&
             (identical(other.followerCount, followerCount) ||
                 other.followerCount == followerCount) &&
             (identical(other.followingCount, followingCount) ||
@@ -266,7 +249,6 @@ class _$_FirestoreUser implements _FirestoreUser {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(createdAt),
-      email,
       followerCount,
       followingCount,
       isAdmin,
@@ -292,7 +274,6 @@ class _$_FirestoreUser implements _FirestoreUser {
 abstract class _FirestoreUser implements FirestoreUser {
   const factory _FirestoreUser(
       {required final dynamic createdAt,
-      required final String email,
       required final int followerCount,
       required final int followingCount,
       required final bool isAdmin,
@@ -306,8 +287,6 @@ abstract class _FirestoreUser implements FirestoreUser {
 
   @override
   dynamic get createdAt;
-  @override
-  String get email;
   @override
   int get followerCount;
   @override

@@ -1,12 +1,20 @@
+// flutter
 import 'package:flutter/material.dart';
+// pages
 import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
 import 'package:udemy_flutter_sns/main.dart';
-import 'package:udemy_flutter_sns/models/main_model.dart';
 import 'package:udemy_flutter_sns/views/account_page.dart';
 import 'package:udemy_flutter_sns/views/admin_page.dart';
+import 'package:udemy_flutter_sns/views/comments/comments_page.dart';
 import 'package:udemy_flutter_sns/views/login_page.dart';
 import 'package:udemy_flutter_sns/views/main/passive_user_profile_page.dart';
+// packages
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:udemy_flutter_sns/views/signup_page.dart';
+// domains
+import 'package:udemy_flutter_sns/domain/post/post.dart';
+// models
+import 'package:udemy_flutter_sns/models/main_model.dart';
 
 void toMyApp({required BuildContext context}) => Navigator.push(
     context, MaterialPageRoute(builder: (context) => const MyApp()));
@@ -38,5 +46,23 @@ void toPassiveUserProfilePage(
                   mainModel: mainModel,
                 )));
 
-void toAdminPage({required BuildContext context}) => Navigator.push(
-    context, MaterialPageRoute(builder: ((context) => AdminPage())));
+void toAdminPage(
+        {required BuildContext context, required MainModel mainModel}) =>
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: ((context) => AdminPage(
+                  mainModel: mainModel,
+                ))));
+
+void toCommentsPage({
+  required BuildContext context,
+  required Post post,
+  required DocumentSnapshot<Map<String, dynamic>> postDoc,
+  required MainModel mainModel,
+}) =>
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: ((context) => CommentsPage(
+                post: post, postDoc: postDoc, mainModel: mainModel))));
