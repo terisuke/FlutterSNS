@@ -1,0 +1,39 @@
+// flutter
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+// constants
+import 'package:udemy_flutter_sns/constants/routes.dart' as routes;
+import 'package:udemy_flutter_sns/constants/strings.dart';
+import 'package:udemy_flutter_sns/models/main_model.dart';
+import 'package:udemy_flutter_sns/models/themes_model.dart';
+
+class SNSDrawer extends StatelessWidget {
+  const SNSDrawer({Key? key, required this.mainModel, required this.themeModel})
+      : super(key: key);
+  final MainModel mainModel;
+  final ThemeModel themeModel;
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: [
+          ListTile(
+            title: const Text(accountTitle),
+            onTap: () =>
+                routes.toAccountPage(context: context, mainModel: mainModel),
+          ),
+          ListTile(
+            title: const Text(themeTitle),
+            trailing: CupertinoSwitch(
+                value: themeModel.isDarkTheme,
+                onChanged: (value) => themeModel.setIsDarkTheme(value: value)),
+          ),
+          if (mainModel.firestoreUser.isAdmin)
+            ListTile(
+                title: const Text(adminTitle),
+                onTap: () => routes.toAdminPage(context: context))
+        ],
+      ),
+    );
+  }
+}
