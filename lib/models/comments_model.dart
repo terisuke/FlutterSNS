@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:udemy_flutter_sns/constants/enums.dart';
 import 'package:udemy_flutter_sns/constants/lists.dart';
+import 'package:udemy_flutter_sns/constants/others.dart';
 // constants
 import 'package:udemy_flutter_sns/constants/strings.dart';
 import 'package:udemy_flutter_sns/constants/routes.dart' as routes;
@@ -130,16 +131,16 @@ class CommentsModel extends ChangeNotifier {
     final String activeUid = currentUserDoc.id;
     final String postCommentId = returnUuidV4();
     final Comment comment = Comment(
-      createdAt: now,
-      comment: commentString,
-      likeCount: 0,
-      postCommentId: postCommentId,
-      postCommentReplyCount: 0,
-      postRef: postDoc.reference,
-      userName: firestoreUser.userName,
-      uid: activeUid,
-      userImageURL: firestoreUser.userImageURL,
-    );
+        createdAt: now,
+        comment: commentString,
+        likeCount: 0,
+        postCommentId: postCommentId,
+        postCommentReplyCount: 0,
+        postRef: postDoc.reference,
+        userName: firestoreUser.userName,
+        uid: activeUid,
+        userImageURL: firestoreUser.userImageURL,
+        updatedAt: now);
     await postDoc.reference
         .collection("postComments")
         .doc(postCommentId)
@@ -201,9 +202,9 @@ class CommentsModel extends ChangeNotifier {
     mainModel.likeCommentTokens.remove(deleteLikeCommentToken);
     notifyListeners();
     // 自分がいいねしたことの印を削除
-    await currentUserDoc.reference
-        .collection("tokens")
-        .doc(deleteLikeCommentToken.tokenId)
+    await currentUserDocToTokenDocRef(
+            currentUserDoc: currentUserDoc,
+            tokenId: deleteLikeCommentToken.tokenId)
         .delete();
     // コメントにいいねがついたことの印を削除
     final DocumentReference<Map<String, dynamic>> postCommentRef =

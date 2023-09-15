@@ -24,6 +24,7 @@ mixin _$FirestoreUser {
   int get followerCount => throw _privateConstructorUsedError;
   int get followingCount => throw _privateConstructorUsedError;
   bool get isAdmin => throw _privateConstructorUsedError;
+  int get muteCount => throw _privateConstructorUsedError;
   String get userName => throw _privateConstructorUsedError;
   String get userImageURL => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
@@ -46,6 +47,7 @@ abstract class $FirestoreUserCopyWith<$Res> {
       int followerCount,
       int followingCount,
       bool isAdmin,
+      int muteCount,
       String userName,
       String userImageURL,
       String uid,
@@ -69,6 +71,7 @@ class _$FirestoreUserCopyWithImpl<$Res, $Val extends FirestoreUser>
     Object? followerCount = null,
     Object? followingCount = null,
     Object? isAdmin = null,
+    Object? muteCount = null,
     Object? userName = null,
     Object? userImageURL = null,
     Object? uid = null,
@@ -91,6 +94,10 @@ class _$FirestoreUserCopyWithImpl<$Res, $Val extends FirestoreUser>
           ? _value.isAdmin
           : isAdmin // ignore: cast_nullable_to_non_nullable
               as bool,
+      muteCount: null == muteCount
+          ? _value.muteCount
+          : muteCount // ignore: cast_nullable_to_non_nullable
+              as int,
       userName: null == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
@@ -124,6 +131,7 @@ abstract class _$$_FirestoreUserCopyWith<$Res>
       int followerCount,
       int followingCount,
       bool isAdmin,
+      int muteCount,
       String userName,
       String userImageURL,
       String uid,
@@ -145,6 +153,7 @@ class __$$_FirestoreUserCopyWithImpl<$Res>
     Object? followerCount = null,
     Object? followingCount = null,
     Object? isAdmin = null,
+    Object? muteCount = null,
     Object? userName = null,
     Object? userImageURL = null,
     Object? uid = null,
@@ -167,6 +176,10 @@ class __$$_FirestoreUserCopyWithImpl<$Res>
           ? _value.isAdmin
           : isAdmin // ignore: cast_nullable_to_non_nullable
               as bool,
+      muteCount: null == muteCount
+          ? _value.muteCount
+          : muteCount // ignore: cast_nullable_to_non_nullable
+              as int,
       userName: null == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
@@ -195,6 +208,7 @@ class _$_FirestoreUser implements _FirestoreUser {
       required this.followerCount,
       required this.followingCount,
       required this.isAdmin,
+      required this.muteCount,
       required this.userName,
       required this.userImageURL,
       required this.uid,
@@ -212,6 +226,8 @@ class _$_FirestoreUser implements _FirestoreUser {
   @override
   final bool isAdmin;
   @override
+  final int muteCount;
+  @override
   final String userName;
   @override
   final String userImageURL;
@@ -222,7 +238,7 @@ class _$_FirestoreUser implements _FirestoreUser {
 
   @override
   String toString() {
-    return 'FirestoreUser(createdAt: $createdAt, followerCount: $followerCount, followingCount: $followingCount, isAdmin: $isAdmin, userName: $userName, userImageURL: $userImageURL, uid: $uid, updatedAt: $updatedAt)';
+    return 'FirestoreUser(createdAt: $createdAt, followerCount: $followerCount, followingCount: $followingCount, isAdmin: $isAdmin, muteCount: $muteCount, userName: $userName, userImageURL: $userImageURL, uid: $uid, updatedAt: $updatedAt)';
   }
 
   @override
@@ -236,6 +252,8 @@ class _$_FirestoreUser implements _FirestoreUser {
             (identical(other.followingCount, followingCount) ||
                 other.followingCount == followingCount) &&
             (identical(other.isAdmin, isAdmin) || other.isAdmin == isAdmin) &&
+            (identical(other.muteCount, muteCount) ||
+                other.muteCount == muteCount) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
             (identical(other.userImageURL, userImageURL) ||
@@ -252,6 +270,7 @@ class _$_FirestoreUser implements _FirestoreUser {
       followerCount,
       followingCount,
       isAdmin,
+      muteCount,
       userName,
       userImageURL,
       uid,
@@ -277,6 +296,7 @@ abstract class _FirestoreUser implements FirestoreUser {
       required final int followerCount,
       required final int followingCount,
       required final bool isAdmin,
+      required final int muteCount,
       required final String userName,
       required final String userImageURL,
       required final String uid,
@@ -293,6 +313,8 @@ abstract class _FirestoreUser implements FirestoreUser {
   int get followingCount;
   @override
   bool get isAdmin;
+  @override
+  int get muteCount;
   @override
   String get userName;
   @override

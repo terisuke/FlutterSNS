@@ -23,7 +23,6 @@ class RepliesPage extends ConsumerWidget {
       required this.commentDoc,
       required this.mainModel})
       : super(key: key);
-
   final Comment comment;
   final DocumentSnapshot<Map<String, dynamic>> commentDoc;
   final MainModel mainModel;
@@ -57,7 +56,11 @@ class RepliesPage extends ConsumerWidget {
                       replyDoc.data()! as Map<String, dynamic>;
                   final Reply reply = Reply.fromJson(data);
                   return ReplyCard(
-                      onTap: () {},
+                      onTap: () => muteUsersModel.showMuteUserPopup(
+                          context: context,
+                          mainModel: mainModel,
+                          passiveUid: reply.uid,
+                          docs: []),
                       comment: comment,
                       reply: reply,
                       replyDoc: replyDoc,

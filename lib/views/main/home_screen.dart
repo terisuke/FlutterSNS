@@ -59,11 +59,12 @@ class HomeScreen extends ConsumerWidget {
                                 final Post post =
                                     Post.fromJson(postDoc.data()!);
                                 return PostCard(
-                                    onTap: () => muteUsersModel.showPopup(
-                                        context: context,
-                                        mainModel: mainModel,
-                                        passiveUid: post.uid,
-                                        docs: postDocs),
+                                    onTap: () =>
+                                        muteUsersModel.showMuteUserPopup(
+                                            context: context,
+                                            mainModel: mainModel,
+                                            passiveUid: post.uid,
+                                            docs: postDocs),
                                     post: post,
                                     postDoc: postDoc,
                                     mainModel: mainModel,

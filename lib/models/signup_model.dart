@@ -28,6 +28,7 @@ class SignupModel extends ChangeNotifier {
       followerCount: 0,
       followingCount: 0,
       isAdmin: false,
+      muteCount: 0,
       uid: uid,
       updatedAt: now,
       userName: "Alice",

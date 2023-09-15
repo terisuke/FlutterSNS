@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // packages
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:udemy_flutter_sns/constants/bools.dart';
 // components
 import 'package:udemy_flutter_sns/details/card_container.dart';
 import 'package:udemy_flutter_sns/details/user_image.dart';
@@ -31,41 +32,43 @@ class ReplyCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final RepliesModel repliesModel = ref.watch(repliesProvider);
 
-    return CardContainer(
-      onTap: onTap,
-      borderColor: Colors.green,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              UserImage(userImageURL: reply.userImageURL, length: 32.0),
-              Text(
-                reply.userName,
-                style: const TextStyle(
-                    fontSize: 24.0, overflow: TextOverflow.ellipsis),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                reply.reply,
-                style: const TextStyle(
-                    fontSize: 24.0, overflow: TextOverflow.ellipsis),
-              ),
-              const Expanded(child: SizedBox()),
-              ReplyLikeButton(
-                  mainModel: mainModel,
-                  comment: comment,
-                  reply: reply,
-                  replyDoc: replyDoc,
-                  repliesModel: repliesModel)
-            ],
-          ),
-        ],
-      ),
-    );
+    return !isValidUser(muteUids: mainModel.muteUids, doc: replyDoc)
+        ? const SizedBox()
+        : CardContainer(
+            onTap: onTap,
+            borderColor: Colors.green,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    UserImage(userImageURL: reply.userImageURL, length: 32.0),
+                    Text(
+                      reply.userName,
+                      style: const TextStyle(
+                          fontSize: 24.0, overflow: TextOverflow.ellipsis),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      reply.reply,
+                      style: const TextStyle(
+                          fontSize: 24.0, overflow: TextOverflow.ellipsis),
+                    ),
+                    const Expanded(child: SizedBox()),
+                    ReplyLikeButton(
+                        mainModel: mainModel,
+                        comment: comment,
+                        reply: reply,
+                        replyDoc: replyDoc,
+                        repliesModel: repliesModel)
+                  ],
+                ),
+              ],
+            ),
+          );
   }
 }

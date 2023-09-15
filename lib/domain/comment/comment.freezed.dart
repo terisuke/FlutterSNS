@@ -29,6 +29,7 @@ mixin _$Comment {
   String get userName => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
   String get userImageURL => throw _privateConstructorUsedError;
+  dynamic get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +50,8 @@ abstract class $CommentCopyWith<$Res> {
       dynamic postRef,
       String userName,
       String uid,
-      String userImageURL});
+      String userImageURL,
+      dynamic updatedAt});
 }
 
 /// @nodoc
@@ -74,6 +76,7 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
     Object? userName = null,
     Object? uid = null,
     Object? userImageURL = null,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       createdAt: freezed == createdAt
@@ -112,6 +115,10 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
           ? _value.userImageURL
           : userImageURL // ignore: cast_nullable_to_non_nullable
               as String,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ) as $Val);
   }
 }
@@ -132,7 +139,8 @@ abstract class _$$_CommentCopyWith<$Res> implements $CommentCopyWith<$Res> {
       dynamic postRef,
       String userName,
       String uid,
-      String userImageURL});
+      String userImageURL,
+      dynamic updatedAt});
 }
 
 /// @nodoc
@@ -154,6 +162,7 @@ class __$$_CommentCopyWithImpl<$Res>
     Object? userName = null,
     Object? uid = null,
     Object? userImageURL = null,
+    Object? updatedAt = freezed,
   }) {
     return _then(_$_Comment(
       createdAt: freezed == createdAt
@@ -192,13 +201,17 @@ class __$$_CommentCopyWithImpl<$Res>
           ? _value.userImageURL
           : userImageURL // ignore: cast_nullable_to_non_nullable
               as String,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_Comment with DiagnosticableTreeMixin implements _Comment {
+class _$_Comment implements _Comment {
   const _$_Comment(
       {required this.createdAt,
       required this.comment,
@@ -208,7 +221,8 @@ class _$_Comment with DiagnosticableTreeMixin implements _Comment {
       required this.postRef,
       required this.userName,
       required this.uid,
-      required this.userImageURL});
+      required this.userImageURL,
+      required this.updatedAt});
 
   factory _$_Comment.fromJson(Map<String, dynamic> json) =>
       _$$_CommentFromJson(json);
@@ -231,26 +245,12 @@ class _$_Comment with DiagnosticableTreeMixin implements _Comment {
   final String uid;
   @override
   final String userImageURL;
+  @override
+  final dynamic updatedAt;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Comment(createdAt: $createdAt, comment: $comment, likeCount: $likeCount, postCommentId: $postCommentId, postCommentReplyCount: $postCommentReplyCount, postRef: $postRef, userName: $userName, uid: $uid, userImageURL: $userImageURL)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Comment'))
-      ..add(DiagnosticsProperty('createdAt', createdAt))
-      ..add(DiagnosticsProperty('comment', comment))
-      ..add(DiagnosticsProperty('likeCount', likeCount))
-      ..add(DiagnosticsProperty('postCommentId', postCommentId))
-      ..add(DiagnosticsProperty('postCommentReplyCount', postCommentReplyCount))
-      ..add(DiagnosticsProperty('postRef', postRef))
-      ..add(DiagnosticsProperty('userName', userName))
-      ..add(DiagnosticsProperty('uid', uid))
-      ..add(DiagnosticsProperty('userImageURL', userImageURL));
+  String toString() {
+    return 'Comment(createdAt: $createdAt, comment: $comment, likeCount: $likeCount, postCommentId: $postCommentId, postCommentReplyCount: $postCommentReplyCount, postRef: $postRef, userName: $userName, uid: $uid, userImageURL: $userImageURL, updatedAt: $updatedAt)';
   }
 
   @override
@@ -271,7 +271,8 @@ class _$_Comment with DiagnosticableTreeMixin implements _Comment {
                 other.userName == userName) &&
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.userImageURL, userImageURL) ||
-                other.userImageURL == userImageURL));
+                other.userImageURL == userImageURL) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
   }
 
   @JsonKey(ignore: true)
@@ -286,7 +287,8 @@ class _$_Comment with DiagnosticableTreeMixin implements _Comment {
       const DeepCollectionEquality().hash(postRef),
       userName,
       uid,
-      userImageURL);
+      userImageURL,
+      const DeepCollectionEquality().hash(updatedAt));
 
   @JsonKey(ignore: true)
   @override
@@ -312,7 +314,8 @@ abstract class _Comment implements Comment {
       required final dynamic postRef,
       required final String userName,
       required final String uid,
-      required final String userImageURL}) = _$_Comment;
+      required final String userImageURL,
+      required final dynamic updatedAt}) = _$_Comment;
 
   factory _Comment.fromJson(Map<String, dynamic> json) = _$_Comment.fromJson;
 
@@ -334,6 +337,8 @@ abstract class _Comment implements Comment {
   String get uid;
   @override
   String get userImageURL;
+  @override
+  dynamic get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$$_CommentCopyWith<_$_Comment> get copyWith =>

@@ -12,6 +12,7 @@ import 'package:udemy_flutter_sns/views/login_page.dart';
 import 'package:udemy_flutter_sns/views/main/passive_user_profile_page.dart';
 // packages
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:udemy_flutter_sns/views/mute_users_page.dart';
 import 'package:udemy_flutter_sns/views/replies/replies_page.dart';
 import 'package:udemy_flutter_sns/views/signup_page.dart';
 // domains
@@ -89,5 +90,14 @@ void toEditProfilePage(
         context,
         MaterialPageRoute(
             builder: (context) => EditProfilePage(
+                  mainModel: mainModel,
+                )));
+
+void toMuteUsersPage(
+        {required BuildContext context, required MainModel mainModel}) =>
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MuteUsersPage(
                   mainModel: mainModel,
                 )));

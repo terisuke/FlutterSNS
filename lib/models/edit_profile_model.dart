@@ -50,7 +50,8 @@ class EditProfileModel extends ChangeNotifier {
           logCreatedAt: Timestamp.now(),
           userName: userName,
           userImageURL: userImageURL,
-          userRef: currentUserDoc.reference);
+          userRef: currentUserDoc.reference,
+          uid: currentUserDoc.id);
       // .doc()とidを指定しないと、勝手に生成してくれる
       await currentUserDoc.reference
           .collection("userUpdateLogs")

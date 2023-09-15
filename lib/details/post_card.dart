@@ -7,6 +7,7 @@ import 'package:udemy_flutter_sns/details/card_container.dart';
 import 'package:udemy_flutter_sns/details/post_like_button.dart';
 // constants
 import 'package:udemy_flutter_sns/details/user_image.dart';
+import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
 import 'package:udemy_flutter_sns/models/comments_model.dart';
 // domain
 import 'package:udemy_flutter_sns/domain/post/post.dart';
@@ -32,6 +33,8 @@ class PostCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final FirestoreUser firestoreUser = mainModel.firestoreUser;
+    final bool isMyPost = post.uid == firestoreUser.uid;
     return CardContainer(
       onTap: onTap,
       borderColor: Colors.green,
@@ -40,7 +43,11 @@ class PostCard extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              UserImage(length: 32.0, userImageURL: post.imageURL),
+              UserImage(
+                  length: 32.0,
+                  userImageURL:
+                      isMyPost ? firestoreUser.userImageURL : post.imageURL),
+              Text(isMyPost ? firestoreUser.userName : post.userName)
             ],
           ),
           Row(

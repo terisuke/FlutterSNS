@@ -7,6 +7,7 @@ import 'package:udemy_flutter_sns/details/rounded_button.dart';
 // model
 import 'package:udemy_flutter_sns/models/admin_model.dart';
 import 'package:udemy_flutter_sns/models/main_model.dart';
+import 'package:udemy_flutter_sns/models/mute_users_model.dart';
 
 class AdminPage extends ConsumerWidget {
   const AdminPage({Key? key, required this.mainModel}) : super(key: key);
@@ -14,6 +15,7 @@ class AdminPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final AdminModel adminModel = ref.watch(adminProvider);
+    final MuteUsersModel muteUsersModel = ref.watch(muteUsersProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text(adminTitle),
@@ -23,9 +25,8 @@ class AdminPage extends ConsumerWidget {
         children: [
           Center(
             child: RoundedButton(
-              onPressed: () async => await adminModel.admin(
-                  currentUserDoc: mainModel.currentUserDoc,
-                  firestoreUser: mainModel.firestoreUser),
+              onPressed: () async =>
+                  await adminModel.admin(muteUsersModel: muteUsersModel),
               widthRate: 0.85,
               color: Colors.blue,
               text: adminTitle,

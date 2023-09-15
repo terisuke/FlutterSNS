@@ -2,11 +2,13 @@
 import 'package:flutter/material.dart';
 // packages
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // constants
 import 'package:udemy_flutter_sns/constants/routes.dart' as routes;
 // components
 import 'package:udemy_flutter_sns/details/card_container.dart';
 import 'package:udemy_flutter_sns/details/user_image.dart';
+import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
 import 'package:udemy_flutter_sns/domain/post/post.dart';
 import 'package:udemy_flutter_sns/models/comments_model.dart';
 import 'package:udemy_flutter_sns/models/main_model.dart';
@@ -33,6 +35,9 @@ class CommentCard extends StatelessWidget {
   final CommentsModel commentsModel;
   @override
   Widget build(BuildContext context) {
+    final FirestoreUser firestoreUser = mainModel.firestoreUser;
+    final bool isMyComment = comment.uid == firestoreUser.uid;
+
     return CardContainer(
       onTap: onTap,
       borderColor: Colors.green,
@@ -41,9 +46,13 @@ class CommentCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              UserImage(userImageURL: comment.userImageURL, length: 32.0),
+              UserImage(
+                  userImageURL: isMyComment
+                      ? firestoreUser.userImageURL
+                      : comment.userImageURL,
+                  length: 32.0),
               Text(
-                comment.userName,
+                isMyComment ? firestoreUser.userImageURL : comment.userName,
                 style: const TextStyle(
                     fontSize: 24.0, overflow: TextOverflow.ellipsis),
               ),
