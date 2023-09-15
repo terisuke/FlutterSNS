@@ -14,6 +14,8 @@ import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
 import 'package:udemy_flutter_sns/domain/following_token/following_token.dart';
 import 'package:udemy_flutter_sns/domain/like_comment_token/like_comment_token.dart';
 import 'package:udemy_flutter_sns/domain/like_post_token/like_post_token.dart';
+import 'package:udemy_flutter_sns/domain/mute_comment_token/mute_comment_token.dart';
+import 'package:udemy_flutter_sns/domain/mute_post_token/mute_post_token.dart';
 import 'package:udemy_flutter_sns/domain/mute_user_token/mute_user_token.dart';
 
 final mainProvider = ChangeNotifierProvider((ref) => MainModel());
@@ -34,6 +36,10 @@ class MainModel extends ChangeNotifier {
   List<String> likeReplyIds = [];
   List<MuteUserToken> muteUserTokens = [];
   List<String> muteUids = [];
+  List<MuteCommentToken> muteCommentTokens = [];
+  List<String> muteCommentIds = [];
+  List<MutePostToken> mutePostTokens = [];
+  List<String> mutePostIds = [];
   //以下がMainModelが起動した時の処理
   // ユーザーの動作を必要としないモデルの関数
   MainModel() {
@@ -69,18 +75,7 @@ class MainModel extends ChangeNotifier {
     currentUser = FirebaseAuth.instance.currentUser;
     notifyListeners();
   }
-  void updateFrontUserName({required String newUserName}) {
-    // firestoreUserの中身を現在のfirestoreUserをほぼコピーしてuserNameだけ変更したものに更新
-    firestoreUser = firestoreUser.copyWith(userName: newUserName);
-    notifyListeners();
-  }
-  void updateFrontUserInfo(
-      {required String newUserName, required String newUserImageURL}) {
-    // firestoreUserの中身を現在のfirestoreUserをほぼコピーしてuserNameだけ変更したものに更新
-    firestoreUser = firestoreUser.copyWith(
-        userName: newUserName, userImageURL: newUserImageURL);
-    notifyListeners();
-  }
+
   Future<void> logout({required BuildContext context}) async {
     await FirebaseAuth.instance.signOut();
     setCurrentUser();
@@ -128,9 +123,28 @@ class MainModel extends ChangeNotifier {
           muteUserTokens.add(muteUserToken);
           muteUids.add(muteUserToken.passiveUid);
           break;
+        case TokenType.muteComment:
+          final MuteCommentToken muteCommentToken =
+              MuteCommentToken.fromJson(tokenMap);
+          muteCommentTokens.add(muteCommentToken);
+          muteCommentIds.add(muteCommentToken.postCommentId);
+          break;
+        case TokenType.mutePost:
+          final MutePostToken mutePostToken = MutePostToken.fromJson(tokenMap);
+          mutePostTokens.add(mutePostToken);
+          mutePostIds.add(mutePostToken.postId);
+          break;
         case TokenType.mistake:
           break;
       }
     }
+  }
+
+  void updateFrontUserInfo(
+      {required String newUserName, required String newUserImageURL}) {
+    // firestoreUserの中身を現在のfirestoreUserをほぼコピーしてuserNameだけ変更したものに更新
+    firestoreUser = firestoreUser.copyWith(
+        userName: newUserName, userImageURL: newUserImageURL);
+    notifyListeners();
   }
 }

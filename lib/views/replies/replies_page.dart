@@ -1,4 +1,5 @@
 // flutter
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // packages
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:udemy_flutter_sns/constants/strings.dart';
 import 'package:udemy_flutter_sns/details/reload_screen.dart';
 import 'package:udemy_flutter_sns/domain/reply/reply.dart';
+import 'package:udemy_flutter_sns/constants/voids.dart' as voids;
 // domains
 import 'package:udemy_flutter_sns/domain/comment/comment.dart';
 import 'package:udemy_flutter_sns/models/mute_users_model.dart';
@@ -56,11 +58,23 @@ class RepliesPage extends ConsumerWidget {
                       replyDoc.data()! as Map<String, dynamic>;
                   final Reply reply = Reply.fromJson(data);
                   return ReplyCard(
-                      onTap: () => muteUsersModel.showMuteUserPopup(
+                      onTap: () => voids.showPopup(
                           context: context,
-                          mainModel: mainModel,
-                          passiveUid: reply.uid,
-                          docs: []),
+                          builder: (BuildContext innerContext) =>
+                              CupertinoActionSheet(actions: [
+                                CupertinoActionSheetAction(
+                                  isDestructiveAction: true,
+                                  onPressed: () {
+                                    Navigator.pop(innerContext);
+                                    muteUsersModel.showMuteUserDialog(
+                                        context: context,
+                                        mainModel: mainModel,
+                                        passiveUid: reply.uid,
+                                        docs: []);
+                                  },
+                                  child: const Text(muteUserText),
+                                ),
+                              ])),
                       comment: comment,
                       reply: reply,
                       replyDoc: replyDoc,

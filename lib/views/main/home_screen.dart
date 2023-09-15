@@ -1,4 +1,6 @@
 // flutter
+// flutter
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // packages
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,12 +11,14 @@ import 'package:udemy_flutter_sns/details/reload_screen.dart';
 import 'package:udemy_flutter_sns/details/rounded_button.dart';
 // constants
 import 'package:udemy_flutter_sns/constants/strings.dart';
+import 'package:udemy_flutter_sns/constants/voids.dart' as voids;
 import 'package:udemy_flutter_sns/models/comments_model.dart';
 import 'package:udemy_flutter_sns/models/create_post_model.dart';
 import 'package:udemy_flutter_sns/models/main/home_model.dart';
 // domain
 import 'package:udemy_flutter_sns/domain/post/post.dart';
 import 'package:udemy_flutter_sns/models/main_model.dart';
+import 'package:udemy_flutter_sns/models/mute_posts_model.dart';
 import 'package:udemy_flutter_sns/models/mute_users_model.dart';
 import 'package:udemy_flutter_sns/models/posts_model.dart';
 import 'package:udemy_flutter_sns/views/refresh_screen.dart';
@@ -31,6 +35,7 @@ class HomeScreen extends ConsumerWidget {
     final PostsModel postsModel = ref.watch(postsProvider);
     final CommentsModel commentsModel = ref.watch(commentsProvider);
     final CreatePostModel createPostModel = ref.watch(createPostProvider);
+    final MutePostsModel mutePostsModel = ref.watch(mutePostsProvider);
     final MuteUsersModel muteUsersModel = ref.watch(muteUsersProvider);
     final postDocs = homeModel.postDocs;
     return Scaffold(
@@ -59,12 +64,48 @@ class HomeScreen extends ConsumerWidget {
                                 final Post post =
                                     Post.fromJson(postDoc.data()!);
                                 return PostCard(
-                                    onTap: () =>
-                                        muteUsersModel.showMuteUserPopup(
-                                            context: context,
-                                            mainModel: mainModel,
-                                            passiveUid: post.uid,
-                                            docs: postDocs),
+                                    onTap: () => voids.showPopup(
+                                        context: context,
+                                        builder: (BuildContext innerContext) =>
+                                            CupertinoActionSheet(actions: [
+                                              CupertinoActionSheetAction(
+                                                /// This parameter indicates the action would perform
+                                                /// a destructive action such as delete or exit and turns
+                                                /// the action's text color to red.
+                                                isDestructiveAction: true,
+                                                onPressed: () {
+                                                  Navigator.pop(innerContext);
+                                                  muteUsersModel
+                                                      .showMuteUserDialog(
+                                                          context: context,
+                                                          mainModel: mainModel,
+                                                          passiveUid: post.uid,
+                                                          docs: commentsModel
+                                                              .commentDocs);
+                                                },
+                                                child: const Text(muteUserText),
+                                              ),
+                                              CupertinoActionSheetAction(
+                                                isDestructiveAction: true,
+                                                onPressed: () {
+                                                  Navigator.pop(innerContext);
+                                                  mutePostsModel
+                                                      .showMutePostDialog(
+                                                          context: context,
+                                                          mainModel: mainModel,
+                                                          postDoc: postDoc,
+                                                          postDocs: postDocs);
+                                                },
+                                                child: const Text(mutePostText),
+                                              ),
+                                              CupertinoActionSheetAction(
+                                                /// This parameter indicates the action would be a default
+                                                /// defualt behavior, turns the action's text to bold text.
+                                                onPressed: () =>
+                                                    Navigator.pop(innerContext),
+                                                child: const Text(backText),
+                                              ),
+                                            ])),
                                     post: post,
                                     postDoc: postDoc,
                                     mainModel: mainModel,

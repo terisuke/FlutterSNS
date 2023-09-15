@@ -1,9 +1,11 @@
 // flutter
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // packages
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:udemy_flutter_sns/constants/strings.dart';
 import 'package:udemy_flutter_sns/details/rounded_button.dart';
+import 'package:udemy_flutter_sns/constants/voids.dart' as voids;
 import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
 // models
 import 'package:udemy_flutter_sns/models/main_model.dart';
@@ -34,11 +36,23 @@ class MuteUsersPage extends ConsumerWidget {
                         FirestoreUser.fromJson(muteUserDoc.data()!);
                     return ListTile(
                       title: Text(muteFirestoreUser.userName),
-                      onTap: () => muteUsersModel.showUnMuteUserPopup(
+                      onTap: () => voids.showPopup(
                           context: context,
-                          mainModel: mainModel,
-                          passiveUid: muteUserDoc.id,
-                          muteUserDoc: muteUserDoc),
+                          builder: (BuildContext innerContext) =>
+                              CupertinoActionSheet(actions: [
+                                CupertinoActionSheetAction(
+                                  isDestructiveAction: true,
+                                  onPressed: () {
+                                    Navigator.pop(innerContext);
+                                    muteUsersModel.showMuteUserDialog(
+                                        context: context,
+                                        mainModel: mainModel,
+                                        passiveUid: muteUserDoc.id,
+                                        docs: muteUserDocs);
+                                  },
+                                  child: const Text(muteUserText),
+                                ),
+                              ])),
                     );
                   }))
           : Column(

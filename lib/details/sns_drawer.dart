@@ -33,6 +33,15 @@ class SNSDrawer extends StatelessWidget {
             onTap: () =>
                 routes.toMuteUsersPage(context: context, mainModel: mainModel),
           ),
+          ListTile(
+              title: const Text(muteCommentsPageTitle),
+              onTap: () => routes.toMuteCommentsPage(
+                  context: context, mainModel: mainModel)),
+          ListTile(
+            title: const Text(mutePostsPageTitle),
+            onTap: () =>
+                routes.toMutePostsPage(context: context, mainModel: mainModel),
+          ),
           if (mainModel.firestoreUser.isAdmin)
             ListTile(
                 title: const Text(adminTitle),

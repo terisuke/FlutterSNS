@@ -179,67 +179,31 @@ class MuteUsersModel extends ChangeNotifier {
       required List<DocumentSnapshot<Map<String, dynamic>>> docs}) {
     showCupertinoModalPopup(
         context: context,
-        builder: (BuildContext context) => CupertinoAlertDialog(
-              title: const Text('ユーザーのミュートを解除する'),
-              content: const Text('ユーザーをミュートを解除しますが本当によろしいですか？'),
-              actions: [
-                CupertinoDialogAction(
-                  /// This parameter indicates this action is the default,
-                  /// and turns the action's text to bold text.
-                  isDefaultAction: true,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(noText),
-                ),
-                CupertinoDialogAction(
-                  /// This parameter indicates this action is the default,
-                  /// and turns the action's text to bold text.
-                  isDestructiveAction: true,
-                  onPressed: () async {
-                    Navigator.pop(context);
-                    await muteUser(
-                        mainModel: mainModel,
-                        passiveUid: passiveUid,
-                        docs: docs);
-                  },
-                  child: const Text(yesText),
-                ),
-              ],
-            ));
-  }
-
-  void showMuteUserPopup(
-      {required BuildContext context,
-      required MainModel mainModel,
-      required String passiveUid,
-      // docsには、postDocs, commentDocsが含まれる
-      required List<DocumentSnapshot<Map<String, dynamic>>> docs}) {
-    showCupertinoModalPopup(
-        context: context,
-        builder: (BuildContext innerContext) => CupertinoActionSheet(actions: [
-              CupertinoActionSheetAction(
-                isDestructiveAction: true,
-                onPressed: () {
-                  Navigator.pop(innerContext);
-                  showMuteUserDialog(
-                      context: context,
-                      mainModel: mainModel,
-                      passiveUid: passiveUid,
-                      docs: docs);
-                },
-                child: const Text(unMuteUserText),
-              ),
-              CupertinoActionSheetAction(
-                /// This parameter indicates the action would perform
-                /// a destructive action such as delete or exit and turns
-                /// the action's text color to red.
-                onPressed: () {
-                  Navigator.pop(innerContext);
-                },
-                child: const Text("戻る"),
-              ),
-            ]));
+        builder: (BuildContext innerContext) => CupertinoAlertDialog(
+                content: const Text(muteUserAlertMsg),
+                actions: <CupertinoDialogAction>[
+                  CupertinoDialogAction(
+                    /// This parameter indicates this action is the default,
+                    /// and turns the action's text to bold text.
+                    isDefaultAction: true,
+                    onPressed: () => Navigator.pop(innerContext),
+                    child: const Text(noText),
+                  ),
+                  CupertinoDialogAction(
+                    /// This parameter indicates the action would perform
+                    /// a destructive action such as deletion, and turns
+                    /// the action's text color to red.
+                    isDestructiveAction: true,
+                    onPressed: () async {
+                      Navigator.pop(innerContext);
+                      await muteUser(
+                          mainModel: mainModel,
+                          passiveUid: passiveUid,
+                          docs: docs);
+                    },
+                    child: const Text(yesText),
+                  )
+                ]));
   }
 
   void showUnMuteUserDialog(
@@ -249,64 +213,30 @@ class MuteUsersModel extends ChangeNotifier {
       required DocumentSnapshot<Map<String, dynamic>> muteUserDoc}) {
     showCupertinoModalPopup(
         context: context,
-        builder: (BuildContext context) => CupertinoAlertDialog(
-              content: const Text(unMuteUserAlertMsg),
-              actions: [
-                CupertinoDialogAction(
-                  /// This parameter indicates this action is the default,
-                  /// and turns the action's text to bold text.
-                  isDefaultAction: true,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(noText),
-                ),
-                CupertinoDialogAction(
-                  /// This parameter indicates this action is the default,
-                  /// and turns the action's text to bold text.
-                  isDestructiveAction: true,
-                  onPressed: () async {
-                    Navigator.pop(context);
-                    await unMuteUser(
-                        mainModel: mainModel,
-                        passiveUid: passiveUid,
-                        muteUserDoc: muteUserDoc);
-                  },
-                  child: const Text(yesText),
-                ),
-              ],
-            ));
-  }
-
-  void showUnMuteUserPopup(
-      {required BuildContext context,
-      required MainModel mainModel,
-      required String passiveUid,
-      required DocumentSnapshot<Map<String, dynamic>> muteUserDoc}) {
-    showCupertinoModalPopup(
-        context: context,
-        builder: (BuildContext innerContext) => CupertinoActionSheet(actions: [
-              CupertinoActionSheetAction(
-                isDestructiveAction: true,
-                onPressed: () {
-                  Navigator.pop(innerContext);
-                  showUnMuteUserDialog(
-                      context: context,
-                      mainModel: mainModel,
-                      passiveUid: passiveUid,
-                      muteUserDoc: muteUserDoc);
-                },
-                child: const Text(unMuteUserText),
-              ),
-              CupertinoActionSheetAction(
-                /// This parameter indicates the action would perform
-                /// a destructive action such as delete or exit and turns
-                /// the action's text color to red.
-                onPressed: () {
-                  Navigator.pop(innerContext);
-                },
-                child: const Text(backText),
-              ),
-            ]));
+        builder: (BuildContext innerContext) => CupertinoAlertDialog(
+                content: const Text(unMuteUserAlertMsg),
+                actions: <CupertinoDialogAction>[
+                  CupertinoDialogAction(
+                    /// This parameter indicates this action is the default,
+                    /// and turns the action's text to bold text.
+                    isDefaultAction: true,
+                    onPressed: () => Navigator.pop(innerContext),
+                    child: const Text(noText),
+                  ),
+                  CupertinoDialogAction(
+                    /// This parameter indicates the action would perform
+                    /// a destructive action such as deletion, and turns
+                    /// the action's text color to red.
+                    isDestructiveAction: true,
+                    onPressed: () async {
+                      Navigator.pop(innerContext);
+                      await unMuteUser(
+                          mainModel: mainModel,
+                          passiveUid: passiveUid,
+                          muteUserDoc: muteUserDoc);
+                    },
+                    child: const Text(yesText),
+                  )
+                ]));
   }
 }

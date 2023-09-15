@@ -1,12 +1,3 @@
-enum ReauthenticationState {
-  initialValue,
-  updatePassword,
-  updateEmail,
-  deleteUser
-}
-
-enum SortState { byLikeUidCount, byNewestFirst, byOldestFirst }
-
 // Stringにしたい！！
 enum TokenType {
   following,
@@ -16,7 +7,6 @@ enum TokenType {
   muteUser,
   muteComment,
   mutePost,
-  muteReply,
   mistake
 }
 
@@ -45,9 +35,6 @@ String muteCommentTokenTypeString =
 String mutePostTokenTypeString =
     returnTokenTypeString(tokenType: TokenType.mutePost);
 
-String muteReplyTokenTypeString =
-    returnTokenTypeString(tokenType: TokenType.muteReply);
-
 TokenType mapToTokenType({required Map<String, dynamic> tokenMap}) {
   final String tokenTypeString = tokenMap["tokenType"];
   if (tokenTypeString == followingTokenTypeString) {
@@ -64,8 +51,6 @@ TokenType mapToTokenType({required Map<String, dynamic> tokenMap}) {
     return TokenType.muteComment;
   } else if (tokenTypeString == mutePostTokenTypeString) {
     return TokenType.mutePost;
-  } else if (tokenTypeString == muteReplyTokenTypeString) {
-    return TokenType.muteReply;
   } else {
     return TokenType.mistake;
   }

@@ -12,6 +12,8 @@ import 'package:udemy_flutter_sns/views/login_page.dart';
 import 'package:udemy_flutter_sns/views/main/passive_user_profile_page.dart';
 // packages
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:udemy_flutter_sns/views/mute_comments_page.dart';
+import 'package:udemy_flutter_sns/views/mute_posts_page.dart';
 import 'package:udemy_flutter_sns/views/mute_users_page.dart';
 import 'package:udemy_flutter_sns/views/replies/replies_page.dart';
 import 'package:udemy_flutter_sns/views/signup_page.dart';
@@ -49,6 +51,15 @@ void toPassiveUserProfilePage(
                   passiveUser: passiveUser,
                   mainModel: mainModel,
                 )));
+
+void toMutePostsPage(
+        {required BuildContext context, required MainModel mainModel}) =>
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: ((context) => MutePostsPage(
+                  mainModel: mainModel,
+                ))));
 
 void toAdminPage(
         {required BuildContext context, required MainModel mainModel}) =>
@@ -101,3 +112,12 @@ void toMuteUsersPage(
             builder: (context) => MuteUsersPage(
                   mainModel: mainModel,
                 )));
+
+void toMuteCommentsPage(
+        {required BuildContext context, required MainModel mainModel}) =>
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: ((context) => MuteCommentsPage(
+                  mainModel: mainModel,
+                ))));

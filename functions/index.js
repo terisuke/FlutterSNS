@@ -213,3 +213,43 @@ exports.onUserMutesDelete = functions.firestore.
           });
         },
     );
+exports.onPostCommentMuteCreate = functions.firestore.
+    document("users/{uid}/posts/{postId}/postComments/" +
+    "{postCommentId}/postCommentMutes/{activeUid}").onCreate(
+        async (snap, _) => {
+          const newValue = snap.data();
+          await newValue.postCommentRef.update({
+            "muteCount": admin.firestore.FieldValue.increment(plusOne),
+          });
+        },
+    );
+
+exports.onPostCommentMuteDelete = functions.firestore.
+    document("users/{uid}/posts/{postId}/postComments/" +
+    "{postCommentId}/postCommentMutes/{activeUid}").onDelete(
+        async (snap, _) => {
+          const newValue = snap.data();
+          await newValue.postCommentRef.update({
+            "muteCount": admin.firestore.FieldValue.increment(minusOne),
+          });
+        },
+    );
+exports.onPostMuteCreate = functions.firestore.
+    document("users/{uid}/posts/{postId}/postMutes/{activeUid}").onCreate(
+        async (snap, _) => {
+          const newValue = snap.data();
+          await newValue.postRef.update({
+            "muteCount": admin.firestore.FieldValue.increment(plusOne),
+          });
+        },
+    );
+
+exports.onPostMuteDelete = functions.firestore.
+    document("users/{uid}/posts/{postId}/postMutes/{activeUid}").onDelete(
+        async (snap, _) => {
+          const newValue = snap.data();
+          await newValue.postRef.update({
+            "muteCount": admin.firestore.FieldValue.increment(minusOne),
+          });
+        },
+    );
