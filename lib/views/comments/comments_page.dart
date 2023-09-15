@@ -6,13 +6,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // constants
 import 'package:udemy_flutter_sns/constants/strings.dart';
 import 'package:udemy_flutter_sns/details/reload_screen.dart';
-import 'package:udemy_flutter_sns/details/rounded_button.dart';
 import 'package:udemy_flutter_sns/domain/comment/comment.dart';
 // domains
 import 'package:udemy_flutter_sns/domain/post/post.dart';
 import 'package:udemy_flutter_sns/models/comments_model.dart';
 // models
 import 'package:udemy_flutter_sns/models/main_model.dart';
+import 'package:udemy_flutter_sns/models/mute_users_model.dart';
+import 'package:udemy_flutter_sns/views/comments/components/comment_card.dart';
 import 'package:udemy_flutter_sns/views/refresh_screen.dart';
 
 class CommentsPage extends ConsumerWidget {
@@ -30,6 +31,7 @@ class CommentsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final CommentsModel commentsModel = ref.watch(commentsProvider);
+    final MuteUsersModel muteUsersModel = ref.watch(muteUsersProvider);
     final commentDocs = commentsModel.commentDocs;
     return Scaffold(
       appBar: AppBar(title: const Text(commentTitle)),
@@ -48,7 +50,13 @@ class CommentsPage extends ConsumerWidget {
                     final commentDoc = commentDocs[index];
                     final Comment comment =
                         Comment.fromJson(commentDoc.data()!);
-                    return Container();
+                    return CommentCard(
+                        onTap: () {},
+                        mainModel: mainModel,
+                        post: post,
+                        comment: comment,
+                        commentDoc: commentDoc,
+                        commentsModel: commentsModel);
                   })),
       floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.orange,

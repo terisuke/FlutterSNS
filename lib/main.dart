@@ -23,7 +23,6 @@ import 'package:udemy_flutter_sns/views/main/home_screen.dart';
 import 'package:udemy_flutter_sns/views/main/search_screen.dart';
 import 'package:udemy_flutter_sns/views/main/profile_screen.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -70,6 +69,7 @@ class MyHomePage extends ConsumerWidget {
     final SNSBottomNavigationBarModel snsBottomNavigationBarModel =
         ref.watch(snsBottomNavigationBarProvider);
     final CreatePostModel createPostModel = ref.watch(createPostProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -93,9 +93,7 @@ class MyHomePage extends ConsumerWidget {
               // childrenの個数はElementsの数
               children: [
                 // 注意：ページじゃないのでScaffold
-                HomeScreen(
-                  mainModel: mainModel,
-                ),
+                HomeScreen(mainModel: mainModel),
                 SearchScreen(
                   mainModel: mainModel,
                 ),

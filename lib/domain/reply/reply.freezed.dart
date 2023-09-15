@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'comment.dart';
+part of 'reply.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,48 +14,50 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Comment _$CommentFromJson(Map<String, dynamic> json) {
-  return _Comment.fromJson(json);
+Reply _$ReplyFromJson(Map<String, dynamic> json) {
+  return _Reply.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Comment {
+mixin _$Reply {
   dynamic get createdAt => throw _privateConstructorUsedError;
-  String get comment => throw _privateConstructorUsedError;
+  String get reply => throw _privateConstructorUsedError;
   int get likeCount => throw _privateConstructorUsedError;
-  String get postCommentId => throw _privateConstructorUsedError;
-  int get postCommentReplyCount => throw _privateConstructorUsedError;
   dynamic get postRef => throw _privateConstructorUsedError;
+  dynamic get postCommentRef => throw _privateConstructorUsedError;
+  String get postCommentReplyId => throw _privateConstructorUsedError;
   String get userName => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
   String get userImageURL => throw _privateConstructorUsedError;
+  dynamic get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CommentCopyWith<Comment> get copyWith => throw _privateConstructorUsedError;
+  $ReplyCopyWith<Reply> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CommentCopyWith<$Res> {
-  factory $CommentCopyWith(Comment value, $Res Function(Comment) then) =
-      _$CommentCopyWithImpl<$Res, Comment>;
+abstract class $ReplyCopyWith<$Res> {
+  factory $ReplyCopyWith(Reply value, $Res Function(Reply) then) =
+      _$ReplyCopyWithImpl<$Res, Reply>;
   @useResult
   $Res call(
       {dynamic createdAt,
-      String comment,
+      String reply,
       int likeCount,
-      String postCommentId,
-      int postCommentReplyCount,
       dynamic postRef,
+      dynamic postCommentRef,
+      String postCommentReplyId,
       String userName,
       String uid,
-      String userImageURL});
+      String userImageURL,
+      dynamic updatedAt});
 }
 
 /// @nodoc
-class _$CommentCopyWithImpl<$Res, $Val extends Comment>
-    implements $CommentCopyWith<$Res> {
-  _$CommentCopyWithImpl(this._value, this._then);
+class _$ReplyCopyWithImpl<$Res, $Val extends Reply>
+    implements $ReplyCopyWith<$Res> {
+  _$ReplyCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -66,40 +68,41 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
   @override
   $Res call({
     Object? createdAt = freezed,
-    Object? comment = null,
+    Object? reply = null,
     Object? likeCount = null,
-    Object? postCommentId = null,
-    Object? postCommentReplyCount = null,
     Object? postRef = freezed,
+    Object? postCommentRef = freezed,
+    Object? postCommentReplyId = null,
     Object? userName = null,
     Object? uid = null,
     Object? userImageURL = null,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      comment: null == comment
-          ? _value.comment
-          : comment // ignore: cast_nullable_to_non_nullable
+      reply: null == reply
+          ? _value.reply
+          : reply // ignore: cast_nullable_to_non_nullable
               as String,
       likeCount: null == likeCount
           ? _value.likeCount
           : likeCount // ignore: cast_nullable_to_non_nullable
               as int,
-      postCommentId: null == postCommentId
-          ? _value.postCommentId
-          : postCommentId // ignore: cast_nullable_to_non_nullable
-              as String,
-      postCommentReplyCount: null == postCommentReplyCount
-          ? _value.postCommentReplyCount
-          : postCommentReplyCount // ignore: cast_nullable_to_non_nullable
-              as int,
       postRef: freezed == postRef
           ? _value.postRef
           : postRef // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      postCommentRef: freezed == postCommentRef
+          ? _value.postCommentRef
+          : postCommentRef // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      postCommentReplyId: null == postCommentReplyId
+          ? _value.postCommentReplyId
+          : postCommentReplyId // ignore: cast_nullable_to_non_nullable
+              as String,
       userName: null == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
@@ -112,74 +115,78 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
           ? _value.userImageURL
           : userImageURL // ignore: cast_nullable_to_non_nullable
               as String,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_CommentCopyWith<$Res> implements $CommentCopyWith<$Res> {
-  factory _$$_CommentCopyWith(
-          _$_Comment value, $Res Function(_$_Comment) then) =
-      __$$_CommentCopyWithImpl<$Res>;
+abstract class _$$_ReplyCopyWith<$Res> implements $ReplyCopyWith<$Res> {
+  factory _$$_ReplyCopyWith(_$_Reply value, $Res Function(_$_Reply) then) =
+      __$$_ReplyCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {dynamic createdAt,
-      String comment,
+      String reply,
       int likeCount,
-      String postCommentId,
-      int postCommentReplyCount,
       dynamic postRef,
+      dynamic postCommentRef,
+      String postCommentReplyId,
       String userName,
       String uid,
-      String userImageURL});
+      String userImageURL,
+      dynamic updatedAt});
 }
 
 /// @nodoc
-class __$$_CommentCopyWithImpl<$Res>
-    extends _$CommentCopyWithImpl<$Res, _$_Comment>
-    implements _$$_CommentCopyWith<$Res> {
-  __$$_CommentCopyWithImpl(_$_Comment _value, $Res Function(_$_Comment) _then)
+class __$$_ReplyCopyWithImpl<$Res> extends _$ReplyCopyWithImpl<$Res, _$_Reply>
+    implements _$$_ReplyCopyWith<$Res> {
+  __$$_ReplyCopyWithImpl(_$_Reply _value, $Res Function(_$_Reply) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? createdAt = freezed,
-    Object? comment = null,
+    Object? reply = null,
     Object? likeCount = null,
-    Object? postCommentId = null,
-    Object? postCommentReplyCount = null,
     Object? postRef = freezed,
+    Object? postCommentRef = freezed,
+    Object? postCommentReplyId = null,
     Object? userName = null,
     Object? uid = null,
     Object? userImageURL = null,
+    Object? updatedAt = freezed,
   }) {
-    return _then(_$_Comment(
+    return _then(_$_Reply(
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      comment: null == comment
-          ? _value.comment
-          : comment // ignore: cast_nullable_to_non_nullable
+      reply: null == reply
+          ? _value.reply
+          : reply // ignore: cast_nullable_to_non_nullable
               as String,
       likeCount: null == likeCount
           ? _value.likeCount
           : likeCount // ignore: cast_nullable_to_non_nullable
               as int,
-      postCommentId: null == postCommentId
-          ? _value.postCommentId
-          : postCommentId // ignore: cast_nullable_to_non_nullable
-              as String,
-      postCommentReplyCount: null == postCommentReplyCount
-          ? _value.postCommentReplyCount
-          : postCommentReplyCount // ignore: cast_nullable_to_non_nullable
-              as int,
       postRef: freezed == postRef
           ? _value.postRef
           : postRef // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      postCommentRef: freezed == postCommentRef
+          ? _value.postCommentRef
+          : postCommentRef // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      postCommentReplyId: null == postCommentReplyId
+          ? _value.postCommentReplyId
+          : postCommentReplyId // ignore: cast_nullable_to_non_nullable
+              as String,
       userName: null == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
@@ -192,86 +199,78 @@ class __$$_CommentCopyWithImpl<$Res>
           ? _value.userImageURL
           : userImageURL // ignore: cast_nullable_to_non_nullable
               as String,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_Comment with DiagnosticableTreeMixin implements _Comment {
-  const _$_Comment(
+class _$_Reply implements _Reply {
+  const _$_Reply(
       {required this.createdAt,
-      required this.comment,
+      required this.reply,
       required this.likeCount,
-      required this.postCommentId,
-      required this.postCommentReplyCount,
       required this.postRef,
+      required this.postCommentRef,
+      required this.postCommentReplyId,
       required this.userName,
       required this.uid,
-      required this.userImageURL});
+      required this.userImageURL,
+      required this.updatedAt});
 
-  factory _$_Comment.fromJson(Map<String, dynamic> json) =>
-      _$$_CommentFromJson(json);
+  factory _$_Reply.fromJson(Map<String, dynamic> json) =>
+      _$$_ReplyFromJson(json);
 
   @override
   final dynamic createdAt;
   @override
-  final String comment;
+  final String reply;
   @override
   final int likeCount;
   @override
-  final String postCommentId;
-  @override
-  final int postCommentReplyCount;
-  @override
   final dynamic postRef;
+  @override
+  final dynamic postCommentRef;
+  @override
+  final String postCommentReplyId;
   @override
   final String userName;
   @override
   final String uid;
   @override
   final String userImageURL;
+  @override
+  final dynamic updatedAt;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Comment(createdAt: $createdAt, comment: $comment, likeCount: $likeCount, postCommentId: $postCommentId, postCommentReplyCount: $postCommentReplyCount, postRef: $postRef, userName: $userName, uid: $uid, userImageURL: $userImageURL)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Comment'))
-      ..add(DiagnosticsProperty('createdAt', createdAt))
-      ..add(DiagnosticsProperty('comment', comment))
-      ..add(DiagnosticsProperty('likeCount', likeCount))
-      ..add(DiagnosticsProperty('postCommentId', postCommentId))
-      ..add(DiagnosticsProperty('postCommentReplyCount', postCommentReplyCount))
-      ..add(DiagnosticsProperty('postRef', postRef))
-      ..add(DiagnosticsProperty('userName', userName))
-      ..add(DiagnosticsProperty('uid', uid))
-      ..add(DiagnosticsProperty('userImageURL', userImageURL));
+  String toString() {
+    return 'Reply(createdAt: $createdAt, reply: $reply, likeCount: $likeCount, postRef: $postRef, postCommentRef: $postCommentRef, postCommentReplyId: $postCommentReplyId, userName: $userName, uid: $uid, userImageURL: $userImageURL, updatedAt: $updatedAt)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Comment &&
+            other is _$_Reply &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
-            (identical(other.comment, comment) || other.comment == comment) &&
+            (identical(other.reply, reply) || other.reply == reply) &&
             (identical(other.likeCount, likeCount) ||
                 other.likeCount == likeCount) &&
-            (identical(other.postCommentId, postCommentId) ||
-                other.postCommentId == postCommentId) &&
-            (identical(other.postCommentReplyCount, postCommentReplyCount) ||
-                other.postCommentReplyCount == postCommentReplyCount) &&
             const DeepCollectionEquality().equals(other.postRef, postRef) &&
+            const DeepCollectionEquality()
+                .equals(other.postCommentRef, postCommentRef) &&
+            (identical(other.postCommentReplyId, postCommentReplyId) ||
+                other.postCommentReplyId == postCommentReplyId) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.userImageURL, userImageURL) ||
-                other.userImageURL == userImageURL));
+                other.userImageURL == userImageURL) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
   }
 
   @JsonKey(ignore: true)
@@ -279,55 +278,57 @@ class _$_Comment with DiagnosticableTreeMixin implements _Comment {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(createdAt),
-      comment,
+      reply,
       likeCount,
-      postCommentId,
-      postCommentReplyCount,
       const DeepCollectionEquality().hash(postRef),
+      const DeepCollectionEquality().hash(postCommentRef),
+      postCommentReplyId,
       userName,
       uid,
-      userImageURL);
+      userImageURL,
+      const DeepCollectionEquality().hash(updatedAt));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CommentCopyWith<_$_Comment> get copyWith =>
-      __$$_CommentCopyWithImpl<_$_Comment>(this, _$identity);
+  _$$_ReplyCopyWith<_$_Reply> get copyWith =>
+      __$$_ReplyCopyWithImpl<_$_Reply>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CommentToJson(
+    return _$$_ReplyToJson(
       this,
     );
   }
 }
 
-abstract class _Comment implements Comment {
-  const factory _Comment(
+abstract class _Reply implements Reply {
+  const factory _Reply(
       {required final dynamic createdAt,
-      required final String comment,
+      required final String reply,
       required final int likeCount,
-      required final String postCommentId,
-      required final int postCommentReplyCount,
       required final dynamic postRef,
+      required final dynamic postCommentRef,
+      required final String postCommentReplyId,
       required final String userName,
       required final String uid,
-      required final String userImageURL}) = _$_Comment;
+      required final String userImageURL,
+      required final dynamic updatedAt}) = _$_Reply;
 
-  factory _Comment.fromJson(Map<String, dynamic> json) = _$_Comment.fromJson;
+  factory _Reply.fromJson(Map<String, dynamic> json) = _$_Reply.fromJson;
 
   @override
   dynamic get createdAt;
   @override
-  String get comment;
+  String get reply;
   @override
   int get likeCount;
   @override
-  String get postCommentId;
-  @override
-  int get postCommentReplyCount;
-  @override
   dynamic get postRef;
+  @override
+  dynamic get postCommentRef;
+  @override
+  String get postCommentReplyId;
   @override
   String get userName;
   @override
@@ -335,7 +336,9 @@ abstract class _Comment implements Comment {
   @override
   String get userImageURL;
   @override
+  dynamic get updatedAt;
+  @override
   @JsonKey(ignore: true)
-  _$$_CommentCopyWith<_$_Comment> get copyWith =>
+  _$$_ReplyCopyWith<_$_Reply> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -8,10 +8,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:udemy_flutter_sns/constants/enums.dart';
 import 'package:udemy_flutter_sns/constants/strings.dart';
 import 'package:udemy_flutter_sns/constants/routes.dart' as routes;
+import 'package:udemy_flutter_sns/domain/like_reply_token/like_reply_token.dart';
 // domain
 import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
 import 'package:udemy_flutter_sns/domain/following_token/following_token.dart';
+import 'package:udemy_flutter_sns/domain/like_comment_token/like_comment_token.dart';
 import 'package:udemy_flutter_sns/domain/like_post_token/like_post_token.dart';
+import 'package:udemy_flutter_sns/domain/mute_user_token/mute_user_token.dart';
 
 final mainProvider = ChangeNotifierProvider((ref) => MainModel());
 
@@ -25,6 +28,12 @@ class MainModel extends ChangeNotifier {
   List<String> followingUids = [];
   List<LikePostToken> likePostTokens = [];
   List<String> likePostIds = [];
+  List<LikeCommentToken> likeCommentTokens = [];
+  List<String> likeCommentIds = [];
+  List<LikeReplyToken> likeReplyTokens = [];
+  List<String> likeReplyIds = [];
+  List<MuteUserToken> muteUserTokens = [];
+  List<String> muteUids = [];
   //以下がMainModelが起動した時の処理
   // ユーザーの動作を必要としないモデルの関数
   MainModel() {
@@ -90,6 +99,25 @@ class MainModel extends ChangeNotifier {
           final LikePostToken likePostToken = LikePostToken.fromJson(tokenMap);
           likePostTokens.add(likePostToken);
           likePostIds.add(likePostToken.postId);
+          break;
+        case TokenType.likeComment:
+          final LikeCommentToken likeCommentToken =
+              LikeCommentToken.fromJson(tokenMap);
+          likeCommentTokens.add(likeCommentToken);
+          likeCommentIds.add(likeCommentToken.postCommentId);
+          break;
+        case TokenType.likeReply:
+          final LikeReplyToken likeReplyToken =
+              LikeReplyToken.fromJson(tokenMap);
+          likeReplyTokens.add(likeReplyToken);
+          likeReplyIds.add(likeReplyToken.postCommentReplyId);
+          break;
+        case TokenType.muteUser:
+          final MuteUserToken muteUserToken = MuteUserToken.fromJson(tokenMap);
+          muteUserTokens.add(muteUserToken);
+          muteUids.add(muteUserToken.passiveUid);
+          break;
+        case TokenType.mistake:
           break;
       }
     }

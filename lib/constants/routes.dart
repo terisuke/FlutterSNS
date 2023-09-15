@@ -1,5 +1,6 @@
 // flutter
 import 'package:flutter/material.dart';
+import 'package:udemy_flutter_sns/domain/comment/comment.dart';
 // pages
 import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
 import 'package:udemy_flutter_sns/main.dart';
@@ -10,6 +11,7 @@ import 'package:udemy_flutter_sns/views/login_page.dart';
 import 'package:udemy_flutter_sns/views/main/passive_user_profile_page.dart';
 // packages
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:udemy_flutter_sns/views/replies/replies_page.dart';
 import 'package:udemy_flutter_sns/views/signup_page.dart';
 // domains
 import 'package:udemy_flutter_sns/domain/post/post.dart';
@@ -66,3 +68,16 @@ void toCommentsPage({
         MaterialPageRoute(
             builder: ((context) => CommentsPage(
                 post: post, postDoc: postDoc, mainModel: mainModel))));
+
+void toRepliesPage(
+        {required BuildContext context,
+        required Comment comment,
+        required DocumentSnapshot<Map<String, dynamic>> commentDoc,
+        required MainModel mainModel}) =>
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: ((context) => RepliesPage(
+                comment: comment,
+                commentDoc: commentDoc,
+                mainModel: mainModel))));

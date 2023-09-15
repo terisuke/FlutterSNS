@@ -1,12 +1,16 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    match /{path=**}/postComments/{postCommentId} {
+      allow read: if isAdmin();
+    }
     match /users/{uid} {
       allow read: if isAuthenticated();
       allow update: if isAdmin();
       allow create, delete: if isTheSameUserOrAdmin(uid);
-      match /tokens/{tokenId} {
-        allow read, create, delete: if isTheSameUserOrAdmin(uid);
+      match /userMutes/{activeUid} {
+        //　作成と削除は受動的なユーザーのみが作成することができる
+        allow create, delete: if isTheSameUserOrAdmin(activeUid);
       }
       match /followers/{followerUid} {
         allow create, delete: if isTheSameUserOrAdmin(followerUid);
@@ -19,9 +23,19 @@ service cloud.firestore {
           allow create, delete: if isTheSameUserOrAdmin(activeUid);
         }
         match /postComments/{postCommentId} {
-          allow read: if isAuthenticated();
-          allow create, delete: if isTheSameUserOrAdmin(uid);
-        
+          allow read, create: if isAuthenticated();
+          // postCommentのdataのuidが現在ログインしている人と同じであれば消去できる
+          allow delete: if isTheSameUserOrAdmin(request.resource.data.uid);
+          match /postCommentLikes/{activeUid} {
+            allow create, delete: if isTheSameUserOrAdmin(activeUid);
+          }
+          match /postCommentReplies/{postCommentReplyId} {
+            allow read, create: if isAuthenticated();
+            allow delete: if isTheSameUserOrAdmin(request.resource.data.uid);
+            match /postCommentReplyLikes/{activeUid} {
+              allow create, delete: if isTheSameUserOrAdmin(activeUid);
+            }
+          }
         }
       }
     }
@@ -36,5 +50,5 @@ service cloud.firestore {
   function isAdmin() {
     return request.auth.uid == "xxxxxxxxxxxxxx";
   }
- 
+  
 }

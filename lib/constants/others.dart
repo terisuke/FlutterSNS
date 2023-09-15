@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // package
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 // constants
@@ -32,3 +33,8 @@ Future<File?> returnCroppedFile({required XFile? xFile}) async {
 }
 
 User? returnAuthUser() => FirebaseAuth.instance.currentUser;
+
+DocumentReference<Map<String, dynamic>> currentUserDocToTokenDocRef(
+        {required DocumentSnapshot<Map<String, dynamic>> currentUserDoc,
+        required String tokenId}) =>
+    currentUserDoc.reference.collection("tokens").doc(tokenId);

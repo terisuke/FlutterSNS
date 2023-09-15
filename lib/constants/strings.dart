@@ -11,6 +11,7 @@ const String profileTitle = "プロフィール";
 const String adminTitle = "管理者";
 const String createPostTitle = "投稿を作成";
 const String commentTitle = "コメント";
+const String replyTitle = "リプライ";
 // texts
 const String mailAddressText = "メールアドレス";
 const String passwordText = "パスワード";
@@ -22,6 +23,7 @@ const String loadingText = "Loading";
 const String uploadText = "アップロードする";
 const String reloadText = "再読み込みを行う";
 const String createCommentText = "コメントを作成";
+const String createReplyText = "リプライを作成";
 // FieldKey
 const String usersFieldKey = "users";
 // message

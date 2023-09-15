@@ -1,0 +1,129 @@
+// flutter
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+// packages
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:udemy_flutter_sns/constants/enums.dart';
+import 'package:udemy_flutter_sns/constants/others.dart';
+import 'package:udemy_flutter_sns/constants/strings.dart';
+import 'package:udemy_flutter_sns/domain/mute_user_token/mute_user_token.dart';
+import 'package:udemy_flutter_sns/domain/user_mute/user_mute.dart';
+import 'package:udemy_flutter_sns/models/main_model.dart';
+
+final muteUsersProvider = ChangeNotifierProvider(((ref) => MuteUsersModel()));
+
+class MuteUsersModel extends ChangeNotifier {
+  Future<void> muteUser(
+      {required MainModel mainModel,
+      required String passiveUid,
+      // docsには、postDocs, commentDocsが含まれる
+      required List<DocumentSnapshot<Map<String, dynamic>>> docs}) async {
+    final String tokenId = returnUuidV4();
+    final currentUserDoc = mainModel.currentUserDoc;
+    final String activeUid = currentUserDoc.id;
+    final Timestamp now = Timestamp.now();
+    final passiveUserDoc = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(passiveUid)
+        .get();
+    final MuteUserToken muteUserToken = MuteUserToken(
+        activeUid: activeUid,
+        createdAt: now,
+        passiveUid: passiveUid,
+        tokenId: tokenId,
+        tokenType: muteUserTokenTypeString);
+    mainModel.muteUserTokens.add(muteUserToken);
+    mainModel.muteUids.add(passiveUid);
+    // muteしたいユーザーが作成したコンテンツを除外する
+    docs.removeWhere((element) => element.data()!["uid"] == passiveUid);
+    notifyListeners();
+    // 自分がmuteしたことの印
+    await currentUserDocToTokenDocRef(
+            currentUserDoc: currentUserDoc, tokenId: tokenId)
+        .set(muteUserToken.toJson());
+    // muteされたことの印
+    final UserMute userMute = UserMute(
+        activeUid: activeUid,
+        createdAt: now,
+        passiveUid: passiveUid,
+        passiveUserRef: passiveUserDoc.reference);
+    await passiveUserDoc.reference
+        .collection("userMutes")
+        .doc(activeUid)
+        .set(userMute.toJson());
+  }
+
+  void showDialog(
+      {required BuildContext context,
+      required MainModel mainModel,
+      required String passiveUid,
+      // docsには、postDocs, commentDocsが含まれる
+      required List<DocumentSnapshot<Map<String, dynamic>>> docs}) {
+    showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+              title: const Text('ユーザーをミュートする'),
+              content: const Text('ユーザーをミュートしますが本当によろしいですか？'),
+              actions: [
+                CupertinoDialogAction(
+                  /// This parameter indicates this action is the default,
+                  /// and turns the action's text to bold text.
+                  isDefaultAction: true,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('No'),
+                ),
+                CupertinoDialogAction(
+                  /// This parameter indicates this action is the default,
+                  /// and turns the action's text to bold text.
+                  isDestructiveAction: true,
+                  onPressed: () async {
+                    Navigator.pop(context);
+                    await muteUser(
+                        mainModel: mainModel,
+                        passiveUid: passiveUid,
+                        docs: docs);
+                  },
+                  child: const Text('Yes'),
+                ),
+              ],
+            ));
+  }
+
+  void showPopup(
+      {required BuildContext context,
+      required MainModel mainModel,
+      required String passiveUid,
+      // docsには、postDocs, commentDocsが含まれる
+      required List<DocumentSnapshot<Map<String, dynamic>>> docs}) {
+    showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext innerContext) => CupertinoActionSheet(
+                title: const Text('操作を選択'),
+                message: const Text('Message'),
+                actions: [
+                  CupertinoActionSheetAction(
+                    isDestructiveAction: true,
+                    onPressed: () {
+                      Navigator.pop(innerContext);
+                      showDialog(
+                          context: context,
+                          mainModel: mainModel,
+                          passiveUid: passiveUid,
+                          docs: docs);
+                    },
+                    child: const Text("ユーザーをミュートする"),
+                  ),
+                  CupertinoActionSheetAction(
+                    /// This parameter indicates the action would perform
+                    /// a destructive action such as delete or exit and turns
+                    /// the action's text color to red.
+                    onPressed: () {
+                      Navigator.pop(innerContext);
+                    },
+                    child: const Text("戻る"),
+                  ),
+                ]));
+  }
+}

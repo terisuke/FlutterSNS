@@ -15,18 +15,10 @@ class AdminModel extends ChangeNotifier {
       {required DocumentSnapshot<Map<String, dynamic>> currentUserDoc,
       required FirestoreUser firestoreUser}) async {
     WriteBatch batch = FirebaseFirestore.instance.batch();
-    final usersQshot =
-        await FirebaseFirestore.instance.collection("users").get();
-    for (final user in usersQshot.docs) {
-      batch.update(user.reference, {
-        "email": FieldValue.delete(),
-      });
-    }
     final postsQshot = await currentUserDoc.reference.collection("posts").get();
     for (final post in postsQshot.docs) {
       batch.update(post.reference, {
-        "userName": firestoreUser.userName,
-        "userImageURL": firestoreUser.userImageURL,
+        "postCommentCount": 0,
       });
     }
     await batch.commit();
