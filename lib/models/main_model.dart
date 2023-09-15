@@ -69,7 +69,18 @@ class MainModel extends ChangeNotifier {
     currentUser = FirebaseAuth.instance.currentUser;
     notifyListeners();
   }
-
+  void updateFrontUserName({required String newUserName}) {
+    // firestoreUserの中身を現在のfirestoreUserをほぼコピーしてuserNameだけ変更したものに更新
+    firestoreUser = firestoreUser.copyWith(userName: newUserName);
+    notifyListeners();
+  }
+  void updateFrontUserInfo(
+      {required String newUserName, required String newUserImageURL}) {
+    // firestoreUserの中身を現在のfirestoreUserをほぼコピーしてuserNameだけ変更したものに更新
+    firestoreUser = firestoreUser.copyWith(
+        userName: newUserName, userImageURL: newUserImageURL);
+    notifyListeners();
+  }
   Future<void> logout({required BuildContext context}) async {
     await FirebaseAuth.instance.signOut();
     setCurrentUser();

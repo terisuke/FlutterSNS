@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:udemy_flutter_sns/details/sns_bottom_navigation_bar.dart';
-import 'package:udemy_flutter_sns/models/create_post_model.dart';
 // pages
 import 'package:udemy_flutter_sns/views/login_page.dart';
 // models
@@ -68,16 +67,11 @@ class MyHomePage extends ConsumerWidget {
     final MainModel mainModel = ref.watch(mainProvider);
     final SNSBottomNavigationBarModel snsBottomNavigationBarModel =
         ref.watch(snsBottomNavigationBarProvider);
-    final CreatePostModel createPostModel = ref.watch(createPostProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
       ),
-      floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.new_label),
-          onPressed: () => createPostModel.showPostFlashBar(
-              context: context, mainModel: mainModel)),
       drawer: SNSDrawer(
         mainModel: mainModel,
         themeModel: themeModel,

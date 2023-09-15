@@ -7,6 +7,7 @@ import 'package:udemy_flutter_sns/main.dart';
 import 'package:udemy_flutter_sns/views/account_page.dart';
 import 'package:udemy_flutter_sns/views/admin_page.dart';
 import 'package:udemy_flutter_sns/views/comments/comments_page.dart';
+import 'package:udemy_flutter_sns/views/edit_profile_page.dart';
 import 'package:udemy_flutter_sns/views/login_page.dart';
 import 'package:udemy_flutter_sns/views/main/passive_user_profile_page.dart';
 // packages
@@ -81,3 +82,12 @@ void toRepliesPage(
                 comment: comment,
                 commentDoc: commentDoc,
                 mainModel: mainModel))));
+
+void toEditProfilePage(
+        {required BuildContext context, required MainModel mainModel}) =>
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => EditProfilePage(
+                  mainModel: mainModel,
+                )));

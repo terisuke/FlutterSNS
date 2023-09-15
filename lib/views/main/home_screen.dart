@@ -10,6 +10,7 @@ import 'package:udemy_flutter_sns/details/rounded_button.dart';
 // constants
 import 'package:udemy_flutter_sns/constants/strings.dart';
 import 'package:udemy_flutter_sns/models/comments_model.dart';
+import 'package:udemy_flutter_sns/models/create_post_model.dart';
 import 'package:udemy_flutter_sns/models/main/home_model.dart';
 // domain
 import 'package:udemy_flutter_sns/domain/post/post.dart';
@@ -28,54 +29,51 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final HomeModel homeModel = ref.watch(homeProvider);
     final PostsModel postsModel = ref.watch(postsProvider);
-    final MuteUsersModel muteUsersModel = ref.watch(muteUsersProvider);
     final CommentsModel commentsModel = ref.watch(commentsProvider);
+    final CreatePostModel createPostModel = ref.watch(createPostProvider);
+    final MuteUsersModel muteUsersModel = ref.watch(muteUsersProvider);
     final postDocs = homeModel.postDocs;
-    return homeModel.postDocs.isEmpty
-        ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: RoundedButton(
-                    onPressed: () async => await homeModel.onReload(),
-                    widthRate: 0.85,
-                    color: Colors.green,
-                    text: reloadText),
-              )
-            ],
-          )
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              postDocs.isEmpty
-                  ? ReloadScreen(
-                      onReload: () async => await homeModel.onReload())
-                  : SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.7,
-                      child: RefreshScreen(
-                        onRefresh: () async => await homeModel.onRefresh(),
-                        onLoading: () async => await homeModel.onLoading(),
-                        refreshController: homeModel.refreshController,
-                        child: ListView.builder(
-                            itemCount: postDocs.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              final postDoc = postDocs[index];
-                              final Post post = Post.fromJson(postDoc.data()!);
-                              return PostCard(
-                                  onTap: () => muteUsersModel.showPopup(
-                                      context: context,
-                                      mainModel: mainModel,
-                                      passiveUid: post.uid,
-                                      docs: postDocs),
-                                  post: post,
-                                  postDoc: postDoc,
-                                  mainModel: mainModel,
-                                  postsModel: postsModel,
-                                  commentsModel: commentsModel);
-                            }),
-                      ),
-                    )
-            ],
-          );
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.new_label),
+          onPressed: () => createPostModel.showPostFlashBar(
+              context: context, mainModel: mainModel)),
+      body: homeModel.postDocs.isEmpty
+          ? ReloadScreen(onReload: (() async => await homeModel.onReload()))
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                postDocs.isEmpty
+                    ? ReloadScreen(
+                        onReload: () async => await homeModel.onReload())
+                    : SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.7,
+                        child: RefreshScreen(
+                          onRefresh: () async => await homeModel.onRefresh(),
+                          onLoading: () async => await homeModel.onLoading(),
+                          refreshController: homeModel.refreshController,
+                          child: ListView.builder(
+                              itemCount: postDocs.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final postDoc = postDocs[index];
+                                final Post post =
+                                    Post.fromJson(postDoc.data()!);
+                                return PostCard(
+                                    onTap: () => muteUsersModel.showPopup(
+                                        context: context,
+                                        mainModel: mainModel,
+                                        passiveUid: post.uid,
+                                        docs: postDocs),
+                                    post: post,
+                                    postDoc: postDoc,
+                                    mainModel: mainModel,
+                                    postsModel: postsModel,
+                                    commentsModel: commentsModel);
+                              }),
+                        ),
+                      )
+              ],
+            ),
+    );
   }
 }

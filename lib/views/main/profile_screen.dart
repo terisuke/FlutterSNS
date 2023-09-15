@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 // packages
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+// constants
+import 'package:udemy_flutter_sns/constants/routes.dart' as routes;
 import 'package:udemy_flutter_sns/constants/strings.dart';
 // components
 import 'package:udemy_flutter_sns/details/rounded_button.dart';
@@ -16,22 +18,21 @@ class ProfileScreen extends ConsumerWidget {
   final MainModel mainModel;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ProfileModel profileModel = ref.watch(profileProvider);
     final FirestoreUser firestoreUser = mainModel.firestoreUser;
     final int followerCount = firestoreUser.followerCount;
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        profileModel.croppedFile == null
-            ? UserImage(
-                length: 100.0,
-                userImageURL: mainModel.firestoreUser.userImageURL,
-              )
-            : ClipRRect(
-                borderRadius: BorderRadius.circular(160.0),
-                child: Image.file(profileModel.croppedFile!),
-              ),
+        UserImage(
+          length: 160.0,
+          userImageURL: mainModel.firestoreUser.userImageURL,
+        ),
+        Text(
+          firestoreUser.userName,
+          style: const TextStyle(fontSize: 32.0),
+        ),
         Text(
           "フォロー中${firestoreUser.followingCount.toString()}",
           style: const TextStyle(fontSize: 32.0),
@@ -41,11 +42,11 @@ class ProfileScreen extends ConsumerWidget {
           style: const TextStyle(fontSize: 32.0),
         ),
         RoundedButton(
-            onPressed: () async => await profileModel.uploadUserImage(
-                currentUserDoc: mainModel.currentUserDoc),
+            onPressed: () => routes.toEditProfilePage(
+                context: context, mainModel: mainModel),
             widthRate: 0.85,
-            color: Colors.green,
-            text: uploadText),
+            color: Colors.purple,
+            text: editProfileText)
       ],
     );
   }

@@ -104,3 +104,15 @@ exports.onPostCommentReplyDelete = functions.firestore
           });
         },
     );
+exports.onUserUpdateLogCreate = functions.firestore.
+    document("users/{uid}/userUpdateLogs/{userUpdateLogId}").onCreate(
+        async (snap, _) => {
+          const newValue = snap.data();
+          await newValue.userRef.update({
+            "userName": newValue.userName,
+            "userImageURL": newValue.userImageURL,
+            // updateAtは改竄されないようにcloud functionsで制限する
+            "updateAt": admin.firestore.Timestamp.now(),
+          });
+        },
+    );

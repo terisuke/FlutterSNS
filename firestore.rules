@@ -1,54 +1,154 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // collectionGroupのルール
+    match /{path=**}/posts/{postCommentId} {
+      allow read: if isAuthenticatedAndVerified();
+    }
     match /{path=**}/postComments/{postCommentId} {
-      allow read: if isAdmin();
+      allow read: if isAuthenticatedAndVerified();
+    }
+    match /{path=**}/postCommentReplies/{postCommentId} {
+      allow read: if isAuthenticatedAndVerified();
+    }
+    match /deleteUsers/{uid} {
+      allow create: if isTheSameUserAndVerified(uid) && isValidUser(request.resource.data,uid);
     }
     match /users/{uid} {
-      allow read: if isAuthenticated();
+      allow read: if isAuthenticatedAndVerified();
       allow update: if isAdmin();
-      allow create, delete: if isTheSameUserOrAdmin(uid);
+      // request.resource.dataは送信されたデータ
+      allow create: if isTheSameUser(uid) && isValidUser(request.resource.data,uid);
+      match /timelines/{postId} {
+        allow read: if isTheSameUserAndVerified(uid);
+        // 作成と削除はcloudfunctionsで行う
+      }
+      match /userUpdateLogs/{userUpdateLogId} {
+        // 本人だけにしかLogを作成できないようにする
+        allow create: if isTheSameUserAndVerified(uid);
+      }
       match /userMutes/{activeUid} {
-        //　作成と削除は受動的なユーザーのみが作成することができる
-        allow create, delete: if isTheSameUserOrAdmin(activeUid);
+        //　作成と削除は能動的なユーザーのみが行うことができる。
+        allow create, delete: if isTheSameUserAndVerified(activeUid);
+      }
+      match /tokens/{tokenId} {
+        allow read, create, delete: if isTheSameUserAndVerified(uid);
       }
       match /followers/{followerUid} {
-        allow create, delete: if isTheSameUserOrAdmin(followerUid);
+        allow create, delete: if isTheSameUserAndVerified(followerUid);
       }
       match /posts/{postId} {
-        allow read: if isAuthenticated();
+        allow read: if isAuthenticatedAndVerified();
         allow update: if isAdmin();
-        allow create, delete: if isTheSameUserOrAdmin(uid);
+        allow create: if isTheSameUserAndVerified(uid) && isValidPost(request.resource.data,uid);
+        allow delete: if isTheSameUserAndVerified(uid);
+        match /postReports/{postReportId} {
+          allow create: if isAuthenticatedAndVerified();
+        }
         match /postLikes/{activeUid} {
-          allow create, delete: if isTheSameUserOrAdmin(activeUid);
+          allow create, delete: if isTheSameUserAndVerified(activeUid);
+        }
+        match /postMutes/{activeUid} {
+          allow create, delete: if isTheSameUserAndVerified(activeUid);
         }
         match /postComments/{postCommentId} {
-          allow read, create: if isAuthenticated();
+          allow read: if isAuthenticatedAndVerified();
+          allow create: if isAuthenticatedAndVerified();
           // postCommentのdataのuidが現在ログインしている人と同じであれば消去できる
-          allow delete: if isTheSameUserOrAdmin(request.resource.data.uid);
+          allow delete: if isTheSameUserAndVerified(resource.data.uid);
+          match /postCommentReports/{reportId} {
+            allow create: if isAuthenticatedAndVerified();
+          }
+          match /postCommentMutes/{activeUid} {
+            //　作成と削除は能動的なユーザーのみが行うことができる。
+            allow create, delete: if isTheSameUserAndVerified(activeUid);
+          }
           match /postCommentLikes/{activeUid} {
-            allow create, delete: if isTheSameUserOrAdmin(activeUid);
+            allow create, delete: if isTheSameUserAndVerified(activeUid);
           }
           match /postCommentReplies/{postCommentReplyId} {
-            allow read, create: if isAuthenticated();
-            allow delete: if isTheSameUserOrAdmin(request.resource.data.uid);
+            allow read: if isAuthenticatedAndVerified();
+            // allow create, delete: if isTheSameUserAndVerified(uid);
+            allow create: if isAuthenticatedAndVerified();
+            // postCommentReplyのdataのuidが現在ログインしている人と同じであれば消去できる
+            allow delete: if isTheSameUserAndVerified(resource.data.uid);
+            match /postCommentReplyReports/ {reportId} {
+              allow create: if isAuthenticatedAndVerified();
+            }
+            match /postCommentReplyMutes/{activeUid} {
+              allow create, delete: if isTheSameUserAndVerified(activeUid); 
+            }
             match /postCommentReplyLikes/{activeUid} {
-              allow create, delete: if isTheSameUserOrAdmin(activeUid);
+              allow create, delete: if isTheSameUserAndVerified(activeUid);
             }
           }
         }
       }
     }
   }
- 
-  function isAuthenticated() {
-    return request.auth != null;
+
+  function isAuthenticatedAndVerified() {
+  	return request.auth != null && isEmailVerifed();
   }
-  function isTheSameUserOrAdmin(uid) {
-    return request.auth.uid == uid || isAdmin();
+  function isTheSameUser(uid) {
+    return request.auth.uid == uid;
+  }
+  function isTheSameUserAndVerified(uid) {
+    // コメントです
+    return ( request.auth.uid == uid && isEmailVerifed() );
   }
   function isAdmin() {
-    return request.auth.uid == "xxxxxxxxxxxxxx";
+    return request.auth.uid == "hcbXO8Rs4PPGua2vlPL92XTmpJj1";
   }
   
+  function isEmailVerifed() {
+    return request.auth.token.email_verified;
+  }
+
+  function isValidUser(user,uid) {
+    // bool を return
+    return user.size() == 15 &&
+    "createdAt" in user && user.createdAt is timestamp && 
+    "followerCount" in user && user.followerCount is int &&
+    "followingCount" in user && user.followingCount is int && 
+    "isAdmin" in user && user.isAdmin is bool &&
+    "muteCount" in user && user.muteCount is int && 
+    "searchToken" in user && user.searchToken is map &&
+    "postCount" in user && user.postCount is int && 
+    "updatedAt" in user && user.updatedAt is timestamp && 
+    "userName" in user && user.userName is string && 
+    "userNameLanguageCode" in user && user.userNameLanguageCode is string &&
+    "userNameNagativeScore" in user && user.userNameNagativeScore is number && 
+    "userNamePositiveScore" in user && user.userNamePositiveScore is number && 
+    "userNameSentiment" in user && user.userNameSentiment is string &&
+    "uid" in user && user.uid is string && 
+    "userImageURL" in user && user.userImageURL is string &&
+    // documentに含まれているuidがFirebaseAuthのuidと一致する
+    user.uid == uid;
+  } 
+  function isValidPost(post,uid) {
+    return post.size() == 21 &&
+    "createdAt" in post && post.createdAt is timestamp && 
+    "hashTags" in post && post.hashTags is list &&
+    "imageURL" in post && post.imageURL is string &&
+    "likeCount" in post && post.likeCount is int &&
+    "text" in post && post.text is string && 
+    "textLanguageCode" in post && post.textLanguageCode is string &&
+    "textNagativeScore" in post && post.textNagativeScore is number && 
+    "textPositiveScore" in post && post.textPositiveScore is number && 
+    "textSentiment" in post && post.textSentiment is string &&
+    "postCommentCount" in post && post.postCommentCount is int &&
+    "postId" in post && post.postId is string &&
+    "reportCount" in post && post.reportCount is int &&
+    "muteCount" in post && post.muteCount is int &&
+    "uid" in post && post.uid is string && 
+    "userName" in post && post.userName is string && 
+    "userNameLanguageCode" in post && post.userNameLanguageCode is string &&
+    "userNameNagativeScore" in post && post.userNameNagativeScore is number && 
+    "userNamePositiveScore" in post && post.userNamePositiveScore is number && 
+    "userNameSentiment" in post && post.userNameSentiment is string &&
+    "userImageURL" in post && post.userImageURL is string &&
+    "updatedAt" in post && post.updatedAt is timestamp &&
+    post.uid == uid;
+  }
 }
