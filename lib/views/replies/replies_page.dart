@@ -11,6 +11,7 @@ import 'package:udemy_flutter_sns/domain/reply/reply.dart';
 import 'package:udemy_flutter_sns/constants/voids.dart' as voids;
 // domains
 import 'package:udemy_flutter_sns/domain/comment/comment.dart';
+import 'package:udemy_flutter_sns/models/mute_replies_model.dart';
 import 'package:udemy_flutter_sns/models/mute_users_model.dart';
 import 'package:udemy_flutter_sns/models/replies_model.dart';
 // models
@@ -33,6 +34,7 @@ class RepliesPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final RepliesModel repliesModel = ref.watch(repliesProvider);
     final MuteUsersModel muteUsersModel = ref.watch(muteUsersProvider);
+    final MuteRepliesModel muteRepliesModel = ref.watch(muteRepliesProvider);
     return Scaffold(
       appBar: AppBar(title: const Text(replyTitle)),
       body: StreamBuilder<QuerySnapshot>(
@@ -73,6 +75,18 @@ class RepliesPage extends ConsumerWidget {
                                         docs: []);
                                   },
                                   child: const Text(muteUserText),
+                                ),
+                                CupertinoActionSheetAction(
+                                  isDestructiveAction: true,
+                                  onPressed: () {
+                                    Navigator.pop(innerContext);
+                                    // リアルタイム取得なので表示しなければ良い
+                                    muteRepliesModel.showMuteReplyDialog(
+                                        context: context,
+                                        mainModel: mainModel,
+                                        replyDoc: replyDoc);
+                                  },
+                                  child: const Text(muteReplyText),
                                 ),
                               ])),
                       comment: comment,

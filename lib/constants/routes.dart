@@ -14,6 +14,7 @@ import 'package:udemy_flutter_sns/views/main/passive_user_profile_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:udemy_flutter_sns/views/mute_comments_page.dart';
 import 'package:udemy_flutter_sns/views/mute_posts_page.dart';
+import 'package:udemy_flutter_sns/views/mute_replies_page.dart';
 import 'package:udemy_flutter_sns/views/mute_users_page.dart';
 import 'package:udemy_flutter_sns/views/replies/replies_page.dart';
 import 'package:udemy_flutter_sns/views/signup_page.dart';
@@ -119,5 +120,14 @@ void toMuteCommentsPage(
         context,
         MaterialPageRoute(
             builder: ((context) => MuteCommentsPage(
+                  mainModel: mainModel,
+                ))));
+
+void toMuteRepliesPage(
+        {required BuildContext context, required MainModel mainModel}) =>
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: ((context) => MuteRepliesPage(
                   mainModel: mainModel,
                 ))));

@@ -77,6 +77,7 @@ class RepliesModel extends ChangeNotifier {
         postRef: comment.postRef,
         postCommentRef: commentDoc.reference,
         postCommentReplyId: postCommentReplyId,
+        muteCount: 0,
         userName: firestoreUser.userName,
         uid: activeUid,
         userImageURL: firestoreUser.userImageURL,

@@ -16,6 +16,7 @@ import 'package:udemy_flutter_sns/domain/like_comment_token/like_comment_token.d
 import 'package:udemy_flutter_sns/domain/like_post_token/like_post_token.dart';
 import 'package:udemy_flutter_sns/domain/mute_comment_token/mute_comment_token.dart';
 import 'package:udemy_flutter_sns/domain/mute_post_token/mute_post_token.dart';
+import 'package:udemy_flutter_sns/domain/mute_reply_token/mute_reply_token.dart';
 import 'package:udemy_flutter_sns/domain/mute_user_token/mute_user_token.dart';
 
 final mainProvider = ChangeNotifierProvider((ref) => MainModel());
@@ -40,6 +41,8 @@ class MainModel extends ChangeNotifier {
   List<String> muteCommentIds = [];
   List<MutePostToken> mutePostTokens = [];
   List<String> mutePostIds = [];
+  List<MuteReplyToken> muteReplyTokens = [];
+  List<String> muteReplyIds = [];
   //以下がMainModelが起動した時の処理
   // ユーザーの動作を必要としないモデルの関数
   MainModel() {
@@ -133,6 +136,12 @@ class MainModel extends ChangeNotifier {
           final MutePostToken mutePostToken = MutePostToken.fromJson(tokenMap);
           mutePostTokens.add(mutePostToken);
           mutePostIds.add(mutePostToken.postId);
+          break;
+        case TokenType.muteReply:
+          final MuteReplyToken muteReplyToken =
+              MuteReplyToken.fromJson(tokenMap);
+          muteReplyTokens.add(muteReplyToken);
+          muteReplyIds.add(muteReplyToken.postCommentReplyId);
           break;
         case TokenType.mistake:
           break;

@@ -23,6 +23,7 @@ mixin _$Reply {
   dynamic get createdAt => throw _privateConstructorUsedError;
   String get reply => throw _privateConstructorUsedError;
   int get likeCount => throw _privateConstructorUsedError;
+  int get muteCount => throw _privateConstructorUsedError;
   dynamic get postRef => throw _privateConstructorUsedError;
   dynamic get postCommentRef => throw _privateConstructorUsedError;
   String get postCommentReplyId => throw _privateConstructorUsedError;
@@ -45,6 +46,7 @@ abstract class $ReplyCopyWith<$Res> {
       {dynamic createdAt,
       String reply,
       int likeCount,
+      int muteCount,
       dynamic postRef,
       dynamic postCommentRef,
       String postCommentReplyId,
@@ -70,6 +72,7 @@ class _$ReplyCopyWithImpl<$Res, $Val extends Reply>
     Object? createdAt = freezed,
     Object? reply = null,
     Object? likeCount = null,
+    Object? muteCount = null,
     Object? postRef = freezed,
     Object? postCommentRef = freezed,
     Object? postCommentReplyId = null,
@@ -90,6 +93,10 @@ class _$ReplyCopyWithImpl<$Res, $Val extends Reply>
       likeCount: null == likeCount
           ? _value.likeCount
           : likeCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      muteCount: null == muteCount
+          ? _value.muteCount
+          : muteCount // ignore: cast_nullable_to_non_nullable
               as int,
       postRef: freezed == postRef
           ? _value.postRef
@@ -133,6 +140,7 @@ abstract class _$$_ReplyCopyWith<$Res> implements $ReplyCopyWith<$Res> {
       {dynamic createdAt,
       String reply,
       int likeCount,
+      int muteCount,
       dynamic postRef,
       dynamic postCommentRef,
       String postCommentReplyId,
@@ -154,6 +162,7 @@ class __$$_ReplyCopyWithImpl<$Res> extends _$ReplyCopyWithImpl<$Res, _$_Reply>
     Object? createdAt = freezed,
     Object? reply = null,
     Object? likeCount = null,
+    Object? muteCount = null,
     Object? postRef = freezed,
     Object? postCommentRef = freezed,
     Object? postCommentReplyId = null,
@@ -174,6 +183,10 @@ class __$$_ReplyCopyWithImpl<$Res> extends _$ReplyCopyWithImpl<$Res, _$_Reply>
       likeCount: null == likeCount
           ? _value.likeCount
           : likeCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      muteCount: null == muteCount
+          ? _value.muteCount
+          : muteCount // ignore: cast_nullable_to_non_nullable
               as int,
       postRef: freezed == postRef
           ? _value.postRef
@@ -214,6 +227,7 @@ class _$_Reply implements _Reply {
       {required this.createdAt,
       required this.reply,
       required this.likeCount,
+      required this.muteCount,
       required this.postRef,
       required this.postCommentRef,
       required this.postCommentReplyId,
@@ -232,6 +246,8 @@ class _$_Reply implements _Reply {
   @override
   final int likeCount;
   @override
+  final int muteCount;
+  @override
   final dynamic postRef;
   @override
   final dynamic postCommentRef;
@@ -248,7 +264,7 @@ class _$_Reply implements _Reply {
 
   @override
   String toString() {
-    return 'Reply(createdAt: $createdAt, reply: $reply, likeCount: $likeCount, postRef: $postRef, postCommentRef: $postCommentRef, postCommentReplyId: $postCommentReplyId, userName: $userName, uid: $uid, userImageURL: $userImageURL, updatedAt: $updatedAt)';
+    return 'Reply(createdAt: $createdAt, reply: $reply, likeCount: $likeCount, muteCount: $muteCount, postRef: $postRef, postCommentRef: $postCommentRef, postCommentReplyId: $postCommentReplyId, userName: $userName, uid: $uid, userImageURL: $userImageURL, updatedAt: $updatedAt)';
   }
 
   @override
@@ -260,6 +276,8 @@ class _$_Reply implements _Reply {
             (identical(other.reply, reply) || other.reply == reply) &&
             (identical(other.likeCount, likeCount) ||
                 other.likeCount == likeCount) &&
+            (identical(other.muteCount, muteCount) ||
+                other.muteCount == muteCount) &&
             const DeepCollectionEquality().equals(other.postRef, postRef) &&
             const DeepCollectionEquality()
                 .equals(other.postCommentRef, postCommentRef) &&
@@ -280,6 +298,7 @@ class _$_Reply implements _Reply {
       const DeepCollectionEquality().hash(createdAt),
       reply,
       likeCount,
+      muteCount,
       const DeepCollectionEquality().hash(postRef),
       const DeepCollectionEquality().hash(postCommentRef),
       postCommentReplyId,
@@ -307,6 +326,7 @@ abstract class _Reply implements Reply {
       {required final dynamic createdAt,
       required final String reply,
       required final int likeCount,
+      required final int muteCount,
       required final dynamic postRef,
       required final dynamic postCommentRef,
       required final String postCommentReplyId,
@@ -323,6 +343,8 @@ abstract class _Reply implements Reply {
   String get reply;
   @override
   int get likeCount;
+  @override
+  int get muteCount;
   @override
   dynamic get postRef;
   @override

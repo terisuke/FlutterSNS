@@ -32,7 +32,8 @@ class ReplyCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final RepliesModel repliesModel = ref.watch(repliesProvider);
 
-    return !isValidUser(muteUids: mainModel.muteUids, doc: replyDoc)
+    return !isValidUser(muteUids: mainModel.muteUids, doc: replyDoc) &&
+            !isValidReply(muteReplyIds: mainModel.muteReplyIds, reply: reply)
         ? const SizedBox()
         : CardContainer(
             onTap: onTap,

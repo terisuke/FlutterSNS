@@ -9,6 +9,7 @@ abstract class Reply with _$Reply {
       {required dynamic createdAt,
       required String reply,
       required int likeCount,
+      required int muteCount,
       required dynamic postRef,
       required dynamic postCommentRef,
       required String postCommentReplyId,
