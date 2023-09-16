@@ -9,6 +9,7 @@ import 'package:udemy_flutter_sns/constants/strings.dart';
 import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
 // constants
 import 'package:udemy_flutter_sns/constants/routes.dart' as routes;
+import 'package:udemy_flutter_sns/constants/voids.dart' as voids;
 
 final signupProvider = ChangeNotifierProvider((ref) => SignupModel());
 
@@ -39,8 +40,7 @@ class SignupModel extends ChangeNotifier {
         .collection(usersFieldKey)
         .doc(uid)
         .set(userData);
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(userCreatedMsg)));
+    await voids.showFluttertoast(msg: userCreatedMsg);
     notifyListeners();
   }
 
@@ -53,7 +53,25 @@ class SignupModel extends ChangeNotifier {
       await createFirestoreUser(context: context, uid: uid);
       routes.toMyApp(context: context);
     } on FirebaseAuthException catch (e) {
-      debugPrint(e.toString());
+      final String errorCode = e.code;
+      String msg = "";
+      switch (errorCode) {
+        case "email-already-in-use":
+          msg = emailAlreadyInUseMsg;
+          break;
+        case "operation-not-allowed":
+          // Firebaseでemail/passwordが許可されていない
+          // 開発側の過失
+          msg = firebaseAuthEmailOperationNotAllowed;
+          break;
+        case "weak-password":
+          msg = weakPasswordMsg;
+          break;
+        case "invalid-email":
+          msg = invalidEmailMsg;
+          break;
+      }
+      await voids.showFluttertoast(msg: msg);
     }
   }
 

@@ -4,8 +4,12 @@ import 'package:udemy_flutter_sns/domain/comment/comment.dart';
 // pages
 import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
 import 'package:udemy_flutter_sns/main.dart';
+import 'package:udemy_flutter_sns/models/auth/account_model.dart';
 import 'package:udemy_flutter_sns/views/account_page.dart';
 import 'package:udemy_flutter_sns/views/admin_page.dart';
+import 'package:udemy_flutter_sns/views/auth/reathentication_page.dart';
+import 'package:udemy_flutter_sns/views/auth/update_email_page.dart';
+import 'package:udemy_flutter_sns/views/auth/update_password_page.dart';
 import 'package:udemy_flutter_sns/views/comments/comments_page.dart';
 import 'package:udemy_flutter_sns/views/edit_profile_page.dart';
 import 'package:udemy_flutter_sns/views/login_page.dart';
@@ -131,3 +135,17 @@ void toMuteRepliesPage(
             builder: ((context) => MuteRepliesPage(
                   mainModel: mainModel,
                 ))));
+void toReauthenticationPage(
+        {required BuildContext context, required AccountModel accountModel}) =>
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: ((context) =>
+                ReauthenticationPage(accountModel: accountModel))));
+
+void toUpdatePasswordPage({required BuildContext context}) => Navigator.push(
+    context,
+    MaterialPageRoute(builder: ((context) => const UpdatePasswordPage())));
+void toUpdateEmailPage({required BuildContext context}) => Navigator.push(
+    context,
+    MaterialPageRoute(builder: ((context) => const UpdateEmailPage())));

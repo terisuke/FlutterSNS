@@ -10,6 +10,11 @@ enum TokenType {
   muteReply,
   mistake
 }
+enum ReauthenticationState { 
+  initialValue, 
+  updatePassword, 
+  updateEmail 
+}
 
 // 引数にTokenType.followingを入れるとStringの"following"がreturnされます
 String returnTokenTypeString({required TokenType tokenType}) =>
@@ -60,4 +65,5 @@ TokenType mapToTokenType({required Map<String, dynamic> tokenMap}) {
   } else {
     return TokenType.mistake;
   }
+  
 }

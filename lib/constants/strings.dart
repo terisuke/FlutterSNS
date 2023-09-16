@@ -17,6 +17,9 @@ const String muteUsersPageTitle = "ミュートしているユーザー";
 const String muteCommentsPageTitle = "ミュートしているコメント";
 const String mutePostsPageTitle = "ミュートしている投稿";
 const String muteRepliesPageTitle = "ミュートしているリプライ";
+const String reauthenticationPageTitle = "再認証";
+const String updatePasswordPageTitle = "新しいパスワード";
+const String updateEmailPageTitle = "新しいメールアドレス";
 // texts
 const String mailAddressText = "メールアドレス";
 const String passwordText = "パスワード";
@@ -46,6 +49,9 @@ const String unMuteUserText = "ユーザーのミュートを解除";
 const String unMuteCommentText = "コメントのミュートを解除";
 const String unMutePostText = "投稿のミュートを解除";
 const String unMuteReplyText = "リプライのミュートを解除";
+const String reauthenticateText = "再認証をする";
+const String updatePasswordText = "パスワードをアップデートする";
+const String updateEmailText = "メールアドレスをアップデートする";
 // alert message
 const String muteUserAlertMsg = 'ユーザーをミュートしますが本当によろしいですか？';
 const String muteCommentAlertMsg = "コメントをミュートしますが本当によろしいですか？";
@@ -55,11 +61,25 @@ const String unMuteUserAlertMsg = 'ユーザーのミュートを解除します
 const String unMuteCommentAlertMsg = "コメントのミュートを解除しますが本当によろしいですか？";
 const String unMutePostAlertMsg = "投稿のミュートを解除しますが本当によろしいですか？";
 const String unMuteReplyAlertMsg = "リプライのミュートを解除しますが本当によろしいですか?";
+const String updatedPasswordMsg = "パスワードのアップデートが完了しました";
+const String requiresRecentLoginMsg = "再認証を行ってください";
 // FieldKey
 const String usersFieldKey = "users";
 // message
 const String userCreatedMsg = "ユーザーが作成できました";
 const String noAccountMsg = "アカウントをお持ちでない場合";
+const String emailAlreadyInUseMsg = "そのemailはもう使われています";
+const String firebaseAuthEmailOperationNotAllowed =
+    "Firebaseでemail/passwordが許可されていません";
+const String weakPasswordMsg = "パスワードが弱すぎます";
+const String invalidEmailMsg = "そのメールアドレスはふさわしくありません";
+const String wrongPasswordMsg = "パスワードが違います";
+const String userNotFoundMsg = "そのメールアドレスに対応するユーザーが見つかりません";
+const String userDisabledMsg = "そのユーザーは無効化されています";
+const String reauthenticatedMsg = "再認証が完了しました";
+const String userMismatchMsg = "与えられたクレデンシャルがユーザーに対応していません";
+const String invalidCredentialMsg = "プロバイダのクレデンシャルが有効ではありません";
+const String emailSendedMsg = "メールが送信されました";
 // prefs key
 const String isDarkThemePrefsKey = "isDarkTheme";
 // bottom navigation bar
@@ -72,3 +92,6 @@ String returnUuidV4() {
 }
 
 String returnJpgFileName() => "${returnUuidV4()}.jpg";
+
+String updateEmailLagMsg({required String email}) =>
+    "$email('更新が反映されるまで時間がかかる可能性がございます')";
