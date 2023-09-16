@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:udemy_flutter_sns/details/sns_bottom_navigation_bar.dart';
+import 'package:udemy_flutter_sns/models/mute_users_model.dart';
+import 'package:udemy_flutter_sns/views/auth/verify_email_page.dart';
 // pages
 import 'package:udemy_flutter_sns/views/login_page.dart';
 // models
@@ -48,10 +50,13 @@ class MyApp extends ConsumerWidget {
           : lightThemeData(context: context),
       home: onceUser == null
           ? const LoginPage()
-          : MyHomePage(
-              title: appTitle,
-              themeModel: themeModel,
-            ),
+          : // ユーザーが存在していない
+          onceUser.emailVerified
+              ? MyHomePage(
+                  title: appTitle,
+                  themeModel: themeModel,
+                ) // ユーザーは存在していて、メールアドレスが認証されている
+              : const VerifyEmailPage(), // ユーザーは存在しているが、メールアドレスが認証されていない
     );
   }
 }
@@ -67,6 +72,7 @@ class MyHomePage extends ConsumerWidget {
     final MainModel mainModel = ref.watch(mainProvider);
     final SNSBottomNavigationBarModel snsBottomNavigationBarModel =
         ref.watch(snsBottomNavigationBarProvider);
+    final MuteUsersModel muteUsersModel = ref.watch(muteUsersProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -87,7 +93,8 @@ class MyHomePage extends ConsumerWidget {
               // childrenの個数はElementsの数
               children: [
                 // 注意：ページじゃないのでScaffold
-                HomeScreen(mainModel: mainModel),
+                HomeScreen(
+                    mainModel: mainModel, muteUsersModel: muteUsersModel, themeModel: themeModel),
                 SearchScreen(
                   mainModel: mainModel,
                 ),

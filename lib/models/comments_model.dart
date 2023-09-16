@@ -65,7 +65,7 @@ class CommentsModel extends ChangeNotifier {
     await voids.processNewDocs(
         muteUids: muteUids,
         docs: commentDocs,
-        query: returnQuery(postDoc: postDoc));
+        query: returnQuery(postDoc: postDoc), mutePostIds: []);
     notifyListeners();
   }
 
@@ -74,7 +74,7 @@ class CommentsModel extends ChangeNotifier {
     await voids.processBasicDocs(
         muteUids: muteUids,
         docs: commentDocs,
-        query: returnQuery(postDoc: postDoc));
+        query: returnQuery(postDoc: postDoc), mutePostIds: []);
     notifyListeners();
   }
 
@@ -84,7 +84,7 @@ class CommentsModel extends ChangeNotifier {
     await voids.processOldDocs(
         muteUids: muteUids,
         docs: commentDocs,
-        query: returnQuery(postDoc: postDoc));
+        query: returnQuery(postDoc: postDoc), mutePostIds: []);
     notifyListeners();
   }
 
@@ -150,7 +150,7 @@ class CommentsModel extends ChangeNotifier {
   Future<void> like(
       {required Comment comment,
       required MainModel mainModel,
-      required DocumentSnapshot<Map<String, dynamic>> commentDoc}) async {
+      required DocumentSnapshot<Map<String, dynamic>> commentDoc, required Post post}) async {
     // setting
     final String postCommentId = comment.postCommentId;
     mainModel.likeCommentIds.add(postCommentId);
@@ -190,7 +190,7 @@ class CommentsModel extends ChangeNotifier {
   Future<void> unlike(
       {required Comment comment,
       required MainModel mainModel,
-      required DocumentSnapshot<Map<String, dynamic>> commentDoc}) async {
+      required DocumentSnapshot<Map<String, dynamic>> commentDoc, required Post post}) async {
     final String postCommentId = comment.postCommentId;
     mainModel.likeCommentIds.remove(postCommentId);
     final currentUserDoc = mainModel.currentUserDoc;
@@ -202,9 +202,8 @@ class CommentsModel extends ChangeNotifier {
     mainModel.likeCommentTokens.remove(deleteLikeCommentToken);
     notifyListeners();
     // 自分がいいねしたことの印を削除
-    await currentUserDocToTokenDocRef(
-            currentUserDoc: currentUserDoc,
-            tokenId: deleteLikeCommentToken.tokenId)
+    await userDocToTokenDocRef(
+            userDoc: currentUserDoc, tokenId: deleteLikeCommentToken.tokenId)
         .delete();
     // コメントにいいねがついたことの印を削除
     final DocumentReference<Map<String, dynamic>> postCommentRef =

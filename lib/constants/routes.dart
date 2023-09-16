@@ -7,9 +7,11 @@ import 'package:udemy_flutter_sns/main.dart';
 import 'package:udemy_flutter_sns/models/auth/account_model.dart';
 import 'package:udemy_flutter_sns/views/account_page.dart';
 import 'package:udemy_flutter_sns/views/admin_page.dart';
-import 'package:udemy_flutter_sns/views/auth/reathentication_page.dart';
+import 'package:udemy_flutter_sns/views/auth/reauthentication_page.dart';
 import 'package:udemy_flutter_sns/views/auth/update_email_page.dart';
 import 'package:udemy_flutter_sns/views/auth/update_password_page.dart';
+import 'package:udemy_flutter_sns/views/auth/verify_email_page.dart';
+import 'package:udemy_flutter_sns/views/auth/verify_password_reset_page.dart';
 import 'package:udemy_flutter_sns/views/comments/comments_page.dart';
 import 'package:udemy_flutter_sns/views/edit_profile_page.dart';
 import 'package:udemy_flutter_sns/views/login_page.dart';
@@ -36,6 +38,10 @@ void toSignupPage({required BuildContext context}) => Navigator.push(
 void toLoginPage({required BuildContext context}) => Navigator.push(
     context, MaterialPageRoute(builder: (context) => const LoginPage()));
 
+void toVerifyEmailPage({required BuildContext context}) => Navigator.push(
+    context,
+    MaterialPageRoute(builder: ((context) => const VerifyEmailPage())));
+
 void toAccountPage(
         {required BuildContext context, required MainModel mainModel}) =>
     Navigator.push(
@@ -47,13 +53,13 @@ void toAccountPage(
 
 void toPassiveUserProfilePage(
         {required BuildContext context,
-        required FirestoreUser passiveUser,
+        required DocumentSnapshot<Map<String, dynamic>> passiveUserDoc,
         required MainModel mainModel}) =>
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => PassiveUserProfilePage(
-                  passiveUser: passiveUser,
+                  passiveUserDoc: passiveUserDoc,
                   mainModel: mainModel,
                 )));
 
@@ -135,6 +141,7 @@ void toMuteRepliesPage(
             builder: ((context) => MuteRepliesPage(
                   mainModel: mainModel,
                 ))));
+
 void toReauthenticationPage(
         {required BuildContext context, required AccountModel accountModel}) =>
     Navigator.push(
@@ -146,6 +153,25 @@ void toReauthenticationPage(
 void toUpdatePasswordPage({required BuildContext context}) => Navigator.push(
     context,
     MaterialPageRoute(builder: ((context) => const UpdatePasswordPage())));
+
 void toUpdateEmailPage({required BuildContext context}) => Navigator.push(
     context,
     MaterialPageRoute(builder: ((context) => const UpdateEmailPage())));
+
+void toVerifyPasswordResetPage({required BuildContext context}) =>
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: ((context) => const VerifyPasswordResetPage())));
+
+void toPassiveUserProfilePagePage(
+        {required BuildContext context,
+        required DocumentSnapshot<Map<String, dynamic>> passiveUserDoc,
+        required MainModel mainModel}) =>
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: ((context) => PassiveUserProfilePage(
+                  passiveUserDoc: passiveUserDoc,
+                  mainModel: mainModel,
+                ))));

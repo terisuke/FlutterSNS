@@ -135,8 +135,7 @@ class MutePostsModel extends ChangeNotifier {
     notifyListeners();
     // currentUserDoc.ref ...
     // 自分がmuteしたことの印
-    await currentUserDocToTokenDocRef(
-            currentUserDoc: currentUserDoc, tokenId: tokenId)
+    await userDocToTokenDocRef(userDoc: currentUserDoc, tokenId: tokenId)
         .set(mutePostToken.toJson());
     // muteされたことの印
     final PostMute postMute = PostMute(
@@ -204,9 +203,8 @@ class MutePostsModel extends ChangeNotifier {
     mainModel.mutePostTokens.remove(deleteMutePostToken);
     notifyListeners();
     // 自分がミュートしたことの印を削除
-    await currentUserDocToTokenDocRef(
-            currentUserDoc: currentUserDoc,
-            tokenId: deleteMutePostToken.tokenId)
+    await userDocToTokenDocRef(
+            userDoc: currentUserDoc, tokenId: deleteMutePostToken.tokenId)
         .delete();
     // コメントのミュートされた印を削除
     final DocumentReference<Map<String, dynamic>> mutePostRef =

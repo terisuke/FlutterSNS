@@ -11,6 +11,7 @@ _$_FollowingToken _$$_FollowingTokenFromJson(Map<String, dynamic> json) =>
       createdAt: json['createdAt'],
       passiveUid: json['passiveUid'] as String,
       tokenId: json['tokenId'] as String,
+      tokenType: json['tokenType'] as String,
     );
 
 Map<String, dynamic> _$$_FollowingTokenToJson(_$_FollowingToken instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$_FollowingTokenToJson(_$_FollowingToken instance) =>
       'createdAt': instance.createdAt,
       'passiveUid': instance.passiveUid,
       'tokenId': instance.tokenId,
+      'tokenType': instance.tokenType,
     };

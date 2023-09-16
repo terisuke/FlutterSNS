@@ -80,6 +80,8 @@ const String reauthenticatedMsg = "再認証が完了しました";
 const String userMismatchMsg = "与えられたクレデンシャルがユーザーに対応していません";
 const String invalidCredentialMsg = "プロバイダのクレデンシャルが有効ではありません";
 const String emailSendedMsg = "メールが送信されました";
+const String missingAndroidPkgNameMsg = "Android Pkg Nameがありません";
+const String missingIosBundleIdMsg = "Ios Bundle Idがありません";
 // prefs key
 const String isDarkThemePrefsKey = "isDarkTheme";
 // bottom navigation bar
@@ -95,3 +97,4 @@ String returnJpgFileName() => "${returnUuidV4()}.jpg";
 
 String updateEmailLagMsg({required String email}) =>
     "$email('更新が反映されるまで時間がかかる可能性がございます')";
+const String createdPostMsg = "投稿が完了しました！表示するには時間がかかります";

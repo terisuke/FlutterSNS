@@ -55,8 +55,7 @@ class MuteUsersModel extends ChangeNotifier {
     docs.removeWhere((element) => element.data()!["uid"] == passiveUid);
     notifyListeners();
     // 自分がmuteしたことの印
-    await currentUserDocToTokenDocRef(
-            currentUserDoc: currentUserDoc, tokenId: tokenId)
+    await userDocToTokenDocRef(userDoc: currentUserDoc, tokenId: tokenId)
         .set(muteUserToken.toJson());
     // muteされたことの印
     final UserMute userMute = UserMute(
@@ -90,9 +89,8 @@ class MuteUsersModel extends ChangeNotifier {
     mainModel.muteUserTokens.remove(deleteMuteUserToken);
     notifyListeners();
     // 自分がミュートしたことの印を削除
-    await currentUserDocToTokenDocRef(
-            currentUserDoc: currentUserDoc,
-            tokenId: deleteMuteUserToken.tokenId)
+    await userDocToTokenDocRef(
+            userDoc: currentUserDoc, tokenId: deleteMuteUserToken.tokenId)
         .delete();
     // ユーザーのミュートされた印を削除
     final DocumentReference<Map<String, dynamic>> muteUserRef =

@@ -15,6 +15,8 @@ final createPostProvider = ChangeNotifierProvider(((ref) => CreatePostModel()));
 class CreatePostModel extends ChangeNotifier {
   final TextEditingController textEditingController = TextEditingController();
   String text = "";
+  
+  get voids => null;
   void showPostFlashBar(
       {required BuildContext context, required MainModel mainModel}) {
     context.showFlashBar(
@@ -77,5 +79,6 @@ class CreatePostModel extends ChangeNotifier {
         .collection("posts")
         .doc(postId)
         .set(post.toJson());
+    await voids.showFluttertoast(msg: createdPostMsg);
   }
 }

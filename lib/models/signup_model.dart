@@ -51,7 +51,7 @@ class SignupModel extends ChangeNotifier {
       final User? user = result.user;
       final String uid = user!.uid;
       await createFirestoreUser(context: context, uid: uid);
-      routes.toMyApp(context: context);
+      routes.toVerifyEmailPage(context: context);
     } on FirebaseAuthException catch (e) {
       final String errorCode = e.code;
       String msg = "";

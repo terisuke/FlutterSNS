@@ -39,9 +39,9 @@ class MuteCommentsModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> onRefresh() async {
+  Future<void> onRefresh({required MainModel mainModel}) async {
     refreshController.refreshCompleted();
-    await processNewMuteComments();
+    await processNewPostComments();
     notifyListeners();
   }
 
@@ -56,7 +56,7 @@ class MuteCommentsModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> processNewMuteComments() async {
+  Future<void> processNewPostComments() async {
     // newmuteCommentTokensをfor文で回してpostCommentIdだけをまとめている
     final List<String> newMutePostCommentIds =
         newMuteCommentTokens.map((e) => e.postCommentId).toList();
@@ -137,8 +137,7 @@ class MuteCommentsModel extends ChangeNotifier {
     notifyListeners();
     // currentUserDoc.ref ...
     // 自分がmuteしたことの印
-    await currentUserDocToTokenDocRef(
-            currentUserDoc: currentUserDoc, tokenId: tokenId)
+    await userDocToTokenDocRef(userDoc: currentUserDoc, tokenId: tokenId)
         .set(muteCommentToken.toJson());
     // muteされたことの印
     final CommentMute commentMute = CommentMute(
@@ -209,9 +208,8 @@ class MuteCommentsModel extends ChangeNotifier {
     mainModel.muteCommentTokens.remove(deleteMuteCommentToken);
     notifyListeners();
     // 自分がミュートしたことの印を削除
-    await currentUserDocToTokenDocRef(
-            currentUserDoc: currentUserDoc,
-            tokenId: deleteMuteCommentToken.tokenId)
+    await userDocToTokenDocRef(
+            userDoc: currentUserDoc, tokenId: deleteMuteCommentToken.tokenId)
         .delete();
     // コメントのミュートされた印を削除
     final DocumentReference<Map<String, dynamic>> muteCommentRef =

@@ -1,42 +1,87 @@
 // flutter
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 // packages
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:udemy_flutter_sns/details/card_container.dart';
-import 'package:udemy_flutter_sns/details/post_like_button.dart';
 // constants
+import 'package:udemy_flutter_sns/constants/strings.dart';
+import 'package:udemy_flutter_sns/constants/voids.dart' as voids;
+// components
+import 'package:udemy_flutter_sns/details/card_container.dart';
 import 'package:udemy_flutter_sns/details/user_image.dart';
-import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
-import 'package:udemy_flutter_sns/models/comments_model.dart';
+import 'package:udemy_flutter_sns/details/post_like_button.dart';
 // domain
+import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
 import 'package:udemy_flutter_sns/domain/post/post.dart';
+// model
+import 'package:udemy_flutter_sns/models/comments_model.dart';
 import 'package:udemy_flutter_sns/models/main_model.dart';
+import 'package:udemy_flutter_sns/models/mute_posts_model.dart';
+import 'package:udemy_flutter_sns/models/mute_users_model.dart';
 import 'package:udemy_flutter_sns/models/posts_model.dart';
 
 class PostCard extends ConsumerWidget {
   const PostCard({
     Key? key,
-    required this.onTap,
     required this.post,
-    required this.postDoc,
+    required this.index,
+    required this.postDocs,
     required this.mainModel,
-    required this.postsModel,
-    required this.commentsModel,
   }) : super(key: key);
-  final void Function()? onTap;
   final Post post;
-  final DocumentSnapshot<Map<String, dynamic>> postDoc;
+  final List<DocumentSnapshot<Map<String, dynamic>>> postDocs;
+  final int index;
   final MainModel mainModel;
-  final PostsModel postsModel;
-  final CommentsModel commentsModel;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final FirestoreUser firestoreUser = mainModel.firestoreUser;
     final bool isMyPost = post.uid == firestoreUser.uid;
+    final PostsModel postsModel = ref.watch(postsProvider);
+    final CommentsModel commentsModel = ref.watch(commentsProvider);
+    final MuteUsersModel muteUsersModel = ref.watch(muteUsersProvider);
+    final MutePostsModel mutePostsModel = ref.watch(mutePostsProvider);
+    final postDoc = postDocs[index];
     return CardContainer(
-      onTap: onTap,
+      onTap: () => voids.showPopup(
+          context: context,
+          builder: (BuildContext innerContext) =>
+              CupertinoActionSheet(actions: [
+                CupertinoActionSheetAction(
+                  /// This parameter indicates the action would perform
+                  /// a destructive action such as delete or exit and turns
+                  /// the action's text color to red.
+                  isDestructiveAction: true,
+                  onPressed: () {
+                    Navigator.pop(innerContext);
+                    muteUsersModel.showMuteUserDialog(
+                        context: context,
+                        mainModel: mainModel,
+                        passiveUid: post.uid,
+                        docs: commentsModel.commentDocs);
+                  },
+                  child: const Text(muteUserText),
+                ),
+                CupertinoActionSheetAction(
+                  isDestructiveAction: true,
+                  onPressed: () {
+                    Navigator.pop(innerContext);
+                    mutePostsModel.showMutePostDialog(
+                        context: context,
+                        mainModel: mainModel,
+                        postDoc: postDoc,
+                        postDocs: postDocs);
+                  },
+                  child: const Text(mutePostText),
+                ),
+                CupertinoActionSheetAction(
+                  /// This parameter indicates the action would be a default
+                  /// defualt behavior, turns the action's text to bold text.
+                  onPressed: () => Navigator.pop(innerContext),
+                  child: const Text(backText),
+                ),
+              ])),
       borderColor: Colors.green,
       child: Column(
         children: [

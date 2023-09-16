@@ -1,53 +1,77 @@
 // flutter
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 // packages
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// constants
-import 'package:udemy_flutter_sns/constants/routes.dart' as routes;
-import 'package:udemy_flutter_sns/constants/strings.dart';
 // components
-import 'package:udemy_flutter_sns/details/rounded_button.dart';
-import 'package:udemy_flutter_sns/details/user_image.dart';
-import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
-import 'package:udemy_flutter_sns/models/main/profile_model.dart';
+import 'package:udemy_flutter_sns/details/post_card.dart';
+import 'package:udemy_flutter_sns/details/reload_screen.dart';
+import 'package:udemy_flutter_sns/details/user_header.dart';
+import 'package:udemy_flutter_sns/views/refresh_screen.dart';
 // models
 import 'package:udemy_flutter_sns/models/main_model.dart';
+import 'package:udemy_flutter_sns/models/main/profile_model.dart';
+// domain
+import 'package:udemy_flutter_sns/domain/post/post.dart';
+import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({Key? key, required this.mainModel}) : super(key: key);
   final MainModel mainModel;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final ProfileModel profileModel = ref.watch(profileProvider);
     final FirestoreUser firestoreUser = mainModel.firestoreUser;
-    final int followerCount = firestoreUser.followerCount;
-
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        UserImage(
-          length: 160.0,
-          userImageURL: mainModel.firestoreUser.userImageURL,
-        ),
-        Text(
-          firestoreUser.userName,
-          style: const TextStyle(fontSize: 32.0),
-        ),
-        Text(
-          "フォロー中${firestoreUser.followingCount.toString()}",
-          style: const TextStyle(fontSize: 32.0),
-        ),
-        Text(
-          "フォロワー${followerCount.toString()}",
-          style: const TextStyle(fontSize: 32.0),
-        ),
-        RoundedButton(
-            onPressed: () => routes.toEditProfilePage(
-                context: context, mainModel: mainModel),
-            widthRate: 0.85,
-            color: Colors.purple,
-            text: editProfileText)
-      ],
+    final postDocs = profileModel.postDocs;
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          UserHeader(mainModel: mainModel, firestoreUser: firestoreUser),
+          profileModel.postDocs.isEmpty
+              ? ReloadScreen(
+                  onReload: (() async => await profileModel.onReload()))
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    postDocs.isEmpty
+                        ? ReloadScreen(
+                            onReload: () async => await profileModel.onReload())
+                        : SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.7,
+                            child: SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.5,
+                              child: SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.5,
+                                child: RefreshScreen(
+                                  onRefresh: () async =>
+                                      await profileModel.onRefresh(),
+                                  onLoading: () async =>
+                                      await profileModel.onLoading(),
+                                  refreshController:
+                                      profileModel.refreshController,
+                                  child: ListView.builder(
+                                      itemCount: postDocs.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        final postDoc = postDocs[index];
+                                        final Post post =
+                                            Post.fromJson(postDoc.data()!);
+                                        return PostCard(
+                                            post: post,
+                                            index: index,
+                                            postDocs: postDocs,
+                                            mainModel: mainModel);
+                                      }),
+                                ),
+                              ),
+                            ),
+                          )
+                  ],
+                ),
+        ],
+      ),
     );
   }
 }
