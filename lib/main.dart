@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:udemy_flutter_sns/details/sns_bottom_navigation_bar.dart';
-import 'package:udemy_flutter_sns/models/mute_users_model.dart';
 import 'package:udemy_flutter_sns/views/auth/verify_email_page.dart';
 // pages
 import 'package:udemy_flutter_sns/views/login_page.dart';
@@ -23,6 +22,7 @@ import 'package:udemy_flutter_sns/details/sns_drawer.dart';
 import 'package:udemy_flutter_sns/views/main/home_screen.dart';
 import 'package:udemy_flutter_sns/views/main/search_screen.dart';
 import 'package:udemy_flutter_sns/views/main/profile_screen.dart';
+import 'package:udemy_flutter_sns/views/main/articles_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,7 +72,6 @@ class MyHomePage extends ConsumerWidget {
     final MainModel mainModel = ref.watch(mainProvider);
     final SNSBottomNavigationBarModel snsBottomNavigationBarModel =
         ref.watch(snsBottomNavigationBarProvider);
-    final MuteUsersModel muteUsersModel = ref.watch(muteUsersProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -94,10 +93,13 @@ class MyHomePage extends ConsumerWidget {
               children: [
                 // 注意：ページじゃないのでScaffold
                 HomeScreen(
-                    mainModel: mainModel, muteUsersModel: muteUsersModel, themeModel: themeModel),
+                  mainModel: mainModel,
+                  themeModel: themeModel,
+                ),
                 SearchScreen(
                   mainModel: mainModel,
                 ),
+                const ArticlesScreen(),
                 ProfileScreen(
                   mainModel: mainModel,
                 ),

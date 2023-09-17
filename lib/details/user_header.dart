@@ -7,13 +7,15 @@ import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
 import 'package:udemy_flutter_sns/models/main_model.dart';
 
 class UserHeader extends StatelessWidget {
-  const UserHeader({
-    Key? key,
-    required this.mainModel,
-    required this.firestoreUser,
-  }) : super(key: key);
+  const UserHeader(
+      {Key? key,
+      required this.mainModel,
+      required this.firestoreUser,
+      required this.onTap})
+      : super(key: key);
   final MainModel mainModel;
   final FirestoreUser firestoreUser;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -39,6 +41,10 @@ class UserHeader extends StatelessWidget {
               "フォロワー${firestoreUser.followerCount.toString()}",
               style: const TextStyle(fontSize: 16.0),
             ),
+            InkWell(
+              onTap: onTap,
+              child: const Icon(Icons.menu),
+            )
           ],
         ),
         UserButton(mainModel: mainModel, passiveUser: firestoreUser)

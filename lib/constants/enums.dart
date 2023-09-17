@@ -15,6 +15,11 @@ enum ReauthenticationState {
   updatePassword, 
   updateEmail 
 }
+enum SortState { 
+  byLikeUidCount, 
+  byNewestFirst, 
+  byOldestFirst 
+}
 
 // 引数にTokenType.followingを入れるとStringの"following"がreturnされます
 String returnTokenTypeString({required TokenType tokenType}) =>

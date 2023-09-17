@@ -38,7 +38,7 @@ class CommentCard extends StatelessWidget {
     // mainModelのfiresreUserは更新されている。updateされた瞬間
     final FirestoreUser firestoreUser = mainModel.firestoreUser;
     final bool isMyComment = comment.uid == firestoreUser.uid;
-    return isValidUser(muteUids: mainModel.muteUids, doc: commentDoc) &&
+    return isValidUser(muteUids: mainModel.muteUids, doc: commentDoc, map: {}) &&
             isValidComment(
                 muteCommentIds: mainModel.muteCommentIds, comment: comment)
         ? CardContainer(

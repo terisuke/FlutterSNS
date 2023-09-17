@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:udemy_flutter_sns/constants/lists.dart';
+import 'package:udemy_flutter_sns/constants/maps.dart';
 import 'package:udemy_flutter_sns/constants/strings.dart';
 // domain
 import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
@@ -30,9 +32,16 @@ class SignupModel extends ChangeNotifier {
       followingCount: 0,
       isAdmin: false,
       muteCount: 0,
+      searchToken: returnSearchToken(
+          searchWords: returnSearchWords(searchTerm: aliceName)),
+      postCount: 0,
       uid: uid,
       updatedAt: now,
-      userName: "Alice",
+      userName: aliceName,
+      userNameLanguageCode: "",
+      userNameNagativeScore: 0,
+      userNamePositiveScore: 0,
+      userNameSentiment: "",
       userImageURL: "",
     );
     final Map<String, dynamic> userData = firestoreUser.toJson();

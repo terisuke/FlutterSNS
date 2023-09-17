@@ -27,7 +27,11 @@ class ProfileScreen extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          UserHeader(mainModel: mainModel, firestoreUser: firestoreUser),
+          UserHeader(
+            firestoreUser: firestoreUser,
+            mainModel: mainModel,
+            onTap: () => profileModel.onMenuPressed(context: context),
+          ),
           profileModel.postDocs.isEmpty
               ? ReloadScreen(
                   onReload: (() async => await profileModel.onReload()))
@@ -36,7 +40,7 @@ class ProfileScreen extends ConsumerWidget {
                   children: [
                     postDocs.isEmpty
                         ? ReloadScreen(
-                            onReload: () async => await profileModel.onReload())
+                            onReload: () async => profileModel.onReload())
                         : SizedBox(
                             height: MediaQuery.of(context).size.height * 0.7,
                             child: SizedBox(
@@ -46,9 +50,9 @@ class ProfileScreen extends ConsumerWidget {
                                     MediaQuery.of(context).size.height * 0.5,
                                 child: RefreshScreen(
                                   onRefresh: () async =>
-                                      await profileModel.onRefresh(),
+                                      profileModel.onRefresh(),
                                   onLoading: () async =>
-                                      await profileModel.onLoading(),
+                                      profileModel.onLoading(),
                                   refreshController:
                                       profileModel.refreshController,
                                   child: ListView.builder(

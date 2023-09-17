@@ -1,5 +1,4 @@
 // flutter
-// flutter
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // packages
@@ -46,14 +45,18 @@ class PassiveUserProfilePage extends ConsumerWidget {
               UserHeader(
                 firestoreUser: passiveUser,
                 mainModel: mainModel,
+                onTap: () => passiveUserProfileModel.onMenuPressed(
+                    context: context,
+                    muteUids: muteUids,
+                    mutePostIds: mainModel.mutePostIds,
+                    passiveUserDoc: passiveUserDoc),
               ),
               postDocs.isEmpty
                   ? ReloadScreen(
                       onReload: () async =>
                           await passiveUserProfileModel.onReload(
-                            passiveUserDoc: passiveUserDoc,
-                            muteUids: muteUids,
-                          ))
+                              passiveUserDoc: passiveUserDoc,
+                              muteUids: muteUids))
                   : SizedBox(
                       height: MediaQuery.of(context).size.height * 0.5,
                       child: RefreshScreen(
@@ -63,9 +66,8 @@ class PassiveUserProfilePage extends ConsumerWidget {
                                 muteUids: muteUids),
                         onLoading: () async =>
                             await passiveUserProfileModel.onLoading(
-                          passiveUserDoc: passiveUserDoc,
-                          muteUids: muteUids,
-                        ),
+                                passiveUserDoc: passiveUserDoc,
+                                muteUids: muteUids),
                         refreshController:
                             passiveUserProfileModel.refreshController,
                         child: ListView.builder(
