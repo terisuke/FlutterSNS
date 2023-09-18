@@ -20,6 +20,7 @@ const String muteRepliesPageTitle = "ミュートしているリプライ";
 const String reauthenticationPageTitle = "再認証";
 const String updatePasswordPageTitle = "新しいパスワード";
 const String updateEmailPageTitle = "新しいメールアドレス";
+const String searchScreenTitle = "Search";
 // texts
 const String mailAddressText = "メールアドレス";
 const String passwordText = "パスワード";
@@ -52,6 +53,8 @@ const String unMuteReplyText = "リプライのミュートを解除";
 const String reauthenticateText = "再認証をする";
 const String updatePasswordText = "パスワードをアップデートする";
 const String updateEmailText = "メールアドレスをアップデートする";
+const String usersText = "Users";
+const String postsText = "Posts";
 // alert message
 const String muteUserAlertMsg = 'ユーザーをミュートしますが本当によろしいですか？';
 const String muteCommentAlertMsg = "コメントをミュートしますが本当によろしいですか？";
@@ -63,6 +66,7 @@ const String unMutePostAlertMsg = "投稿のミュートを解除しますが本
 const String unMuteReplyAlertMsg = "リプライのミュートを解除しますが本当によろしいですか?";
 const String updatedPasswordMsg = "パスワードのアップデートが完了しました";
 const String requiresRecentLoginMsg = "再認証を行ってください";
+const String maxSearchLengthMsg = "検索できるのは100文字までです";
 // FieldKey
 const String usersFieldKey = "users";
 // message
@@ -82,11 +86,13 @@ const String invalidCredentialMsg = "プロバイダのクレデンシャルが�
 const String emailSendedMsg = "メールが送信されました";
 const String missingAndroidPkgNameMsg = "Android Pkg Nameがありません";
 const String missingIosBundleIdMsg = "Ios Bundle Idがありません";
+const String createdPostMsg = "投稿が完了しました！表示するには時間がかかります";
 // prefs key
 const String isDarkThemePrefsKey = "isDarkTheme";
 // bottom navigation bar
 const String homeText = "Home";
 const String searchText = "Search";
+const String articleText = "Article";
 const String profileText = "Profile";
 String returnUuidV4() {
   const Uuid uuid = Uuid();
@@ -97,8 +103,5 @@ String returnJpgFileName() => "${returnUuidV4()}.jpg";
 
 String updateEmailLagMsg({required String email}) =>
     "$email('更新が反映されるまで時間がかかる可能性がございます')";
-const String createdPostMsg = "投稿が完了しました！表示するには時間がかかります";
 // name
 const String aliceName = "Alice";
-const String maxSearchLengthMsg = "検索できるのは100文字までです";
-const String articleText = "Article";

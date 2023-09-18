@@ -1,5 +1,4 @@
 // flutter
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // packages
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -53,21 +52,23 @@ class PassiveUserProfilePage extends ConsumerWidget {
               ),
               postDocs.isEmpty
                   ? ReloadScreen(
-                      onReload: () async =>
-                          await passiveUserProfileModel.onReload(
-                              passiveUserDoc: passiveUserDoc,
-                              muteUids: muteUids))
+                      onReload: () async => passiveUserProfileModel.onReload(
+                          passiveUserDoc: passiveUserDoc,
+                          muteUids: muteUids,
+                          mutePostIds: mainModel.mutePostIds))
                   : SizedBox(
                       height: MediaQuery.of(context).size.height * 0.5,
                       child: RefreshScreen(
                         onRefresh: () async =>
-                            await passiveUserProfileModel.onRefresh(
+                            passiveUserProfileModel.onRefresh(
                                 passiveUserDoc: passiveUserDoc,
-                                muteUids: muteUids),
+                                muteUids: muteUids,
+                                mutePostIds: mainModel.mutePostIds),
                         onLoading: () async =>
-                            await passiveUserProfileModel.onLoading(
+                            passiveUserProfileModel.onLoading(
                                 passiveUserDoc: passiveUserDoc,
-                                muteUids: muteUids),
+                                muteUids: muteUids,
+                                mutePostIds: mainModel.mutePostIds),
                         refreshController:
                             passiveUserProfileModel.refreshController,
                         child: ListView.builder(

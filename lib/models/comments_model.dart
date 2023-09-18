@@ -41,7 +41,8 @@ class CommentsModel extends ChangeNotifier {
     init();
   }
   Future<void> init() async {
-    muteUids = await returnMuteUids();
+    final muteUidsAndMutePostIds = await returnMuteUidsAndMutePostIds();
+    muteUids = muteUidsAndMutePostIds.first;
   }
 
   Future<void> onCommentButtonPressed(
@@ -64,8 +65,9 @@ class CommentsModel extends ChangeNotifier {
     refreshController.refreshCompleted();
     await voids.processNewDocs(
         muteUids: muteUids,
+        mutePostIds: [],
         docs: commentDocs,
-        query: returnQuery(postDoc: postDoc), mutePostIds: []);
+        query: returnQuery(postDoc: postDoc));
     notifyListeners();
   }
 
@@ -73,8 +75,9 @@ class CommentsModel extends ChangeNotifier {
       {required DocumentSnapshot<Map<String, dynamic>> postDoc}) async {
     await voids.processBasicDocs(
         muteUids: muteUids,
+        mutePostIds: [],
         docs: commentDocs,
-        query: returnQuery(postDoc: postDoc), mutePostIds: []);
+        query: returnQuery(postDoc: postDoc));
     notifyListeners();
   }
 
@@ -83,8 +86,9 @@ class CommentsModel extends ChangeNotifier {
     refreshController.loadComplete();
     await voids.processOldDocs(
         muteUids: muteUids,
+        mutePostIds: [],
         docs: commentDocs,
-        query: returnQuery(postDoc: postDoc), mutePostIds: []);
+        query: returnQuery(postDoc: postDoc));
     notifyListeners();
   }
 
@@ -150,7 +154,7 @@ class CommentsModel extends ChangeNotifier {
   Future<void> like(
       {required Comment comment,
       required MainModel mainModel,
-      required DocumentSnapshot<Map<String, dynamic>> commentDoc, required Post post}) async {
+      required DocumentSnapshot<Map<String, dynamic>> commentDoc}) async {
     // setting
     final String postCommentId = comment.postCommentId;
     mainModel.likeCommentIds.add(postCommentId);
@@ -190,7 +194,7 @@ class CommentsModel extends ChangeNotifier {
   Future<void> unlike(
       {required Comment comment,
       required MainModel mainModel,
-      required DocumentSnapshot<Map<String, dynamic>> commentDoc, required Post post}) async {
+      required DocumentSnapshot<Map<String, dynamic>> commentDoc}) async {
     final String postCommentId = comment.postCommentId;
     mainModel.likeCommentIds.remove(postCommentId);
     final currentUserDoc = mainModel.currentUserDoc;

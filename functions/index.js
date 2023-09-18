@@ -339,6 +339,13 @@ exports.onPostCreate = functions.firestore.
           newValue.objectID = snap.id; // objectIDはalgolia専用のID
           const index = client.initIndex(ALGOLIA_POSTS_INDEX_NAME);// posts
           index.saveObject(newValue);
+          // myBatchは2回しか使用されない
+          // postCountのupdateとtimelineのset
+          const myBatch = fireStore.batch();
+          const myRef = fireStore.collection("users").doc(newValue.uid);
+          myBatch.update(myRef, {
+            "postCount": admin.firestore.FieldValue.increment(plusOne),
+          });
           // timelineを作成
           const timeline = {
             "createdAt": newValue.createdAt,
@@ -347,9 +354,9 @@ exports.onPostCreate = functions.firestore.
             "postId": newValue.postId,
           };
           // // 自分のタイムラインに自分の投稿をセットする
-          await fireStore.collection("users").
-              doc(newValue.uid).collection("timelines").
-              doc(newValue.postId).set(timeline);
+          myBatch.set(myRef.collection("timelines").
+              doc(newValue.postId), timeline);
+          await myBatch.commit();
           // followersをget
           const followers = await fireStore.collection("users").
               doc(newValue.uid).collection("followers").get();
@@ -374,11 +381,17 @@ exports.onPostCreate = functions.firestore.
           }
         },
     );
+
 exports.onPostDelete = functions.firestore.
     document("users/{uid}/posts/{postId}").onDelete(
         async (snap, _) => {
+          const newValue = snap.data();
           const objectID = snap.id; // objectIDはalgolia専用のID
           const index = client.initIndex(ALGOLIA_POSTS_INDEX_NAME);// Posts
           index.deleteObject(objectID);
+          const myRef = fireStore.collection("users").doc(newValue.uid);
+          await myRef.update({
+            "postCount": admin.firestore.FieldValue.increment(minusOne),
+          });
         },
     );

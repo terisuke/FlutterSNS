@@ -12,7 +12,7 @@ import 'package:udemy_flutter_sns/constants/others.dart';
 import 'package:udemy_flutter_sns/constants/strings.dart';
 import 'package:udemy_flutter_sns/constants/voids.dart' as voids;
 
-final profileProvider = ChangeNotifierProvider(((ref) => ProfileModel()));
+final profileProvider = ChangeNotifierProvider((ref) => ProfileModel());
 
 class ProfileModel extends ChangeNotifier {
   List<DocumentSnapshot<Map<String, dynamic>>> postDocs = [];
@@ -41,27 +41,38 @@ class ProfileModel extends ChangeNotifier {
   }
 
   Future<void> init() async {
-    muteUids = await returnMuteUids();
+    final muteUidsAndMutePostIds = await returnMuteUidsAndMutePostIds();
+    muteUids = muteUidsAndMutePostIds.first;
+    mutePostIds = muteUidsAndMutePostIds.last;
     await onReload();
   }
 
   Future<void> onRefresh() async {
     refreshController.refreshCompleted();
     await voids.processNewDocs(
-        muteUids: muteUids, docs: postDocs, query: returnQuery(), mutePostIds: []);
+        muteUids: muteUids,
+        mutePostIds: mutePostIds,
+        docs: postDocs,
+        query: returnQuery());
     notifyListeners();
   }
 
   Future<void> onReload() async {
     await voids.processBasicDocs(
-        muteUids: muteUids, docs: postDocs, query: returnQuery(), mutePostIds: []);
+        muteUids: muteUids,
+        mutePostIds: mutePostIds,
+        docs: postDocs,
+        query: returnQuery());
     notifyListeners();
   }
 
   Future<void> onLoading() async {
     refreshController.loadComplete();
     await voids.processOldDocs(
-        muteUids: muteUids, docs: postDocs, query: returnQuery(), mutePostIds: []);
+        muteUids: muteUids,
+        mutePostIds: mutePostIds,
+        docs: postDocs,
+        query: returnQuery());
     notifyListeners();
   }
 

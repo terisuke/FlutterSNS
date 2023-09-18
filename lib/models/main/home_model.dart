@@ -20,6 +20,7 @@ class HomeModel extends ChangeNotifier {
   List<DocumentSnapshot<Map<String, dynamic>>> postDocs = [];
   User currentUser = returnAuthUser()!;
   List<String> muteUids = [];
+  List<String> mutePostIds = [];
   List<DocumentSnapshot<Map<String, dynamic>>> timelineDocs = [];
   final RefreshController refreshController = RefreshController();
   Query<Map<String, dynamic>> returnQuery(
@@ -42,7 +43,9 @@ class HomeModel extends ChangeNotifier {
   }
 
   Future<void> init() async {
-    muteUids = await returnMuteUids();
+    final muteUidsAndMutePostIds = await returnMuteUidsAndMutePostIds();
+    muteUids = muteUidsAndMutePostIds.first;
+    mutePostIds = muteUidsAndMutePostIds.last;
     await onReload();
   }
 
@@ -61,7 +64,7 @@ class HomeModel extends ChangeNotifier {
     refreshController.refreshCompleted();
     await voids.processNewDocs(
         muteUids: muteUids,
-        mutePostIds: [],
+        mutePostIds: mutePostIds,
         docs: postDocs,
         query: returnQuery(timelinesQshot: timelinesQshot));
     notifyListeners();
@@ -79,7 +82,7 @@ class HomeModel extends ChangeNotifier {
     if (timelineDocs.isNotEmpty) {
       await voids.processBasicDocs(
           muteUids: muteUids,
-          mutePostIds: [],
+          mutePostIds: mutePostIds,
           docs: postDocs,
           query: returnQuery(timelinesQshot: timelinesQshot));
     }
@@ -101,7 +104,7 @@ class HomeModel extends ChangeNotifier {
     refreshController.loadComplete();
     await voids.processOldDocs(
         muteUids: muteUids,
-        mutePostIds: [],
+        mutePostIds: mutePostIds,
         docs: postDocs,
         query: returnQuery(timelinesQshot: timelinesQshot));
     notifyListeners();

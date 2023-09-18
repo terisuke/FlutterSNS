@@ -1,31 +1,31 @@
 // flutter
 import 'package:flutter/material.dart';
-// package
+// packages
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:udemy_flutter_sns/details/sns_bottom_navigation_bar.dart';
-import 'package:udemy_flutter_sns/views/auth/verify_email_page.dart';
-// pages
-import 'package:udemy_flutter_sns/views/login_page.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 // models
-import 'models/main_model.dart';
-import 'package:udemy_flutter_sns/models/themes_model.dart';
+import 'package:udemy_flutter_sns/models/main_model.dart';
 import 'package:udemy_flutter_sns/models/sns_bottom_navigation_bar_model.dart';
+import 'package:udemy_flutter_sns/models/themes_model.dart';
+import 'package:udemy_flutter_sns/views/main/search_page.dart';
 // options
 import 'firebase_options.dart';
 // constants
 import 'package:udemy_flutter_sns/constants/strings.dart';
 import 'package:udemy_flutter_sns/constants/themes.dart';
 // components
-import 'package:udemy_flutter_sns/details/sns_drawer.dart';
-import 'package:udemy_flutter_sns/views/main/home_screen.dart';
-import 'package:udemy_flutter_sns/views/main/search_screen.dart';
-import 'package:udemy_flutter_sns/views/main/profile_screen.dart';
 import 'package:udemy_flutter_sns/views/main/articles_screen.dart';
+import 'package:udemy_flutter_sns/views/auth/verify_email_page.dart';
+import 'package:udemy_flutter_sns/details/sns_bottom_navigation_bar.dart';
+import 'package:udemy_flutter_sns/views/login_page.dart';
+import 'package:udemy_flutter_sns/views/main/home_screen.dart';
+import 'package:udemy_flutter_sns/views/main/profile_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -53,7 +53,6 @@ class MyApp extends ConsumerWidget {
           : // ユーザーが存在していない
           onceUser.emailVerified
               ? MyHomePage(
-                  title: appTitle,
                   themeModel: themeModel,
                 ) // ユーザーは存在していて、メールアドレスが認証されている
               : const VerifyEmailPage(), // ユーザーは存在しているが、メールアドレスが認証されていない
@@ -62,9 +61,7 @@ class MyApp extends ConsumerWidget {
 }
 
 class MyHomePage extends ConsumerWidget {
-  const MyHomePage({Key? key, required this.title, required this.themeModel})
-      : super(key: key);
-  final String title;
+  const MyHomePage({Key? key, required this.themeModel}) : super(key: key);
   final ThemeModel themeModel;
 
   @override
@@ -74,13 +71,6 @@ class MyHomePage extends ConsumerWidget {
         ref.watch(snsBottomNavigationBarProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      drawer: SNSDrawer(
-        mainModel: mainModel,
-        themeModel: themeModel,
-      ),
       body: mainModel.isLoading
           ? const Center(
               child: Text(loadingText),
@@ -96,9 +86,7 @@ class MyHomePage extends ConsumerWidget {
                   mainModel: mainModel,
                   themeModel: themeModel,
                 ),
-                SearchScreen(
-                  mainModel: mainModel,
-                ),
+                SearchPage(mainModel: mainModel),
                 const ArticlesScreen(),
                 ProfileScreen(
                   mainModel: mainModel,
