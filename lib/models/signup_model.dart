@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:udemy_flutter_sns/constants/lists.dart';
+import 'package:udemy_flutter_sns/constants/maps.dart';
 import 'package:udemy_flutter_sns/constants/strings.dart';
 // domain
 import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
 // constants
 import 'package:udemy_flutter_sns/constants/routes.dart' as routes;
+import 'package:udemy_flutter_sns/constants/voids.dart' as voids;
 
 final signupProvider = ChangeNotifierProvider((ref) => SignupModel());
 
@@ -25,13 +28,20 @@ class SignupModel extends ChangeNotifier {
     final Timestamp now = Timestamp.now();
     final FirestoreUser firestoreUser = FirestoreUser(
       createdAt: now,
-      email: email,
       followerCount: 0,
       followingCount: 0,
       isAdmin: false,
+      muteCount: 0,
+      searchToken: returnSearchToken(
+          searchWords: returnSearchWords(searchTerm: aliceName)),
+      postCount: 0,
       uid: uid,
       updatedAt: now,
-      userName: "Alice",
+      userName: aliceName,
+      userNameLanguageCode: "",
+      userNameNagativeScore: 0,
+      userNamePositiveScore: 0,
+      userNameSentiment: "",
       userImageURL: "",
     );
     final Map<String, dynamic> userData = firestoreUser.toJson();
@@ -39,8 +49,7 @@ class SignupModel extends ChangeNotifier {
         .collection(usersFieldKey)
         .doc(uid)
         .set(userData);
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(userCreatedMsg)));
+    await voids.showFluttertoast(msg: userCreatedMsg);
     notifyListeners();
   }
 
@@ -51,9 +60,27 @@ class SignupModel extends ChangeNotifier {
       final User? user = result.user;
       final String uid = user!.uid;
       await createFirestoreUser(context: context, uid: uid);
-      routes.toMyApp(context: context);
+      routes.toVerifyEmailPage(context: context);
     } on FirebaseAuthException catch (e) {
-      debugPrint(e.toString());
+      final String errorCode = e.code;
+      String msg = "";
+      switch (errorCode) {
+        case "email-already-in-use":
+          msg = emailAlreadyInUseMsg;
+          break;
+        case "operation-not-allowed":
+          // Firebaseでemail/passwordが許可されていない
+          // 開発側の過失
+          msg = firebaseAuthEmailOperationNotAllowed;
+          break;
+        case "weak-password":
+          msg = weakPasswordMsg;
+          break;
+        case "invalid-email":
+          msg = invalidEmailMsg;
+          break;
+      }
+      await voids.showFluttertoast(msg: msg);
     }
   }
 

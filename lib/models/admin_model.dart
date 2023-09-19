@@ -3,37 +3,42 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // packages
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:udemy_flutter_sns/constants/others.dart';
-import 'package:udemy_flutter_sns/constants/strings.dart';
-import 'package:udemy_flutter_sns/domain/post/post.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 final adminProvider = ChangeNotifierProvider(((ref) => AdminModel()));
 
 class AdminModel extends ChangeNotifier {
   Future<void> admin() async {
-    WriteBatch batch = FirebaseFirestore.instance.batch();
-    final String activeUid = returnAuthUser()!.uid;
-    for (int i = 0; i < 100; i++) {
-      final Timestamp now = Timestamp.now();
-      final String postId = returnUuidV4();
-      final Post post = Post(
-        createdAt: now,
-        hashTags: [],
-        imageURL: "",
-        likeCount: 0,
-        text: i.toString(),
-        postId: postId,
-        uid: activeUid,
-        updatedAt: now,
-      );
-      final DocumentReference<Map<String, dynamic>> ref = FirebaseFirestore
-          .instance
-          .collection("users")
-          .doc(activeUid)
-          .collection("posts")
-          .doc(postId);
-      batch.set(ref, post.toJson());
+    final WriteBatch batch = FirebaseFirestore.instance.batch();
+    // posts
+    final postsQshot =
+        await FirebaseFirestore.instance.collectionGroup("posts").get();
+    for (final post in postsQshot.docs) {
+      batch.update(post.reference, {
+        "reportCount": 0,
+      });
+    }
+    // comments
+    final commentsQshot =
+        await FirebaseFirestore.instance.collectionGroup("postComments").get();
+    for (final comment in commentsQshot.docs) {
+      batch.delete(comment.reference);
+    }
+    // replies
+    final repliesQshot = await FirebaseFirestore.instance
+        .collectionGroup("postCommentReplies")
+        .get();
+    for (final reply in repliesQshot.docs) {
+      batch.delete(reply.reference);
     }
     await batch.commit();
+    Fluttertoast.showToast(
+        msg: "動作が完了しました",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 }

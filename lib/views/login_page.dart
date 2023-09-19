@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 // packages
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:udemy_flutter_sns/details/forget_password_text.dart';
 // components
 import 'package:udemy_flutter_sns/details/rounded_text_field.dart';
 import 'package:udemy_flutter_sns/details/rounded_password_field.dart';
@@ -54,6 +55,7 @@ class LoginPage extends ConsumerWidget {
           TextButton(
               onPressed: () => routes.toSignupPage(context: context),
               child: const Text(noAccountMsg)),
+          const ForgetPasswordText()
         ],
       ),
     );
