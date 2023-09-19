@@ -54,7 +54,7 @@ service cloud.firestore {
         match /postComments/{postCommentId} {
           allow read: if isAuthenticatedAndVerified();
           allow create: if isAuthenticatedAndVerified();
-          // postCommentのdataのuidが現在ログインしている人と同じであれば消去できる
+            // postCommentのdataのuidが現在ログインしている人と同じであれば消去できる
           allow delete: if isTheSameUserAndVerified(resource.data.uid);
           match /postCommentReports/{reportId} {
             allow create: if isAuthenticatedAndVerified();
@@ -86,9 +86,9 @@ service cloud.firestore {
       }
     }
   }
-
+ 
   function isAuthenticatedAndVerified() {
-  	return request.auth != null && isEmailVerifed();
+    return request.auth != null && isEmailVerifed();
   }
   function isTheSameUser(uid) {
     return request.auth.uid == uid;
@@ -100,11 +100,10 @@ service cloud.firestore {
   function isAdmin() {
     return request.auth.uid == "hcbXO8Rs4PPGua2vlPL92XTmpJj1";
   }
-  
   function isEmailVerifed() {
     return request.auth.token.email_verified;
   }
-
+ 
   function isValidUser(user,uid) {
     // bool を return
     return user.size() == 15 &&

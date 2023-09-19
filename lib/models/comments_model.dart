@@ -1,22 +1,24 @@
 // flutter
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // packages
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:udemy_flutter_sns/constants/enums.dart';
 import 'package:udemy_flutter_sns/constants/lists.dart';
 import 'package:udemy_flutter_sns/constants/others.dart';
 // constants
 import 'package:udemy_flutter_sns/constants/strings.dart';
-import 'package:udemy_flutter_sns/constants/routes.dart' as routes;
 import 'package:udemy_flutter_sns/constants/voids.dart' as voids;
-// domain
+import 'package:udemy_flutter_sns/constants/routes.dart' as routes;
+import 'package:udemy_flutter_sns/details/report_contents_list_view.dart';
 import 'package:udemy_flutter_sns/domain/comment/comment.dart';
 import 'package:udemy_flutter_sns/domain/comment_like/comment_like.dart';
-import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
 import 'package:udemy_flutter_sns/domain/like_comment_token/like_comment_token.dart';
+// domain
 import 'package:udemy_flutter_sns/domain/post/post.dart';
+import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
+import 'package:udemy_flutter_sns/domain/post_comment_report/post_comment_report.dart';
 // model
 import 'package:udemy_flutter_sns/models/main_model.dart';
 
@@ -137,11 +139,21 @@ class CommentsModel extends ChangeNotifier {
     final Comment comment = Comment(
         createdAt: now,
         comment: commentString,
+        commentLanguageCode: "",
+        commentNagativeScore: 0,
+        commentPositiveScore: 0,
+        commentSentiment: "",
         likeCount: 0,
         postCommentId: postCommentId,
         postCommentReplyCount: 0,
         postRef: postDoc.reference,
+        muteCount: 0,
+        reportCount: 0,
         userName: firestoreUser.userName,
+        userNameLanguageCode: firestoreUser.userNameLanguageCode,
+        userNameNagativeScore: firestoreUser.userNameNagativeScore,
+        userNamePositiveScore: firestoreUser.userNamePositiveScore,
+        userNameSentiment: firestoreUser.userNameSentiment,
         uid: activeUid,
         userImageURL: firestoreUser.userImageURL,
         updatedAt: now);
@@ -154,7 +166,7 @@ class CommentsModel extends ChangeNotifier {
   Future<void> like(
       {required Comment comment,
       required MainModel mainModel,
-      required DocumentSnapshot<Map<String, dynamic>> commentDoc}) async {
+      required DocumentSnapshot<Map<String, dynamic>> commentDoc, required Post post}) async {
     // setting
     final String postCommentId = comment.postCommentId;
     mainModel.likeCommentIds.add(postCommentId);
@@ -194,7 +206,7 @@ class CommentsModel extends ChangeNotifier {
   Future<void> unlike(
       {required Comment comment,
       required MainModel mainModel,
-      required DocumentSnapshot<Map<String, dynamic>> commentDoc}) async {
+      required DocumentSnapshot<Map<String, dynamic>> commentDoc, required Post post}) async {
     final String postCommentId = comment.postCommentId;
     mainModel.likeCommentIds.remove(postCommentId);
     final currentUserDoc = mainModel.currentUserDoc;
@@ -213,5 +225,51 @@ class CommentsModel extends ChangeNotifier {
     final DocumentReference<Map<String, dynamic>> postCommentRef =
         deleteLikeCommentToken.postCommentRef;
     await postCommentRef.collection("postCommentLikes").doc(activeUid).delete();
+  }
+
+  void reportComment(
+      {required BuildContext context,
+      required Comment comment,
+      required DocumentSnapshot<Map<String, dynamic>> commentDoc}) {
+    final selectedReportContentsNotifier = ValueNotifier<List<String>>([]);
+    final String postCommentReportId = returnUuidV4();
+    voids.showFlashDialog(
+        context: context,
+        content: ReportContentsListView(
+          selectedReportContentsNotifier: selectedReportContentsNotifier,
+        ),
+        positiveActionBuilder: (_, controller, __) {
+          final commentDocRef = commentDoc.reference;
+          return TextButton(
+              onPressed: () async {
+                final PostCommentReport postCommentReport = PostCommentReport(
+                    acitiveUid: returnAuthUser()!.uid,
+                    createdAt: Timestamp.now(),
+                    others: "",
+                    reportContent: returnReportContentString(
+                        selectedReportContents:
+                            selectedReportContentsNotifier.value),
+                    postCommentCreatorUid: comment.uid,
+                    passiveUserName: comment.userName,
+                    postCommentDocRef: commentDocRef,
+                    postCommentId: comment.postCommentId,
+                    postCommentReportId: postCommentReportId,
+                    comment: comment.comment,
+                    commentLanguageCode: comment.commentLanguageCode,
+                    commentNagativeScore: comment.commentNagativeScore,
+                    commentPositiveScore: comment.commentPositiveScore,
+                    commentSentiment: comment.commentSentiment);
+                await controller.dismiss();
+                await voids.showFluttertoast(msg: "コメントを報告しました");
+                await commentDoc.reference
+                    .collection("postCommentReports")
+                    .doc(postCommentReportId)
+                    .set(postCommentReport.toJson());
+              },
+              child: const Text(
+                "送信",
+                style: TextStyle(color: Colors.red),
+              ));
+        });
   }
 }

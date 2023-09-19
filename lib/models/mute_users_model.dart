@@ -8,7 +8,6 @@ import 'package:udemy_flutter_sns/constants/enums.dart';
 import 'package:udemy_flutter_sns/constants/ints.dart';
 import 'package:udemy_flutter_sns/constants/others.dart';
 import 'package:udemy_flutter_sns/constants/strings.dart';
-import 'package:udemy_flutter_sns/constants/voids.dart' as voids;
 import 'package:udemy_flutter_sns/domain/mute_user_token/mute_user_token.dart';
 import 'package:udemy_flutter_sns/domain/user_mute/user_mute.dart';
 import 'package:udemy_flutter_sns/models/main_model.dart';

@@ -6,7 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // constants
 import 'package:udemy_flutter_sns/constants/strings.dart';
-import 'package:udemy_flutter_sns/details/reload_screen.dart';
 import 'package:udemy_flutter_sns/domain/reply/reply.dart';
 import 'package:udemy_flutter_sns/constants/voids.dart' as voids;
 // domains
@@ -16,7 +15,6 @@ import 'package:udemy_flutter_sns/models/mute_users_model.dart';
 import 'package:udemy_flutter_sns/models/replies_model.dart';
 // models
 import 'package:udemy_flutter_sns/models/main_model.dart';
-import 'package:udemy_flutter_sns/views/refresh_screen.dart';
 import 'package:udemy_flutter_sns/views/replies/components/reply_card.dart';
 
 class RepliesPage extends ConsumerWidget {
@@ -87,6 +85,18 @@ class RepliesPage extends ConsumerWidget {
                                         replyDoc: replyDoc);
                                   },
                                   child: const Text(muteReplyText),
+                                ),
+                                CupertinoActionSheetAction(
+                                  isDestructiveAction: true,
+                                  onPressed: () {
+                                    Navigator.pop(innerContext);
+                                    // リアルタイム取得なので表示しなければ良い
+                                    repliesModel.reportReply(
+                                        context: context,
+                                        reply: reply,
+                                        replyDoc: replyDoc);
+                                  },
+                                  child: const Text(reportReplyText),
                                 ),
                               ])),
                       comment: comment,

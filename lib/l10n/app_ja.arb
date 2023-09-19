@@ -1,0 +1,10 @@
+{
+    "@@locale": "ja",
+    "deleteUser": "ユーザーを削除する",
+    "deleteUserAlertMsg": "ユーザーを削除しますが本当によろしいですか",
+    "userDeletedMsg": "ユーザーが削除されました",
+    "signup": "サインアップ",
+    "loading": "ローディング",
+    "logoutedMsg": "ログアウトが完了しました。お疲れ様でした",
+    "requiresRecentLoginMsg": "再認証を行ってください"
+}

@@ -84,6 +84,17 @@ class CommentsPage extends ConsumerWidget {
                                     },
                                     child: const Text(muteUserText),
                                   ),
+                                  CupertinoActionSheetAction(
+                                    isDestructiveAction: true,
+                                    onPressed: () {
+                                      Navigator.pop(innerContext);
+                                      commentsModel.reportComment(
+                                          context: context,
+                                          comment: comment,
+                                          commentDoc: commentDoc);
+                                    },
+                                    child: const Text(reportCommentText),
+                                  ),
                                 ])),
                         mainModel: mainModel,
                         post: post,

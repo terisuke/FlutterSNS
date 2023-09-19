@@ -76,6 +76,15 @@ class PostCard extends ConsumerWidget {
                   child: const Text(mutePostText),
                 ),
                 CupertinoActionSheetAction(
+                  isDestructiveAction: true,
+                  onPressed: () {
+                    Navigator.pop(innerContext);
+                    postsModel.reportPost(
+                        context: context, post: post, postDoc: postDoc);
+                  },
+                  child: const Text(reportPostText),
+                ),
+                CupertinoActionSheetAction(
                   /// This parameter indicates the action would be a default
                   /// defualt behavior, turns the action's text to bold text.
                   onPressed: () => Navigator.pop(innerContext),

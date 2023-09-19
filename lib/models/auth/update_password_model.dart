@@ -21,6 +21,7 @@ class UpdatePasswordModel extends ChangeNotifier {
 
   Future<void> updatePassword({required BuildContext context}) async {
     final User user = returnAuthUser()!;
+    final l10n = returnL10n(context: context);
     try {
       await user.updatePassword(newPassword);
       // ReauthenticationPageへ
@@ -33,7 +34,7 @@ class UpdatePasswordModel extends ChangeNotifier {
       String msg = "";
       switch (e.code) {
         case "requires-recent-login":
-          msg = requiresRecentLoginMsg;
+          msg = l10n!.requiresRecentLoginMsg;
           break;
         case "weak-password":
           msg = weakPasswordMsg;

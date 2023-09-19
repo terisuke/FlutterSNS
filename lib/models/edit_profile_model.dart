@@ -2,7 +2,8 @@
 import 'dart:io';
 // flutter
 import 'package:flutter/material.dart';
-import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
+import 'package:udemy_flutter_sns/constants/lists.dart';
+import 'package:udemy_flutter_sns/constants/maps.dart';
 // domain
 import 'package:udemy_flutter_sns/domain/user_update_log/user_update_log.dart';
 // packages
@@ -48,6 +49,8 @@ class EditProfileModel extends ChangeNotifier {
       // idを指定する必要がない。なぜならアプリから呼び出すことが泣く、消すこともないから
       final UserUpdateLog updateLog = UserUpdateLog(
           logCreatedAt: Timestamp.now(),
+          searchToken: returnSearchToken(
+              searchWords: returnSearchWords(searchTerm: userName)),
           userName: userName,
           userImageURL: userImageURL,
           userRef: currentUserDoc.reference,

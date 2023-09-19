@@ -24,6 +24,7 @@ mixin _$UserUpdateLog {
 // userのupdateには使用させない
   dynamic get logCreatedAt => throw _privateConstructorUsedError;
   String get userName => throw _privateConstructorUsedError;
+  Map<String, dynamic> get searchToken => throw _privateConstructorUsedError;
   String get userImageURL => throw _privateConstructorUsedError;
   dynamic get userRef => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
@@ -43,6 +44,7 @@ abstract class $UserUpdateLogCopyWith<$Res> {
   $Res call(
       {dynamic logCreatedAt,
       String userName,
+      Map<String, dynamic> searchToken,
       String userImageURL,
       dynamic userRef,
       String uid});
@@ -63,6 +65,7 @@ class _$UserUpdateLogCopyWithImpl<$Res, $Val extends UserUpdateLog>
   $Res call({
     Object? logCreatedAt = freezed,
     Object? userName = null,
+    Object? searchToken = null,
     Object? userImageURL = null,
     Object? userRef = freezed,
     Object? uid = null,
@@ -76,6 +79,10 @@ class _$UserUpdateLogCopyWithImpl<$Res, $Val extends UserUpdateLog>
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
               as String,
+      searchToken: null == searchToken
+          ? _value.searchToken
+          : searchToken // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
       userImageURL: null == userImageURL
           ? _value.userImageURL
           : userImageURL // ignore: cast_nullable_to_non_nullable
@@ -103,6 +110,7 @@ abstract class _$$_UserUpdateLogCopyWith<$Res>
   $Res call(
       {dynamic logCreatedAt,
       String userName,
+      Map<String, dynamic> searchToken,
       String userImageURL,
       dynamic userRef,
       String uid});
@@ -121,6 +129,7 @@ class __$$_UserUpdateLogCopyWithImpl<$Res>
   $Res call({
     Object? logCreatedAt = freezed,
     Object? userName = null,
+    Object? searchToken = null,
     Object? userImageURL = null,
     Object? userRef = freezed,
     Object? uid = null,
@@ -134,6 +143,10 @@ class __$$_UserUpdateLogCopyWithImpl<$Res>
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
               as String,
+      searchToken: null == searchToken
+          ? _value._searchToken
+          : searchToken // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
       userImageURL: null == userImageURL
           ? _value.userImageURL
           : userImageURL // ignore: cast_nullable_to_non_nullable
@@ -156,9 +169,11 @@ class _$_UserUpdateLog implements _UserUpdateLog {
   const _$_UserUpdateLog(
       {required this.logCreatedAt,
       required this.userName,
+      required final Map<String, dynamic> searchToken,
       required this.userImageURL,
       required this.userRef,
-      required this.uid});
+      required this.uid})
+      : _searchToken = searchToken;
 
   factory _$_UserUpdateLog.fromJson(Map<String, dynamic> json) =>
       _$$_UserUpdateLogFromJson(json);
@@ -169,6 +184,14 @@ class _$_UserUpdateLog implements _UserUpdateLog {
   final dynamic logCreatedAt;
   @override
   final String userName;
+  final Map<String, dynamic> _searchToken;
+  @override
+  Map<String, dynamic> get searchToken {
+    if (_searchToken is EqualUnmodifiableMapView) return _searchToken;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_searchToken);
+  }
+
   @override
   final String userImageURL;
   @override
@@ -178,7 +201,7 @@ class _$_UserUpdateLog implements _UserUpdateLog {
 
   @override
   String toString() {
-    return 'UserUpdateLog(logCreatedAt: $logCreatedAt, userName: $userName, userImageURL: $userImageURL, userRef: $userRef, uid: $uid)';
+    return 'UserUpdateLog(logCreatedAt: $logCreatedAt, userName: $userName, searchToken: $searchToken, userImageURL: $userImageURL, userRef: $userRef, uid: $uid)';
   }
 
   @override
@@ -190,6 +213,8 @@ class _$_UserUpdateLog implements _UserUpdateLog {
                 .equals(other.logCreatedAt, logCreatedAt) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
+            const DeepCollectionEquality()
+                .equals(other._searchToken, _searchToken) &&
             (identical(other.userImageURL, userImageURL) ||
                 other.userImageURL == userImageURL) &&
             const DeepCollectionEquality().equals(other.userRef, userRef) &&
@@ -202,6 +227,7 @@ class _$_UserUpdateLog implements _UserUpdateLog {
       runtimeType,
       const DeepCollectionEquality().hash(logCreatedAt),
       userName,
+      const DeepCollectionEquality().hash(_searchToken),
       userImageURL,
       const DeepCollectionEquality().hash(userRef),
       uid);
@@ -224,6 +250,7 @@ abstract class _UserUpdateLog implements UserUpdateLog {
   const factory _UserUpdateLog(
       {required final dynamic logCreatedAt,
       required final String userName,
+      required final Map<String, dynamic> searchToken,
       required final String userImageURL,
       required final dynamic userRef,
       required final String uid}) = _$_UserUpdateLog;
@@ -236,6 +263,8 @@ abstract class _UserUpdateLog implements UserUpdateLog {
   dynamic get logCreatedAt;
   @override
   String get userName;
+  @override
+  Map<String, dynamic> get searchToken;
   @override
   String get userImageURL;
   @override

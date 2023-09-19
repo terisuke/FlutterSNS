@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // constants
 import 'package:udemy_flutter_sns/constants/strings.dart';
+import 'package:udemy_flutter_sns/constants/voids.dart' as voids;
 import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
 import 'package:udemy_flutter_sns/domain/post/post.dart';
 import 'package:udemy_flutter_sns/models/main_model.dart';
@@ -15,8 +16,6 @@ final createPostProvider = ChangeNotifierProvider(((ref) => CreatePostModel()));
 class CreatePostModel extends ChangeNotifier {
   final TextEditingController textEditingController = TextEditingController();
   String text = "";
-  
-  get voids => null;
   void showPostFlashBar(
       {required BuildContext context, required MainModel mainModel}) {
     context.showFlashBar(
@@ -68,12 +67,21 @@ class CreatePostModel extends ChangeNotifier {
         imageURL: "",
         likeCount: 0,
         text: text,
-        muteCount: 0,
+        textLanguageCode: "",
+        textNagativeScore: 0,
+        textPositiveScore: 0,
+        textSentiment: "",
         postCommentCount: 0,
         postId: postId,
+        reportCount: 0,
+        muteCount: 0,
+        uid: activeUid,
         userImageURL: firestoreUser.userImageURL,
         userName: firestoreUser.userName,
-        uid: activeUid,
+        userNameLanguageCode: firestoreUser.userNameLanguageCode,
+        userNameNagativeScore: firestoreUser.userNameNagativeScore,
+        userNamePositiveScore: firestoreUser.userNamePositiveScore,
+        userNameSentiment: firestoreUser.userNameSentiment,
         updatedAt: now);
     await currentUserDoc.reference
         .collection("posts")

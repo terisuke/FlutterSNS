@@ -3,6 +3,7 @@
   "description": "Cloud Functions for Firebase",
   "scripts": {
     "lint": "eslint",
+    "lint:fix": "eslint . --fix",
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
@@ -16,7 +17,7 @@
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
     "algoliasearch": "^4.14.2",
-    "aws-sdk": "^2.1194.0",
+    "aws-sdk": "^2.1460.0",
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.18.0"
   },

@@ -31,7 +31,7 @@ class AccountPage extends ConsumerWidget {
                 accountModel.reauthenticationState =
                     ReauthenticationState.updatePassword;
                 routes.toReauthenticationPage(
-                    context: context, accountModel: accountModel);
+                    context: context, accountModel: accountModel, firestoreUser: mainModel.firestoreUser);
               }),
           ListTile(
               // emailが更新が反映されるまで時間がかかる可能性がある
@@ -42,7 +42,7 @@ class AccountPage extends ConsumerWidget {
                 accountModel.reauthenticationState =
                     ReauthenticationState.updateEmail;
                 routes.toReauthenticationPage(
-                    context: context, accountModel: accountModel);
+                    context: context, accountModel: accountModel, firestoreUser: mainModel.firestoreUser);
               }),
           ListTile(
             title: const Text(logoutText),

@@ -45,6 +45,9 @@ const String backText = "戻る";
 const String muteUserText = "ユーザーをミュート";
 const String muteCommentText = "コメントをミュート";
 const String mutePostText = "投稿をミュート";
+const String reportPostText = "投稿を報告";
+const String reportCommentText = "コメントを報告";
+const String reportReplyText = "リプライを報告";
 const String muteReplyText = "リプライをミュート";
 const String unMuteUserText = "ユーザーのミュートを解除";
 const String unMuteCommentText = "コメントのミュートを解除";
@@ -105,3 +108,11 @@ String updateEmailLagMsg({required String email}) =>
     "$email('更新が反映されるまで時間がかかる可能性がございます')";
 // name
 const String aliceName = "Alice";
+String returnReportContentString(
+    {required List<String> selectedReportContents}) {
+  String reportContentString = "";
+  for (final content in selectedReportContents) {
+    reportContentString += '$content,'; // メールにした時見やすいように加工
+  }
+  return reportContentString;
+}

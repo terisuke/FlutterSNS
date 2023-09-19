@@ -1,3 +1,12 @@
+enum ReauthenticationState {
+  initialValue,
+  updatePassword,
+  updateEmail,
+  deleteUser
+}
+
+enum SortState { byLikeUidCount, byNewestFirst, byOldestFirst }
+
 // Stringにしたい！！
 enum TokenType {
   following,
@@ -9,16 +18,6 @@ enum TokenType {
   mutePost,
   muteReply,
   mistake
-}
-enum ReauthenticationState { 
-  initialValue, 
-  updatePassword, 
-  updateEmail 
-}
-enum SortState { 
-  byLikeUidCount, 
-  byNewestFirst, 
-  byOldestFirst 
 }
 
 // 引数にTokenType.followingを入れるとStringの"following"がreturnされます
@@ -70,5 +69,4 @@ TokenType mapToTokenType({required Map<String, dynamic> tokenMap}) {
   } else {
     return TokenType.mistake;
   }
-  
 }

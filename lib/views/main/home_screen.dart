@@ -1,4 +1,4 @@
-/// flutter
+// flutter
 import 'package:flutter/material.dart';
 // packages
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,9 +19,13 @@ import 'package:udemy_flutter_sns/views/refresh_screen.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen(
-      {Key? key, required this.mainModel, required this.themeModel, required MuteUsersModel muteUsersModel})
+      {Key? key,
+      required this.mainModel,
+      required this.muteUsersModel,
+      required this.themeModel})
       : super(key: key);
   final MainModel mainModel;
+  final MuteUsersModel muteUsersModel;
   final ThemeModel themeModel;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,6 +33,9 @@ class HomeScreen extends ConsumerWidget {
     final CreatePostModel createPostModel = ref.watch(createPostProvider);
     final postDocs = homeModel.postDocs;
     return Scaffold(
+        appBar: AppBar(
+          title: const Text(appTitle),
+        ),
         drawer: SNSDrawer(
           mainModel: mainModel,
           themeModel: themeModel,
@@ -46,8 +53,8 @@ class HomeScreen extends ConsumerWidget {
                   : SizedBox(
                       height: MediaQuery.of(context).size.height * 0.7,
                       child: RefreshScreen(
-                        onRefresh: () async => await homeModel.onRefresh(),
-                        onLoading: () async => await homeModel.onLoading(),
+                        onRefresh: () async => homeModel.onRefresh(),
+                        onLoading: () async => homeModel.onLoading(),
                         refreshController: homeModel.refreshController,
                         child: ListView.builder(
                             itemCount: postDocs.length,

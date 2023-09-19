@@ -8,7 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart' as fluttertoast;
 import 'package:udemy_flutter_sns/constants/bools.dart';
 import 'package:udemy_flutter_sns/constants/strings.dart';
 
-void showFlashBar(
+void showFlash(
     {required BuildContext context,
     required TextEditingController textEditingController,
     required void Function(String)? onChanged,
@@ -115,7 +115,7 @@ void showFlashDialog(
     required Widget Function(BuildContext, FlashController<Object?>,
             void Function(void Function()))?
         positiveActionBuilder}) {
-  context.showFlashDialog(
+  context.showFlashBar(
     content: content,
     backgroundColor: const Color.fromRGBO(23, 23, 59, 0.9),
     negativeActionBuilder: (_, controller, __) {

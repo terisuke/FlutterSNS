@@ -8,15 +8,16 @@ part 'user_update_log.g.dart';
 
 @freezed
 abstract class UserUpdateLog with _$UserUpdateLog {
-  const factory UserUpdateLog(
-      {
-      // 順番がわからなくなるので妥協してupdateAtは入れる。
-      // userのupdateには使用させない
-      required dynamic logCreatedAt,
-      required String userName,
-      required String userImageURL,
-      required dynamic userRef,
-      required String uid}) = _UserUpdateLog;
+  const factory UserUpdateLog({
+    // 順番がわからなくなるので妥協してupdateAtは入れる。
+    // userのupdateには使用させない
+    required dynamic logCreatedAt,
+    required String userName,
+    required Map<String, dynamic> searchToken,
+    required String userImageURL,
+    required dynamic userRef,
+    required String uid,
+  }) = _UserUpdateLog;
   factory UserUpdateLog.fromJson(Map<String, dynamic> json) =>
       _$UserUpdateLogFromJson(json);
 }
