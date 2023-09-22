@@ -18,24 +18,51 @@ void showFlash(
             void Function(void Function()))?
         primaryActionBuilder}) {
  
-    context.showFlashBar(
-      content: Form(
+    // 以前のコード①
+    // context.showFlashBar(
+    //   content: Form(
+    //       child: TextFormField(
+    //     controller: textEditingController,
+    //     style: const TextStyle(fontWeight: FontWeight.bold),
+    //     onChanged: onChanged,
+    //     maxLength: 10,
+    //   )),
+    //   title: Text(titleString),
+    //   primaryActionBuilder: primaryActionBuilder,
+    //   // 閉じる時の動作
+    //   negativeActionBuilder: (context, controller, _) {
+    //     return InkWell(
+    //       child: const Icon(Icons.close),
+    //       onTap: () async => await controller.dismiss(),
+    //     );
+    //   },
+    // );
+    context.showFlash(
+    builder: (context, controller) {
+      return FlashBar(
+        controller: controller,
+        content: Form(
           child: TextFormField(
-        controller: textEditingController,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-        onChanged: onChanged,
-        maxLength: 10,
-      )),
-      title: Text(titleString),
-      primaryActionBuilder: primaryActionBuilder,
-      // 閉じる時の動作
-      negativeActionBuilder: (context, controller, _) {
-        return InkWell(
-          child: const Icon(Icons.close),
-          onTap: () async => await controller.dismiss(),
-        );
-      },
-    );
+            controller: textEditingController,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+            onChanged: onChanged, // onChangedは外部から渡された関数を指定しています
+            maxLength: 10,
+          ),
+        ),
+        title: Text(titleString), // titleStringは外部から渡された変数を指定しています
+        actions: [
+          if (primaryActionBuilder != null)
+            primaryActionBuilder!(context, controller,
+                null), // primaryActionBuilderは外部から渡された関数を指定しています
+          InkWell(
+            child: const Icon(Icons.close),
+            onTap: () async => await controller.dismiss(),
+          ),
+        ],
+      );
+    },
+    persistent: true, // persistentプロパティは元のコードに基づいて設定されています
+  );
   }
 
 // onRefreshの内部
@@ -107,24 +134,51 @@ void showFlash(
     required Widget Function(BuildContext, FlashController<Object?>,
             void Function(void Function()))?
         primaryActionBuilder}) {
-  context.showFlashBar(
-    content: Form(
-        child: TextFormField(
-      controller: textEditingController,
-      style: const TextStyle(fontWeight: FontWeight.bold),
-      onChanged: onChanged,
-      maxLength: 10,
-    )),
-    title: Text(titleString),
-    primaryActionBuilder: primaryActionBuilder,
-    // 閉じる時の動作
-    negativeActionBuilder: (context, controller, _) {
-      return InkWell(
-        child: const Icon(Icons.close),
-        onTap: () async => await controller.dismiss(),
+  // 以前のコード②
+  // context.showFlashBar(
+  //   content: Form(
+  //       child: TextFormField(
+  //     controller: textEditingController,
+  //     style: const TextStyle(fontWeight: FontWeight.bold),
+  //     onChanged: onChanged,
+  //     maxLength: 10,
+  //   )),
+  //   title: Text(titleString),
+  //   primaryActionBuilder: primaryActionBuilder,
+  //   // 閉じる時の動作
+  //   negativeActionBuilder: (context, controller, _) {
+  //     return InkWell(
+  //       child: const Icon(Icons.close),
+  //       onTap: () async => await controller.dismiss(),
+  //     );
+  //   },
+  // );
+ context.showFlash(
+    builder: (context, controller) {
+      return FlashBar(
+        controller: controller,
+        title: Text(titleString),
+        content: Form(
+          child: TextFormField(
+            controller: textEditingController,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+            onChanged: onChanged,
+            maxLength: 10,
+          ),
+        ),
+        actions: [
+          if (primaryActionBuilder != null)
+            primaryActionBuilder(context, controller, () {}),
+          InkWell(
+            child: const Icon(Icons.close),
+            onTap: () async => await controller.dismiss(),
+          ),
+        ],
       );
     },
+    persistent: true, // 必要に応じてpersistent属性を設定してください
   );
+ 
 }
   Future<void> showFluttertoast({required String msg}) async {
     // flashにToastが定義されているので分ける
@@ -144,14 +198,39 @@ void showFlash(
       required Widget Function(BuildContext, FlashController<Object?>,
               void Function(void Function()))?
           positiveActionBuilder}) {
-    context.showFlashBar(
-      content: content,
-      backgroundColor: const Color.fromRGBO(23, 23, 59, 0.9),
-      negativeActionBuilder: (_, controller, __) {
-        return TextButton(
+    // 以前のコード③
+    // context.showFlashBar(
+    //   content: content,
+    //   backgroundColor: const Color.fromRGBO(23, 23, 59, 0.9),
+    //   negativeActionBuilder: (_, controller, __) {
+    //     return TextButton(
+    //         onPressed: () async => await controller.dismiss(),
+    //         child: const Text(backText));
+    //   },
+    //   positiveActionBuilder: positiveActionBuilder,
+    // );
+    context.showFlash(
+    builder: (context, controller) {
+      return FlashBar(
+        controller: controller,
+        backgroundGradient: LinearGradient(
+          colors: [
+            const Color.fromRGBO(23, 23, 59, 0.9),
+            const Color.fromRGBO(23, 23, 59, 0.9)
+          ],
+        ),
+        content: content,
+        actions: [
+          if (positiveActionBuilder != null)
+            positiveActionBuilder(context, controller, () {}),
+          TextButton(
             onPressed: () async => await controller.dismiss(),
-            child: const Text(backText));
-      },
-      positiveActionBuilder: positiveActionBuilder,
-    );
+            child: const Text(backText),
+          ),
+        ],
+      );
+    },
+    persistent: true, // 必要に応じてpersistent属性を設定してください
+  );
+
   }

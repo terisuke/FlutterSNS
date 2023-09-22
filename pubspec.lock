@@ -429,10 +429,10 @@ packages:
     dependency: "direct main"
     description:
       name: flash
-      sha256: f110b161dc67e8cf78d3b7ed29a7ea9575a4f97c8725510c3b08b0a1fb3bbda8
+      sha256: "0ec6c32deb839a8ead1ba17a3bb055996f00ea6631384f4705ac6a08dec8b16c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.5+1"
+    version: "3.0.5+1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -733,14 +733,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.0"
-  material_floating_search_bar:
+  material_floating_search_bar_2:
     dependency: "direct main"
     description:
-      name: material_floating_search_bar
-      sha256: "970df4bc17a1ae7cacc745012fba442701daa44224e46bc0fd459e3aff0d5362"
+      name: material_floating_search_bar_2
+      sha256: ab0c6d209d9491f98dd4c72f2641d0ba1dd35c87effca1f23d8679bece43add0
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.7"
+    version: "0.5.0"
   meta:
     dependency: transitive
     description:
@@ -757,6 +757,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      sha256: "03bac4c528c64c95c722ec99280375a6f2fc708eec17c7b3f07253b626cd2a20"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   package_config:
     dependency: transitive
     description:
@@ -869,6 +877,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.1"
+  provider:
+    dependency: "direct main"
+    description:
+      name: provider
+      sha256: "59471e0a4595e264625d3496af567ac85bdae1148ec985aff1e0555786f53ecf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.0"
   pub_semver:
     dependency: transitive
     description:

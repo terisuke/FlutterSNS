@@ -1,4 +1,5 @@
 // flutter
+import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 // packages
 import 'package:flash/flash.dart';
@@ -18,43 +19,80 @@ class CreatePostModel extends ChangeNotifier {
   String text = "";
   void showPostFlashBar(
       {required BuildContext context, required MainModel mainModel}) {
-    context.showFlashBar(
-      persistent: true,
-      content: Form(
-          child: TextFormField(
-        controller: textEditingController,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-        onChanged: (value) => text = value,
-        maxLength: 10,
-      )),
-      title: const Text(createPostTitle),
-      primaryActionBuilder: (context, controller, _) {
-        return InkWell(
-          onTap: () async {
-            if (textEditingController.text.isNotEmpty) {
-              // メインの動作
-              await createPost(mainModel: mainModel);
-              await controller.dismiss();
-              text = "";
-            } else {
-              // 何もしない
-              await controller.dismiss();
-            }
-          },
-          child: const Icon(Icons.send),
-        );
-      },
-      // 閉じる時の動作
-      negativeActionBuilder: (context, controller, _) {
-        return InkWell(
-          child: const Icon(Icons.close),
-          onTap: () async => await controller.dismiss(),
-        );
-      },
-    );
+        // NOTE：　最新版(バージョン3系)では恐らく下記のような感じだと思います
+      context.showFlash(
+        builder: (context, controller) {
+          return FlashBar(
+            controller: controller,
+            content: Form(
+              child: TextFormField(
+                controller: textEditingController,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+                onChanged: (value) => text = value,
+                maxLength: 10,
+              ),
+            ),
+            actions: [
+              InkWell(
+                onTap: () async {
+                  if (textEditingController.text.isNotEmpty) {
+                    // メインの動作
+                    await createPost(currentUserDoc: mainModel.currentUserDoc, mainModel: mainModel);
+                    await controller.dismiss();
+                    text = "";
+                  } else {
+                    // 何もしない
+                    await controller.dismiss();
+                  }
+                },
+                child: const Icon(Icons.send),
+              ),
+              InkWell(
+                child: const Icon(Icons.close),
+                onTap: () async => await controller.dismiss(),
+              )
+            ],
+          );
+        },
+        persistent: true,
+      );
+    // context.showFlashBar(
+    //   persistent: true,
+    //   content: Form(
+    //       child: TextFormField(
+    //     controller: textEditingController,
+    //     style: const TextStyle(fontWeight: FontWeight.bold),
+    //     onChanged: (value) => text = value,
+    //     maxLength: 10,
+    //   )),
+    //   title: const Text(createPostTitle),
+    //   primaryActionBuilder: (context, controller, _) {
+    //     return InkWell(
+    //       onTap: () async {
+    //         if (textEditingController.text.isNotEmpty) {
+    //           // メインの動作
+    //           await createPost(mainModel: mainModel);
+    //           await controller.dismiss();
+    //           text = "";
+    //         } else {
+    //           // 何もしない
+    //           await controller.dismiss();
+    //         }
+    //       },
+    //       child: const Icon(Icons.send),
+    //     );
+    //   },
+    //   // 閉じる時の動作
+    //   negativeActionBuilder: (context, controller, _) {
+    //     return InkWell(
+    //       child: const Icon(Icons.close),
+    //       onTap: () async => await controller.dismiss(),
+    //     );
+    //   },
+    // );
   }
 
-  Future<void> createPost({required MainModel mainModel}) async {
+  Future<void> createPost({required MainModel mainModel, required  currentUserDoc}) async {
     final Timestamp now = Timestamp.now();
     final DocumentSnapshot<Map<String, dynamic>> currentUserDoc =
         mainModel.currentUserDoc;
