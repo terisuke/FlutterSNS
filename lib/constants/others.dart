@@ -22,12 +22,12 @@ Future<File?> returnCroppedFile({required XFile? xFile}) async {
   final File? result = await instance.cropImage(
       sourcePath: xFile!.path,
       aspectRatioPresets: [CropAspectRatioPreset.square],
-      androidUiSettings: const AndroidUiSettings(
+      androidUiSettings: AndroidUiSettings(
           toolbarTitle: cropperTitle,
           toolbarColor: Colors.green,
           initAspectRatio: CropAspectRatioPreset.square,
           lockAspectRatio: false),
-      iosUiSettings: const IOSUiSettings(title: cropperTitle));
+      iosUiSettings: IOSUiSettings(title: cropperTitle));
   return result;
 }
 
