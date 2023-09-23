@@ -27,49 +27,81 @@ import 'package:udemy_flutter_sns/details/sns_bottom_navigation_bar.dart';
 import 'package:udemy_flutter_sns/views/login_page.dart';
 import 'package:udemy_flutter_sns/views/main/home_screen.dart';
 import 'package:udemy_flutter_sns/views/main/search_page.dart';
-import 'package:udemy_flutter_sns/views/main/profile_screen.dart';
+import 'package:udemy_flutter_sns/views/main/profile_screen.dart'; // CupertinoWidgetsのためにimport追加
 
 Future<void> main() async {
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
     await dotenv.load();
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    // Dartのエラーを報告
-    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    await Firebase.initializeApp(); // ここでFirebaseを初期化します。
     runApp(const ProviderScope(child: MyApp()));
   }, (error, stackTrace) {
-    FirebaseCrashlytics.instance.recordError(error, stackTrace);
+    FirebaseCrashlytics.instance
+        .recordError(error, stackTrace); // ここで初期化されたFirebaseCrashlyticsを使用します。
   });
 }
 
 class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // MyAppが起動した最初の時にユーザーがログインしているかどうかの確認
-    // この変数を1回きり
-    final User? onceUser = FirebaseAuth.instance.currentUser;
-    final ThemeModel themeModel = ref.watch(themeProvider);
-    return MaterialApp(
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      debugShowCheckedModeBanner: false,
-      title: appTitle,
-      theme: themeModel.isDarkTheme
-          ? darkThemeData(context: context)
-          : lightThemeData(context: context),
-      home: onceUser == null
-          ? const LoginPage()
-          : // ユーザーが存在していない
-          onceUser.emailVerified
-              ? MyHomePage(
-                  themeModel: themeModel,
-                ) // ユーザーは存在していて、メールアドレスが認証されている
-              : const VerifyEmailPage(), // ユーザーは存在しているが、メールアドレスが認証されていない
+    return FutureBuilder(
+      future: Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      ),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return SomethingWentWrong();
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          FlutterError.onError =
+              FirebaseCrashlytics.instance.recordFlutterError;
+          final User? onceUser = FirebaseAuth.instance.currentUser;
+          final ThemeModel themeModel = ref.watch(themeProvider);
+          return MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            debugShowCheckedModeBanner: false,
+            title: appTitle,
+            theme: themeModel.isDarkTheme
+                ? darkThemeData(context: context)
+                : lightThemeData(context: context),
+            home: onceUser == null
+                ? const LoginPage()
+                : onceUser.emailVerified
+                    ? MyHomePage(
+                        themeModel: themeModel,
+                      )
+                    : const VerifyEmailPage(),
+          );
+        }
+
+        return Loading();
+      },
+    );
+  }
+}
+
+class SomethingWentWrong extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text('Something went wrong!'),
+      ),
+    );
+  }
+}
+
+class Loading extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }

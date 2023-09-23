@@ -1,4 +1,5 @@
 // flutter
+import 'package:flash/flash_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // packages
@@ -7,7 +8,9 @@ import 'package:flash/flash.dart';
 import 'package:fluttertoast/fluttertoast.dart' as fluttertoast;
 import 'package:udemy_flutter_sns/constants/bools.dart';
 import 'package:udemy_flutter_sns/constants/strings.dart';
-
+Function func = () {
+  return null;
+};
 void showFlash(
     {required BuildContext context,
     required TextEditingController textEditingController,
@@ -52,8 +55,8 @@ void showFlash(
         title: Text(titleString), // titleStringは外部から渡された変数を指定しています
         actions: [
           if (primaryActionBuilder != null)
-            primaryActionBuilder!(context, controller,
-                null), // primaryActionBuilderは外部から渡された関数を指定しています
+            primaryActionBuilder(context, controller,
+                func()), // primaryActionBuilderは外部から渡された関数を指定しています
           InkWell(
             child: const Icon(Icons.close),
             onTap: () async => await controller.dismiss(),
@@ -168,7 +171,7 @@ void showFlash(
         ),
         actions: [
           if (primaryActionBuilder != null)
-            primaryActionBuilder(context, controller, () {}),
+            primaryActionBuilder(context, controller, func()),
           InkWell(
             child: const Icon(Icons.close),
             onTap: () async => await controller.dismiss(),
@@ -213,16 +216,16 @@ void showFlash(
     builder: (context, controller) {
       return FlashBar(
         controller: controller,
-        backgroundGradient: LinearGradient(
-          colors: [
-            const Color.fromRGBO(23, 23, 59, 0.9),
-            const Color.fromRGBO(23, 23, 59, 0.9)
-          ],
-        ),
+        // backgroundGradient: LinearGradient(
+        //   colors: [
+        //     const Color.fromRGBO(23, 23, 59, 0.9),
+        //     const Color.fromRGBO(23, 23, 59, 0.9)
+        //   ],
+        // // ),
         content: content,
         actions: [
-          if (positiveActionBuilder != null)
-            positiveActionBuilder(context, controller, () {}),
+          (positiveActionBuilder != null) ?
+            positiveActionBuilder(context, controller, func()):
           TextButton(
             onPressed: () async => await controller.dismiss(),
             child: const Text(backText),
