@@ -33,15 +33,33 @@ Future<void> main() async {
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
     await dotenv.load();
-    // ここでDefaultFirebaseOptions.currentPlatformを設定します。
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
+
+    // Firebaseがまだ初期化されていない場合のみ、初期化を行う
+    if (Firebase.apps.isEmpty) {
+      try {
+        print("Firebase initializing..."); // ← この行を追加
+        await Firebase.initializeApp(
+            options: DefaultFirebaseOptions.currentPlatform);
+        print("Firebase initialized successfully."); // ← この行を追加
+      } catch (e, stackTrace) {
+        print('Firebase initialization failed');
+        print('Error: $e');
+        print('StackTrace: $stackTrace');
+        return;
+      }
+    }
+
     runApp(const ProviderScope(child: MyApp()));
   }, (error, stackTrace) {
-    FirebaseCrashlytics.instance.recordError(error, stackTrace);
+    if (Firebase.apps.isNotEmpty) {
+      FirebaseCrashlytics.instance.recordError(error, stackTrace);
+    } else {
+      print('Error occurred, but Firebase is not initialized');
+      print('Error: $error');
+      print('StackTrace: $stackTrace');
+    }
   });
 }
-
 class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
