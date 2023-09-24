@@ -79,7 +79,7 @@ class EditProfileModel extends ChangeNotifier {
 
   Future<void> onImageTapped() async {
     final XFile xFile = await returnXFile();
-    croppedFile = await returnCroppedFile(xFile: xFile);
+    croppedFile = (await returnCroppedFile(xFile: xFile)) as File?;
     notifyListeners();
   }
 }

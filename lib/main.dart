@@ -33,11 +33,12 @@ Future<void> main() async {
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
     await dotenv.load();
-    await Firebase.initializeApp(); // ここでFirebaseを初期化します。
+    // ここでDefaultFirebaseOptions.currentPlatformを設定します。
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
     runApp(const ProviderScope(child: MyApp()));
   }, (error, stackTrace) {
-    FirebaseCrashlytics.instance
-        .recordError(error, stackTrace); // ここで初期化されたFirebaseCrashlyticsを使用します。
+    FirebaseCrashlytics.instance.recordError(error, stackTrace);
   });
 }
 
@@ -46,40 +47,27 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return FutureBuilder(
-      future: Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      ),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return SomethingWentWrong();
-        }
+    // FirebaseCrashlyticsインスタンスをここで設定します。
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    final User? onceUser = FirebaseAuth.instance.currentUser;
+    final ThemeModel themeModel = ref.watch(themeProvider);
 
-        if (snapshot.connectionState == ConnectionState.done) {
-          FlutterError.onError =
-              FirebaseCrashlytics.instance.recordFlutterError;
-          final User? onceUser = FirebaseAuth.instance.currentUser;
-          final ThemeModel themeModel = ref.watch(themeProvider);
-          return MaterialApp(
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            debugShowCheckedModeBanner: false,
-            title: appTitle,
-            theme: themeModel.isDarkTheme
-                ? darkThemeData(context: context)
-                : lightThemeData(context: context),
-            home: onceUser == null
-                ? const LoginPage()
-                : onceUser.emailVerified
-                    ? MyHomePage(
-                        themeModel: themeModel,
-                      )
-                    : const VerifyEmailPage(),
-          );
-        }
-
-        return Loading();
-      },
+    // FutureBuilderは必要ないため、直接MaterialAppを返します。
+    return MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      debugShowCheckedModeBanner: false,
+      title: appTitle,
+      theme: themeModel.isDarkTheme
+          ? darkThemeData(context: context)
+          : lightThemeData(context: context),
+      home: onceUser == null
+          ? const LoginPage()
+          : onceUser.emailVerified
+              ? MyHomePage(
+                  themeModel: themeModel,
+                )
+              : const VerifyEmailPage(),
     );
   }
 }
@@ -130,7 +118,8 @@ class MyHomePage extends ConsumerWidget {
                 // 注意：ページじゃないのでScaffold
                 HomeScreen(
                   mainModel: mainModel,
-                  themeModel: themeModel, muteUsersModel: MuteUsersModel(),
+                  themeModel: themeModel,
+                  muteUsersModel: MuteUsersModel(),
                 ),
                 SearchPage(
                   mainModel: mainModel,

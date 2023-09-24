@@ -1,6 +1,6 @@
-// dart
-import 'dart:io';
 // flutter
+
+
 import 'package:flutter/material.dart';
 // package
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,20 +17,25 @@ Future<XFile> returnXFile() async {
   return image!;
 }
 
-Future<File?> returnCroppedFile({required XFile? xFile}) async {
+Future<CroppedFile?> returnCroppedFile({required XFile? xFile}) async {
   final instance = ImageCropper();
-  final File? result = await instance.cropImage(
-      sourcePath: xFile!.path,
-      aspectRatioPresets: [CropAspectRatioPreset.square],
-      androidUiSettings: AndroidUiSettings(
+  final CroppedFile? result = await instance.cropImage(
+    sourcePath: xFile!.path,
+    aspectRatioPresets: [CropAspectRatioPreset.square],
+    uiSettings: [
+      AndroidUiSettings(
           toolbarTitle: cropperTitle,
           toolbarColor: Colors.green,
+          toolbarWidgetColor: Colors.white,
           initAspectRatio: CropAspectRatioPreset.square,
           lockAspectRatio: false),
-      iosUiSettings: IOSUiSettings(title: cropperTitle));
+      IOSUiSettings(
+        title: cropperTitle,
+      ),
+    ],
+  );
   return result;
 }
-
 User? returnAuthUser() => FirebaseAuth.instance.currentUser;
 
 DocumentReference<Map<String, dynamic>> userDocToTokenDocRef(

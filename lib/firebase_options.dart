@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '488478065875',
     projectId: 'fir-flutter-77794',
     authDomain: 'fir-flutter-77794.firebaseapp.com',
+    databaseURL: 'https://fir-flutter-77794-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'fir-flutter-77794.appspot.com',
     measurementId: 'G-6MTX9EERY9',
   );
@@ -58,6 +59,7 @@ class DefaultFirebaseOptions {
     appId: '1:488478065875:android:38a1e34feda4b4be86c026',
     messagingSenderId: '488478065875',
     projectId: 'fir-flutter-77794',
+    databaseURL: 'https://fir-flutter-77794-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'fir-flutter-77794.appspot.com',
   );
 
@@ -66,6 +68,7 @@ class DefaultFirebaseOptions {
     appId: '1:488478065875:ios:da3c8054833e889c86c026',
     messagingSenderId: '488478065875',
     projectId: 'fir-flutter-77794',
+    databaseURL: 'https://fir-flutter-77794-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'fir-flutter-77794.appspot.com',
     iosBundleId: 'com.example.udemyFlutterSns',
   );
@@ -75,6 +78,7 @@ class DefaultFirebaseOptions {
     appId: '1:488478065875:ios:93421f26d228f8aa86c026',
     messagingSenderId: '488478065875',
     projectId: 'fir-flutter-77794',
+    databaseURL: 'https://fir-flutter-77794-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'fir-flutter-77794.appspot.com',
     iosBundleId: 'com.example.udemyFlutterSns.RunnerTests',
   );
