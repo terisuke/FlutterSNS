@@ -1,12 +1,14 @@
 //dart
 import 'dart:async';
 // flutter
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; 
+// options
+import 'firebase_options.dart';
 // packages
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:udemy_flutter_sns/constants/others.dart';
@@ -15,8 +17,6 @@ import 'package:udemy_flutter_sns/models/main_model.dart';
 import 'package:udemy_flutter_sns/models/mute_users_model.dart';
 import 'package:udemy_flutter_sns/models/sns_bottom_navigation_bar_model.dart';
 import 'package:udemy_flutter_sns/models/themes_model.dart';
-// options
-import 'firebase_options.dart';
 // constants
 import 'package:udemy_flutter_sns/constants/strings.dart';
 import 'package:udemy_flutter_sns/constants/themes.dart';

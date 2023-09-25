@@ -13,10 +13,10 @@ dependencies:
     
   cupertino_icons: ^1.0.2
   flutter_riverpod: ^2.0.2
-  firebase_core: ^2.9.0
-  firebase_auth: ^4.10.0
-  cloud_firestore: ^4.9.2
-  firebase_analytics: ^10.5.0
+  firebase_core: ^2.16.0
+  firebase_auth: ^4.10.0 
+  cloud_firestore: ^4.9.2 
+  firebase_analytics: ^10.5.0 
   google_fonts: ^4.0.4
   pull_to_refresh: ^2.0.0
   image_cropper: ^4.0.1
@@ -28,8 +28,8 @@ dependencies:
   uuid: ^3.0.7
   image_picker: ^1.0.4
   flutter_svg: ^2.0.5
-  firebase_storage: ^11.2.7
-  firebase_crashlytics: ^3.3.6
+  firebase_storage: ^11.2.7 
+  firebase_crashlytics: ^3.3.6 
   fluttertoast: ^8.0.9
   material_floating_search_bar_2: ^0.5.0
   http: ^0.13.6
