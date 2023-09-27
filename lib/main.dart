@@ -32,7 +32,7 @@ import 'package:udemy_flutter_sns/views/main/profile_screen.dart'; // CupertinoW
 Future<void> main() async {
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await dotenv.load();
+    await dotenv.load(fileName: ".env");
 
     // Firebaseがまだ初期化されていない場合のみ、初期化を行う
     if (Firebase.apps.isEmpty) {
