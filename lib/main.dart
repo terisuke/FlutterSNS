@@ -33,20 +33,8 @@ Future<void> main() async {
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
     await dotenv.load(fileName: "env");
-
-    // Firebaseがまだ初期化されていない場合のみ、初期化を行う
-    if (Firebase.apps.isEmpty) {
-      try {
-        print("Firebase initializing..."); // ← この行を追加
-        await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-        print("Firebase initialized successfully."); // ← この行を追加
-      } catch (e, stackTrace) {
-        print('Firebase initialization failed');
-        print('Error: $e');
-        print('StackTrace: $stackTrace');
-        return;
-      }
-    }
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
 
     runApp(const ProviderScope(child: MyApp()));
   }, (error, stackTrace) {
