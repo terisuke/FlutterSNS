@@ -58,12 +58,13 @@ class MuteUsersPage extends ConsumerWidget {
           : Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                RoundedButton(
-                    onPressed: () async =>
-                        await muteUsersModel.getMuteUsers(mainModel: mainModel),
-                    widthRate: 0.85,
-                    color: Colors.blue,
-                    text: showMuteUsersText)
+                Center(
+                  child: RoundedButton(
+                      onPressed: () async => await muteUsersModel.getMuteUsers(mainModel: mainModel),
+                      widthRate: 0.85,
+                      color: Colors.blue,
+                      text: showMuteUsersText),
+                )
               ],
             ),
     );

@@ -107,7 +107,7 @@ String returnJpgFileName() => "${returnUuidV4()}.jpg";
 String updateEmailLagMsg({required String email}) =>
     "$email('更新が反映されるまで時間がかかる可能性がございます')";
 // name
-const String aliceName = "Alice";
+const String aliceName = "Noname";
 String returnReportContentString(
     {required List<String> selectedReportContents}) {
   String reportContentString = "";

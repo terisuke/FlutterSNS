@@ -2,11 +2,13 @@
 import 'dart:async';
 // flutter
 import 'package:flutter/material.dart';
+// options
+import 'firebase_options.dart';
 // packages
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:udemy_flutter_sns/constants/others.dart';
@@ -15,8 +17,6 @@ import 'package:udemy_flutter_sns/models/main_model.dart';
 import 'package:udemy_flutter_sns/models/mute_users_model.dart';
 import 'package:udemy_flutter_sns/models/sns_bottom_navigation_bar_model.dart';
 import 'package:udemy_flutter_sns/models/themes_model.dart';
-// options
-import 'firebase_options.dart';
 // constants
 import 'package:udemy_flutter_sns/constants/strings.dart';
 import 'package:udemy_flutter_sns/constants/themes.dart';
@@ -27,33 +27,38 @@ import 'package:udemy_flutter_sns/details/sns_bottom_navigation_bar.dart';
 import 'package:udemy_flutter_sns/views/login_page.dart';
 import 'package:udemy_flutter_sns/views/main/home_screen.dart';
 import 'package:udemy_flutter_sns/views/main/search_page.dart';
-import 'package:udemy_flutter_sns/views/main/profile_screen.dart';
+import 'package:udemy_flutter_sns/views/main/profile_screen.dart'; // CupertinoWidgetsのためにimport追加
 
 Future<void> main() async {
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await dotenv.load();
+    await dotenv.load(fileName: ".env");
     await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    // Dartのエラーを報告
-    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+        options: DefaultFirebaseOptions.currentPlatform);
+
     runApp(const ProviderScope(child: MyApp()));
   }, (error, stackTrace) {
-    FirebaseCrashlytics.instance.recordError(error, stackTrace);
+    if (Firebase.apps.isNotEmpty) {
+      FirebaseCrashlytics.instance.recordError(error, stackTrace);
+    } else {
+      print('Error occurred, but Firebase is not initialized');
+      print('Error: $error');
+      print('StackTrace: $stackTrace');
+    }
   });
 }
 
 class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // MyAppが起動した最初の時にユーザーがログインしているかどうかの確認
-    // この変数を1回きり
+    // FirebaseCrashlyticsインスタンスをここで設定します。
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
     final User? onceUser = FirebaseAuth.instance.currentUser;
     final ThemeModel themeModel = ref.watch(themeProvider);
+
+    // FutureBuilderは必要ないため、直接MaterialAppを返します。
     return MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
@@ -64,12 +69,33 @@ class MyApp extends ConsumerWidget {
           : lightThemeData(context: context),
       home: onceUser == null
           ? const LoginPage()
-          : // ユーザーが存在していない
-          onceUser.emailVerified
+          : onceUser.emailVerified
               ? MyHomePage(
                   themeModel: themeModel,
-                ) // ユーザーは存在していて、メールアドレスが認証されている
-              : const VerifyEmailPage(), // ユーザーは存在しているが、メールアドレスが認証されていない
+                )
+              : const VerifyEmailPage(),
+    );
+  }
+}
+
+class SomethingWentWrong extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text('Something went wrong!'),
+      ),
+    );
+  }
+}
+
+class Loading extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }
@@ -98,7 +124,8 @@ class MyHomePage extends ConsumerWidget {
                 // 注意：ページじゃないのでScaffold
                 HomeScreen(
                   mainModel: mainModel,
-                  themeModel: themeModel, muteUsersModel: MuteUsersModel(),
+                  themeModel: themeModel,
+                  muteUsersModel: MuteUsersModel(),
                 ),
                 SearchPage(
                   mainModel: mainModel,
