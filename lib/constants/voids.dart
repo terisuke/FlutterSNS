@@ -20,26 +20,6 @@ void showFlash(
     required Widget Function(BuildContext, FlashController<Object?>,
             void Function(void Function()))?
         primaryActionBuilder}) {
- 
-    // 以前のコード①
-    // context.showFlashBar(
-    //   content: Form(
-    //       child: TextFormField(
-    //     controller: textEditingController,
-    //     style: const TextStyle(fontWeight: FontWeight.bold),
-    //     onChanged: onChanged,
-    //     maxLength: 10,
-    //   )),
-    //   title: Text(titleString),
-    //   primaryActionBuilder: primaryActionBuilder,
-    //   // 閉じる時の動作
-    //   negativeActionBuilder: (context, controller, _) {
-    //     return InkWell(
-    //       child: const Icon(Icons.close),
-    //       onTap: () async => await controller.dismiss(),
-    //     );
-    //   },
-    // );
     context.showFlash(
     builder: (context, controller) {
       return FlashBar(
@@ -137,25 +117,6 @@ void showFlash(
     required Widget Function(BuildContext, FlashController<Object?>,
             void Function(void Function()))?
         primaryActionBuilder}) {
-  // 以前のコード②
-  // context.showFlashBar(
-  //   content: Form(
-  //       child: TextFormField(
-  //     controller: textEditingController,
-  //     style: const TextStyle(fontWeight: FontWeight.bold),
-  //     onChanged: onChanged,
-  //     maxLength: 10,
-  //   )),
-  //   title: Text(titleString),
-  //   primaryActionBuilder: primaryActionBuilder,
-  //   // 閉じる時の動作
-  //   negativeActionBuilder: (context, controller, _) {
-  //     return InkWell(
-  //       child: const Icon(Icons.close),
-  //       onTap: () async => await controller.dismiss(),
-  //     );
-  //   },
-  // );
  context.showFlash(
     builder: (context, controller) {
       return FlashBar(
@@ -201,27 +162,10 @@ void showFlash(
       required Widget Function(BuildContext, FlashController<Object?>,
               void Function(void Function()))?
           positiveActionBuilder}) {
-    // 以前のコード③
-    // context.showFlashBar(
-    //   content: content,
-    //   backgroundColor: const Color.fromRGBO(23, 23, 59, 0.9),
-    //   negativeActionBuilder: (_, controller, __) {
-    //     return TextButton(
-    //         onPressed: () async => await controller.dismiss(),
-    //         child: const Text(backText));
-    //   },
-    //   positiveActionBuilder: positiveActionBuilder,
-    // );
     context.showFlash(
     builder: (context, controller) {
       return FlashBar(
         controller: controller,
-        // backgroundGradient: LinearGradient(
-        //   colors: [
-        //     const Color.fromRGBO(23, 23, 59, 0.9),
-        //     const Color.fromRGBO(23, 23, 59, 0.9)
-        //   ],
-        // // ),
         content: content,
         actions: [
           (positiveActionBuilder != null) ?

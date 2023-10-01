@@ -19,7 +19,6 @@ class CreatePostModel extends ChangeNotifier {
   String text = "";
   void showPostFlashBar(
       {required BuildContext context, required MainModel mainModel}) {
-        // NOTE：　最新版(バージョン3系)では恐らく下記のような感じだと思います
       context.showFlash(
         builder: (context, controller) {
           return FlashBar(
@@ -56,40 +55,6 @@ class CreatePostModel extends ChangeNotifier {
         },
         persistent: true,
       );
-    // context.showFlashBar(
-    //   persistent: true,
-    //   content: Form(
-    //       child: TextFormField(
-    //     controller: textEditingController,
-    //     style: const TextStyle(fontWeight: FontWeight.bold),
-    //     onChanged: (value) => text = value,
-    //     maxLength: 10,
-    //   )),
-    //   title: const Text(createPostTitle),
-    //   primaryActionBuilder: (context, controller, _) {
-    //     return InkWell(
-    //       onTap: () async {
-    //         if (textEditingController.text.isNotEmpty) {
-    //           // メインの動作
-    //           await createPost(mainModel: mainModel);
-    //           await controller.dismiss();
-    //           text = "";
-    //         } else {
-    //           // 何もしない
-    //           await controller.dismiss();
-    //         }
-    //       },
-    //       child: const Icon(Icons.send),
-    //     );
-    //   },
-    //   // 閉じる時の動作
-    //   negativeActionBuilder: (context, controller, _) {
-    //     return InkWell(
-    //       child: const Icon(Icons.close),
-    //       onTap: () async => await controller.dismiss(),
-    //     );
-    //   },
-    // );
   }
 
   Future<void> createPost({required MainModel mainModel, required  currentUserDoc}) async {

@@ -12,6 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:udemy_flutter_sns/constants/others.dart';
+import 'package:sentry/sentry.dart';
 // models
 import 'package:udemy_flutter_sns/models/main_model.dart';
 import 'package:udemy_flutter_sns/models/mute_users_model.dart';
@@ -33,22 +34,13 @@ Future<void> main() async {
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
     await dotenv.load(fileName: ".env");
-
-    // Firebaseがまだ初期化されていない場合のみ、初期化を行う
-    if (Firebase.apps.isEmpty) {
-      try {
-        print("Firebase initializing..."); // ← この行を追加
-        await Firebase.initializeApp(
-            options: DefaultFirebaseOptions.currentPlatform);
-        print("Firebase initialized successfully."); // ← この行を追加
-      } catch (e, stackTrace) {
-        print('Firebase initialization failed');
-        print('Error: $e');
-        print('StackTrace: $stackTrace');
-        return;
-      }
-    }
-
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    await Sentry.init(
+      (options) {
+        options.dsn = dotenv.env['SENTRY_DSN']!;
+      },
+      appRunner: () => runApp(const ProviderScope(child: MyApp())),
+    );
     runApp(const ProviderScope(child: MyApp()));
   }, (error, stackTrace) {
     if (Firebase.apps.isNotEmpty) {
@@ -60,17 +52,15 @@ Future<void> main() async {
     }
   });
 }
+
 class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // FirebaseCrashlyticsインスタンスをここで設定します。
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
     final User? onceUser = FirebaseAuth.instance.currentUser;
     final ThemeModel themeModel = ref.watch(themeProvider);
-
-    // FutureBuilderは必要ないため、直接MaterialAppを返します。
     return MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
@@ -118,7 +108,6 @@ class MyHomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // MainModelが起動し、init()が実行されます
     final MainModel mainModel = ref.watch(mainProvider);
     final SNSBottomNavigationBarModel snsBottomNavigationBarModel =
         ref.watch(snsBottomNavigationBarProvider);
