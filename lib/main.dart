@@ -1,6 +1,7 @@
 //dart
 import 'dart:async';
 // flutter
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart'; 
 // options
 import 'firebase_options.dart';
@@ -41,9 +42,8 @@ Future<void> main() async {
       },
       appRunner: () => runApp(const ProviderScope(child: MyApp())),
     );
-    runApp(const ProviderScope(child: MyApp()));
   }, (error, stackTrace) {
-    if (Firebase.apps.isNotEmpty) {
+    if (!kIsWeb && Firebase.apps.isNotEmpty) {
       FirebaseCrashlytics.instance.recordError(error, stackTrace);
     } else {
       print('Error occurred, but Firebase is not initialized');
@@ -58,7 +58,10 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    if (!kIsWeb) {
+      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    }
+
     final User? onceUser = FirebaseAuth.instance.currentUser;
     final ThemeModel themeModel = ref.watch(themeProvider);
     return MaterialApp(
