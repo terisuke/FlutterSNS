@@ -1,0 +1,10 @@
+{
+    "@@locale": "en",
+    "deleteUser": "Delete User",
+    "deleteUserAlertMsg": "Are you sure?",
+    "userDeletedMsg": "User Deleted!!",
+    "signup": "signup",
+    "loading": "Loading",
+    "logoutedMsg": "You logouted!!. Hava a nice day!",
+    "requiresRecentLoginMsg": "Please Reauthenticate"
+}

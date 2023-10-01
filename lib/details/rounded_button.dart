@@ -24,7 +24,7 @@ class RoundedButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.0),
         child: ElevatedButton(
           onPressed: onPressed,
-          style: ElevatedButton.styleFrom(primary: color),
+          style: ElevatedButton.styleFrom(backgroundColor: color),
           child: Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 16.0,

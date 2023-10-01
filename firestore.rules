@@ -1,33 +1,252 @@
-rules_version = '2';
+rules_version = '2'; 
 service cloud.firestore {
-  match /databases/{database}/documents {
-    match /users/{uid} {
-      allow read: if isAuthenticated();
-      allow create, delete: if isTheSameUserOrAdmin(uid);
-      match /tokens/{tokenId} {
-        allow read, create, delete: if isTheSameUserOrAdmin(uid);
-      }
-      match /followers/{followerUid} {
-        allow create, delete: if isTheSameUserOrAdmin(followerUid);
-      }
-      match /posts/{postId} {
-        allow read: if isAuthenticated()
-        allow create, delete: if isTheSameUserOrAdmin(uid);
-        match /postLikes/{activeUid} {
-         allow create, delete: if isTheSameUserOrAdmin(activeUid);
-        }
-      }
-    }
-  }
+
+   match /databases/{database}/documents {
+
+     match /{path=**}/posts/{postCommentId} {  // collectionGroupのルール
+
+       // allow read: if isAuthenticatedAndVerified();
+
+       allow read: if true;
+
+     }
+
+     match /{path=**}/postComments/{postCommentId} {  // collectionGroupのルール
+
+       allow read: if isAuthenticatedAndVerified();
+
+      //  allow read: if true;
+
+     }
+
+     match /{path=**}/postCommentReplies/{postCommentId} {  // collectionGroupのルール
+
+       allow read: if isAuthenticatedAndVerified();
+
+      //  allow read: if true;
+
+     }
+
+     match /deleteUsers/{uid} {
+
+       allow create: if isTheSameUserAndVerified(uid) && isValidUser(request.resource.data, uid);
+
+     }     match /users/{uid} {
+
+       allow read: if isAuthenticatedAndVerified();
+
+      //  allow read: if true;
+
+       allow update: if isAdmin();
+
+       allow create: if isTheSameUser(uid) && isValidUser(request.resource.data, uid);  // request.resource.dataは送信されたデータ
+
+       match /timelines/{postId} {
+
+         allow read: if isTheSameUserAndVerified(uid);         //作成と削除はcloudfunctionsで行う
+
+       }
+
+       match /userUpdateLogs/{userUpdateLogId} {
+
+         allow create: if isTheSameUserAndVerified(uid);  //本人しかLogを作成できない
+
+       }
+
+       match /userMutes/{activeUid} {
+
+         allow create, delete: if isTheSameUserAndVerified(activeUid);  //受動的なユーザーのみができる
+
+       }       // token関係
+
+       match /tokens/{tokenId} {
+
+         allow read, create, delete: if isTheSameUserAndVerified(uid);  //本人しかLogを作成できない
+
+       }       //架空のユーザーをフォローできないように
+
+       match /followers/{followerUid} {
+
+         allow create, delete: if isTheSameUserAndVerified(followerUid);
+
+       }
+
+       match /posts/{postId} {
+
+         allow read: if isAuthenticatedAndVerified();
+
+        //  allow read: if true;
+
+         allow update: if isAdmin();
+
+         allow create: if isTheSameUserAndVerified(uid) && isValidPost(request.resource.data, uid);
+
+         allow delete: if isTheSameUserAndVerified(uid);  //本人しかLogを作成できない
+
+         match /postReports/{postReportId} {
+
+           allow create: if isAuthenticatedAndVerified();
+
+         }
+
+         match /postLikes/{activeUid} {
+
+           allow create, delete: if isTheSameUserAndVerified(activeUid);
+
+         }
+
+         match /postMutes/{activeUid} {
+
+           allow create, delete: if isTheSameUserAndVerified(activeUid);
+
+         }
+
+         match /postComments/{postCommentId} {
+
+           allow read: if isAuthenticatedAndVerified();
+
+          //  allow read: if true;
+
+           allow create: if isValidPostComment(request.resource.data, uid);
+
+           // postCommentのdataのuidが現在ログインしている人と同じであれば消去できる
+
+           allow delete: if isTheSameUserAndVerified(request.resource.data.uid);
+
+           match /postCommentReports/{reportId} {
+
+             allow create: if isAuthenticatedAndVerified();
+
+           }
+
+           match /postCommentMutes/{activeUid} {
+
+             allow create, delete: if isTheSameUserAndVerified(activeUid);  //受動的なユーザーのみができる
+
+           }
+
+           match /postCommentLikes/{activeUid} {
+
+             allow create, delete: if isTheSameUserAndVerified(activeUid);
+
+           }
+
+           match /postCommentReplies/{postCommentReplyId} {
+
+             allow read: if isAuthenticatedAndVerified();
+
+            //  allow read: if true;
+
+             allow create: if isValidPostCommentReply(request.resource.data, uid);
+
+            // postCommentReplyのdataのuidが現在ログインしている人と同じであれば消去できる
+
+             allow delete: if isTheSameUserAndVerified(request.resource.data.uid);
+
+             match /postCommentReplyReports/{reportId} {
+
+               allow create: if isAuthenticatedAndVerified();
+
+             }
+
+             match /postCommentReplyMutes/{activeUid} {
+
+               allow create, delete: if isTheSameUserAndVerified(activeUid);
+
+             }
+
+             match /postCommentReplyLikes/{activeUid} {
+
+               allow create, delete: if isTheSameUserAndVerified(activeUid);
+
+             }
+
+           }
+
+         }
+
+       }
+
+     }
+
+   }
+
+   function isAuthenticatedAndVerified() {
+
+     return request.auth != null && isEmailVerifed();
+
+   }
+
+   function isTheSameUser(uid) {
+
+     return request.auth.uid == uid;
+
+   }
+
+   function isTheSameUserAndVerified(uid) {
+
+     return ( request.auth.uid == uid && isEmailVerifed() );
+
+   }
+
+   function isAdmin() {
+
+     return request.auth.uid == '4Sdbbrz2EwS2dGKKfeNuWCgTu683';
+
+   }
+
+   //メールアドレスを認証していないユーザーがFirestoreにdocumentを作成するのを制限するルール
+
+   function isEmailVerifed() {
+
+     return request.auth.token.email_verified;
+
+   }
  
-  function isAuthenticated() {
-    return request.auth != null;
+  function isValidUser(user,uid) {
+    // bool を return
+    return user.size() == 15 &&
+    "createdAt" in user && user.createdAt is timestamp && 
+    "followerCount" in user && user.followerCount is int &&
+    "followingCount" in user && user.followingCount is int && 
+    "isAdmin" in user && user.isAdmin is bool &&
+    "muteCount" in user && user.muteCount is int && 
+    "searchToken" in user && user.searchToken is map &&
+    "postCount" in user && user.postCount is int && 
+    "updatedAt" in user && user.updatedAt is timestamp && 
+    "userName" in user && user.userName is string && 
+    "userNameLanguageCode" in user && user.userNameLanguageCode is string &&
+    "userNameNagativeScore" in user && user.userNameNagativeScore is number && 
+    "userNamePositiveScore" in user && user.userNamePositiveScore is number && 
+    "userNameSentiment" in user && user.userNameSentiment is string &&
+    "uid" in user && user.uid is string && 
+    "userImageURL" in user && user.userImageURL is string &&
+    // documentに含まれているuidがFirebaseAuthのuidと一致する
+    user.uid == uid;
+  } 
+  function isValidPost(post,uid) {
+    return post.size() == 21 &&
+    "createdAt" in post && post.createdAt is timestamp && 
+    "hashTags" in post && post.hashTags is list &&
+    "imageURL" in post && post.imageURL is string &&
+    "likeCount" in post && post.likeCount is int &&
+    "text" in post && post.text is string && 
+    "textLanguageCode" in post && post.textLanguageCode is string &&
+    "textNagativeScore" in post && post.textNagativeScore is number && 
+    "textPositiveScore" in post && post.textPositiveScore is number && 
+    "textSentiment" in post && post.textSentiment is string &&
+    "postCommentCount" in post && post.postCommentCount is int &&
+    "postId" in post && post.postId is string &&
+    "reportCount" in post && post.reportCount is int &&
+    "muteCount" in post && post.muteCount is int &&
+    "uid" in post && post.uid is string && 
+    "userName" in post && post.userName is string && 
+    "userNameLanguageCode" in post && post.userNameLanguageCode is string &&
+    "userNameNagativeScore" in post && post.userNameNagativeScore is number && 
+    "userNamePositiveScore" in post && post.userNamePositiveScore is number && 
+    "userNameSentiment" in post && post.userNameSentiment is string &&
+    "userImageURL" in post && post.userImageURL is string &&
+    "updatedAt" in post && post.updatedAt is timestamp &&
+    post.uid == uid;
   }
-  function isTheSameUserOrAdmin(uid) {
-    return request.auth.uid == uid || isAdmin();
-  }
-  function isAdmin() {
-    return request.auth.uid = "xxxxxxxxxxxxxx";
-  }
- 
 }

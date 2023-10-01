@@ -1,25 +1,7 @@
-# udemy_flutter_sns
+# 卒業制作(仮)
 
-A new Flutter project.
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBWx92_9RN_PfAtoo8hftqw7rC4Bwx-w9A",
-  authDomain: "fir-flutter-77794.firebaseapp.com",
-  databaseURL: "https://fir-flutter-77794-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "fir-flutter-77794",
-  storageBucket: "fir-flutter-77794.appspot.com",
-  messagingSenderId: "488478065875",
-  appId: "1:488478065875:web:ae6b4d404f9455f186c026",
-  measurementId: "G-N1D1J4HQRV"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+-FirebaseとFlutterを使ったTwitterのようなテキスト型SNSです。
+Algolia<https://www.algolia.com/>を搭載し検索機能を、
+amazoncomprehend<https://aws.amazon.com/jp/comprehend/>を搭載し、ツイートの内容がどんな感情なのかを読み取れるようにしています。
+<!-- また、OpenAPIを使い呟きたい言葉からツイート内容を、ツイートしたい内容を添削しより相手に伝わる文章を提案する機能もついています。
+裏側ではPythonでユーザーごとの傾向を調べ、相手に沿った提案を行える機能を実装しています。 -->

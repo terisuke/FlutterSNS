@@ -21,11 +21,17 @@ FirestoreUser _$FirestoreUserFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$FirestoreUser {
   dynamic get createdAt => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
   int get followerCount => throw _privateConstructorUsedError;
   int get followingCount => throw _privateConstructorUsedError;
   bool get isAdmin => throw _privateConstructorUsedError;
+  int get muteCount => throw _privateConstructorUsedError;
+  Map<String, dynamic> get searchToken => throw _privateConstructorUsedError;
+  int get postCount => throw _privateConstructorUsedError;
   String get userName => throw _privateConstructorUsedError;
+  String get userNameLanguageCode => throw _privateConstructorUsedError;
+  double get userNameNagativeScore => throw _privateConstructorUsedError;
+  double get userNamePositiveScore => throw _privateConstructorUsedError;
+  String get userNameSentiment => throw _privateConstructorUsedError;
   String get userImageURL => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
   dynamic get updatedAt => throw _privateConstructorUsedError;
@@ -44,11 +50,17 @@ abstract class $FirestoreUserCopyWith<$Res> {
   @useResult
   $Res call(
       {dynamic createdAt,
-      String email,
       int followerCount,
       int followingCount,
       bool isAdmin,
+      int muteCount,
+      Map<String, dynamic> searchToken,
+      int postCount,
       String userName,
+      String userNameLanguageCode,
+      double userNameNagativeScore,
+      double userNamePositiveScore,
+      String userNameSentiment,
       String userImageURL,
       String uid,
       dynamic updatedAt});
@@ -68,11 +80,17 @@ class _$FirestoreUserCopyWithImpl<$Res, $Val extends FirestoreUser>
   @override
   $Res call({
     Object? createdAt = freezed,
-    Object? email = null,
     Object? followerCount = null,
     Object? followingCount = null,
     Object? isAdmin = null,
+    Object? muteCount = null,
+    Object? searchToken = null,
+    Object? postCount = null,
     Object? userName = null,
+    Object? userNameLanguageCode = null,
+    Object? userNameNagativeScore = null,
+    Object? userNamePositiveScore = null,
+    Object? userNameSentiment = null,
     Object? userImageURL = null,
     Object? uid = null,
     Object? updatedAt = freezed,
@@ -82,10 +100,6 @@ class _$FirestoreUserCopyWithImpl<$Res, $Val extends FirestoreUser>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
       followerCount: null == followerCount
           ? _value.followerCount
           : followerCount // ignore: cast_nullable_to_non_nullable
@@ -98,9 +112,37 @@ class _$FirestoreUserCopyWithImpl<$Res, $Val extends FirestoreUser>
           ? _value.isAdmin
           : isAdmin // ignore: cast_nullable_to_non_nullable
               as bool,
+      muteCount: null == muteCount
+          ? _value.muteCount
+          : muteCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      searchToken: null == searchToken
+          ? _value.searchToken
+          : searchToken // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+      postCount: null == postCount
+          ? _value.postCount
+          : postCount // ignore: cast_nullable_to_non_nullable
+              as int,
       userName: null == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
+              as String,
+      userNameLanguageCode: null == userNameLanguageCode
+          ? _value.userNameLanguageCode
+          : userNameLanguageCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      userNameNagativeScore: null == userNameNagativeScore
+          ? _value.userNameNagativeScore
+          : userNameNagativeScore // ignore: cast_nullable_to_non_nullable
+              as double,
+      userNamePositiveScore: null == userNamePositiveScore
+          ? _value.userNamePositiveScore
+          : userNamePositiveScore // ignore: cast_nullable_to_non_nullable
+              as double,
+      userNameSentiment: null == userNameSentiment
+          ? _value.userNameSentiment
+          : userNameSentiment // ignore: cast_nullable_to_non_nullable
               as String,
       userImageURL: null == userImageURL
           ? _value.userImageURL
@@ -128,11 +170,17 @@ abstract class _$$_FirestoreUserCopyWith<$Res>
   @useResult
   $Res call(
       {dynamic createdAt,
-      String email,
       int followerCount,
       int followingCount,
       bool isAdmin,
+      int muteCount,
+      Map<String, dynamic> searchToken,
+      int postCount,
       String userName,
+      String userNameLanguageCode,
+      double userNameNagativeScore,
+      double userNamePositiveScore,
+      String userNameSentiment,
       String userImageURL,
       String uid,
       dynamic updatedAt});
@@ -150,11 +198,17 @@ class __$$_FirestoreUserCopyWithImpl<$Res>
   @override
   $Res call({
     Object? createdAt = freezed,
-    Object? email = null,
     Object? followerCount = null,
     Object? followingCount = null,
     Object? isAdmin = null,
+    Object? muteCount = null,
+    Object? searchToken = null,
+    Object? postCount = null,
     Object? userName = null,
+    Object? userNameLanguageCode = null,
+    Object? userNameNagativeScore = null,
+    Object? userNamePositiveScore = null,
+    Object? userNameSentiment = null,
     Object? userImageURL = null,
     Object? uid = null,
     Object? updatedAt = freezed,
@@ -164,10 +218,6 @@ class __$$_FirestoreUserCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
       followerCount: null == followerCount
           ? _value.followerCount
           : followerCount // ignore: cast_nullable_to_non_nullable
@@ -180,9 +230,37 @@ class __$$_FirestoreUserCopyWithImpl<$Res>
           ? _value.isAdmin
           : isAdmin // ignore: cast_nullable_to_non_nullable
               as bool,
+      muteCount: null == muteCount
+          ? _value.muteCount
+          : muteCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      searchToken: null == searchToken
+          ? _value._searchToken
+          : searchToken // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+      postCount: null == postCount
+          ? _value.postCount
+          : postCount // ignore: cast_nullable_to_non_nullable
+              as int,
       userName: null == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
+              as String,
+      userNameLanguageCode: null == userNameLanguageCode
+          ? _value.userNameLanguageCode
+          : userNameLanguageCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      userNameNagativeScore: null == userNameNagativeScore
+          ? _value.userNameNagativeScore
+          : userNameNagativeScore // ignore: cast_nullable_to_non_nullable
+              as double,
+      userNamePositiveScore: null == userNamePositiveScore
+          ? _value.userNamePositiveScore
+          : userNamePositiveScore // ignore: cast_nullable_to_non_nullable
+              as double,
+      userNameSentiment: null == userNameSentiment
+          ? _value.userNameSentiment
+          : userNameSentiment // ignore: cast_nullable_to_non_nullable
               as String,
       userImageURL: null == userImageURL
           ? _value.userImageURL
@@ -205,14 +283,21 @@ class __$$_FirestoreUserCopyWithImpl<$Res>
 class _$_FirestoreUser implements _FirestoreUser {
   const _$_FirestoreUser(
       {required this.createdAt,
-      required this.email,
       required this.followerCount,
       required this.followingCount,
       required this.isAdmin,
+      required this.muteCount,
+      required final Map<String, dynamic> searchToken,
+      required this.postCount,
       required this.userName,
+      required this.userNameLanguageCode,
+      required this.userNameNagativeScore,
+      required this.userNamePositiveScore,
+      required this.userNameSentiment,
       required this.userImageURL,
       required this.uid,
-      required this.updatedAt});
+      required this.updatedAt})
+      : _searchToken = searchToken;
 
   factory _$_FirestoreUser.fromJson(Map<String, dynamic> json) =>
       _$$_FirestoreUserFromJson(json);
@@ -220,15 +305,33 @@ class _$_FirestoreUser implements _FirestoreUser {
   @override
   final dynamic createdAt;
   @override
-  final String email;
-  @override
   final int followerCount;
   @override
   final int followingCount;
   @override
   final bool isAdmin;
   @override
+  final int muteCount;
+  final Map<String, dynamic> _searchToken;
+  @override
+  Map<String, dynamic> get searchToken {
+    if (_searchToken is EqualUnmodifiableMapView) return _searchToken;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_searchToken);
+  }
+
+  @override
+  final int postCount;
+  @override
   final String userName;
+  @override
+  final String userNameLanguageCode;
+  @override
+  final double userNameNagativeScore;
+  @override
+  final double userNamePositiveScore;
+  @override
+  final String userNameSentiment;
   @override
   final String userImageURL;
   @override
@@ -238,7 +341,7 @@ class _$_FirestoreUser implements _FirestoreUser {
 
   @override
   String toString() {
-    return 'FirestoreUser(createdAt: $createdAt, email: $email, followerCount: $followerCount, followingCount: $followingCount, isAdmin: $isAdmin, userName: $userName, userImageURL: $userImageURL, uid: $uid, updatedAt: $updatedAt)';
+    return 'FirestoreUser(createdAt: $createdAt, followerCount: $followerCount, followingCount: $followingCount, isAdmin: $isAdmin, muteCount: $muteCount, searchToken: $searchToken, postCount: $postCount, userName: $userName, userNameLanguageCode: $userNameLanguageCode, userNameNagativeScore: $userNameNagativeScore, userNamePositiveScore: $userNamePositiveScore, userNameSentiment: $userNameSentiment, userImageURL: $userImageURL, uid: $uid, updatedAt: $updatedAt)';
   }
 
   @override
@@ -247,14 +350,27 @@ class _$_FirestoreUser implements _FirestoreUser {
         (other.runtimeType == runtimeType &&
             other is _$_FirestoreUser &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
-            (identical(other.email, email) || other.email == email) &&
             (identical(other.followerCount, followerCount) ||
                 other.followerCount == followerCount) &&
             (identical(other.followingCount, followingCount) ||
                 other.followingCount == followingCount) &&
             (identical(other.isAdmin, isAdmin) || other.isAdmin == isAdmin) &&
+            (identical(other.muteCount, muteCount) ||
+                other.muteCount == muteCount) &&
+            const DeepCollectionEquality()
+                .equals(other._searchToken, _searchToken) &&
+            (identical(other.postCount, postCount) ||
+                other.postCount == postCount) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
+            (identical(other.userNameLanguageCode, userNameLanguageCode) ||
+                other.userNameLanguageCode == userNameLanguageCode) &&
+            (identical(other.userNameNagativeScore, userNameNagativeScore) ||
+                other.userNameNagativeScore == userNameNagativeScore) &&
+            (identical(other.userNamePositiveScore, userNamePositiveScore) ||
+                other.userNamePositiveScore == userNamePositiveScore) &&
+            (identical(other.userNameSentiment, userNameSentiment) ||
+                other.userNameSentiment == userNameSentiment) &&
             (identical(other.userImageURL, userImageURL) ||
                 other.userImageURL == userImageURL) &&
             (identical(other.uid, uid) || other.uid == uid) &&
@@ -266,11 +382,17 @@ class _$_FirestoreUser implements _FirestoreUser {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(createdAt),
-      email,
       followerCount,
       followingCount,
       isAdmin,
+      muteCount,
+      const DeepCollectionEquality().hash(_searchToken),
+      postCount,
       userName,
+      userNameLanguageCode,
+      userNameNagativeScore,
+      userNamePositiveScore,
+      userNameSentiment,
       userImageURL,
       uid,
       const DeepCollectionEquality().hash(updatedAt));
@@ -292,11 +414,17 @@ class _$_FirestoreUser implements _FirestoreUser {
 abstract class _FirestoreUser implements FirestoreUser {
   const factory _FirestoreUser(
       {required final dynamic createdAt,
-      required final String email,
       required final int followerCount,
       required final int followingCount,
       required final bool isAdmin,
+      required final int muteCount,
+      required final Map<String, dynamic> searchToken,
+      required final int postCount,
       required final String userName,
+      required final String userNameLanguageCode,
+      required final double userNameNagativeScore,
+      required final double userNamePositiveScore,
+      required final String userNameSentiment,
       required final String userImageURL,
       required final String uid,
       required final dynamic updatedAt}) = _$_FirestoreUser;
@@ -307,15 +435,27 @@ abstract class _FirestoreUser implements FirestoreUser {
   @override
   dynamic get createdAt;
   @override
-  String get email;
-  @override
   int get followerCount;
   @override
   int get followingCount;
   @override
   bool get isAdmin;
   @override
+  int get muteCount;
+  @override
+  Map<String, dynamic> get searchToken;
+  @override
+  int get postCount;
+  @override
   String get userName;
+  @override
+  String get userNameLanguageCode;
+  @override
+  double get userNameNagativeScore;
+  @override
+  double get userNamePositiveScore;
+  @override
+  String get userNameSentiment;
   @override
   String get userImageURL;
   @override
