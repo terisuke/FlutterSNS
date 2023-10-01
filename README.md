@@ -1,4 +1,4 @@
-# Muskuerade
+# Muskuerade(マスカレード)
 
 -FirebaseとFlutterを使ったTwitterのようなテキスト型SNSです。
 Algolia<https://www.algolia.com/>を搭載し検索機能を、
