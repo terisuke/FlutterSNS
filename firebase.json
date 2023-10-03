@@ -1,7 +1,4 @@
 {
-  "database": {
-    "rules": "'/Users/teradakousuke/Developer/udemy_flutter_sns/firestore.rules'"
-  },
   "firestore": {
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
