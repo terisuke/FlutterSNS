@@ -23,6 +23,7 @@ class CreatePostModel extends ChangeNotifier {
     textEditingController.dispose(); // これを忘れるとメモリリークする
     super.dispose();
   }
+
   Future<void> getSuggestion() async {
     try {
       final suggestion =
@@ -34,6 +35,7 @@ class CreatePostModel extends ChangeNotifier {
       print('Error getting suggestion: $e');
     }
   }
+
   Future<void> reviseText() async {
     try {
       final revisedText =
@@ -45,7 +47,6 @@ class CreatePostModel extends ChangeNotifier {
       print('Error revising text: $e');
     }
   }
-
 
   void showPostFlashBar(
       {required BuildContext context, required MainModel mainModel}) {
