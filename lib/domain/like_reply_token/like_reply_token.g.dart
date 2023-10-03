@@ -6,8 +6,8 @@ part of 'like_reply_token.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_LikeReplyToken _$$_LikeReplyTokenFromJson(Map<String, dynamic> json) =>
-    _$_LikeReplyToken(
+_$LikeReplyTokenImpl _$$LikeReplyTokenImplFromJson(Map<String, dynamic> json) =>
+    _$LikeReplyTokenImpl(
       activeUid: json['activeUid'] as String,
       createdAt: json['createdAt'],
       passiveUid: json['passiveUid'] as String,
@@ -17,7 +17,8 @@ _$_LikeReplyToken _$$_LikeReplyTokenFromJson(Map<String, dynamic> json) =>
       tokenType: json['tokenType'] as String,
     );
 
-Map<String, dynamic> _$$_LikeReplyTokenToJson(_$_LikeReplyToken instance) =>
+Map<String, dynamic> _$$LikeReplyTokenImplToJson(
+        _$LikeReplyTokenImpl instance) =>
     <String, dynamic>{
       'activeUid': instance.activeUid,
       'createdAt': instance.createdAt,

@@ -111,10 +111,11 @@ class _$QiitaUserCopyWithImpl<$Res, $Val extends QiitaUser>
 }
 
 /// @nodoc
-abstract class _$$_QiitaUserCopyWith<$Res> implements $QiitaUserCopyWith<$Res> {
-  factory _$$_QiitaUserCopyWith(
-          _$_QiitaUser value, $Res Function(_$_QiitaUser) then) =
-      __$$_QiitaUserCopyWithImpl<$Res>;
+abstract class _$$QiitaUserImplCopyWith<$Res>
+    implements $QiitaUserCopyWith<$Res> {
+  factory _$$QiitaUserImplCopyWith(
+          _$QiitaUserImpl value, $Res Function(_$QiitaUserImpl) then) =
+      __$$QiitaUserImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -129,11 +130,11 @@ abstract class _$$_QiitaUserCopyWith<$Res> implements $QiitaUserCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_QiitaUserCopyWithImpl<$Res>
-    extends _$QiitaUserCopyWithImpl<$Res, _$_QiitaUser>
-    implements _$$_QiitaUserCopyWith<$Res> {
-  __$$_QiitaUserCopyWithImpl(
-      _$_QiitaUser _value, $Res Function(_$_QiitaUser) _then)
+class __$$QiitaUserImplCopyWithImpl<$Res>
+    extends _$QiitaUserCopyWithImpl<$Res, _$QiitaUserImpl>
+    implements _$$QiitaUserImplCopyWith<$Res> {
+  __$$QiitaUserImplCopyWithImpl(
+      _$QiitaUserImpl _value, $Res Function(_$QiitaUserImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -148,7 +149,7 @@ class __$$_QiitaUserCopyWithImpl<$Res>
     Object? permanent_id = null,
     Object? profile_image_url = null,
   }) {
-    return _then(_$_QiitaUser(
+    return _then(_$QiitaUserImpl(
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -187,9 +188,9 @@ class __$$_QiitaUserCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_QiitaUser implements _QiitaUser {
-  const _$_QiitaUser(
-      {required this.description,
+class _$QiitaUserImpl implements _QiitaUser {
+  const _$QiitaUserImpl(
+      {this.description = '',
       required this.followees_count,
       required this.followers_count,
       required this.id,
@@ -198,10 +199,11 @@ class _$_QiitaUser implements _QiitaUser {
       required this.permanent_id,
       required this.profile_image_url});
 
-  factory _$_QiitaUser.fromJson(Map<String, dynamic> json) =>
-      _$$_QiitaUserFromJson(json);
+  factory _$QiitaUserImpl.fromJson(Map<String, dynamic> json) =>
+      _$$QiitaUserImplFromJson(json);
 
   @override
+  @JsonKey()
   final String description;
   @override
   final int followees_count;
@@ -227,7 +229,7 @@ class _$_QiitaUser implements _QiitaUser {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_QiitaUser &&
+            other is _$QiitaUserImpl &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.followees_count, followees_count) ||
@@ -252,12 +254,12 @@ class _$_QiitaUser implements _QiitaUser {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_QiitaUserCopyWith<_$_QiitaUser> get copyWith =>
-      __$$_QiitaUserCopyWithImpl<_$_QiitaUser>(this, _$identity);
+  _$$QiitaUserImplCopyWith<_$QiitaUserImpl> get copyWith =>
+      __$$QiitaUserImplCopyWithImpl<_$QiitaUserImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_QiitaUserToJson(
+    return _$$QiitaUserImplToJson(
       this,
     );
   }
@@ -265,17 +267,17 @@ class _$_QiitaUser implements _QiitaUser {
 
 abstract class _QiitaUser implements QiitaUser {
   const factory _QiitaUser(
-      {required final String description,
+      {final String description,
       required final int followees_count,
       required final int followers_count,
       required final String id,
       required final int items_count,
       required final String name,
       required final int permanent_id,
-      required final String profile_image_url}) = _$_QiitaUser;
+      required final String profile_image_url}) = _$QiitaUserImpl;
 
   factory _QiitaUser.fromJson(Map<String, dynamic> json) =
-      _$_QiitaUser.fromJson;
+      _$QiitaUserImpl.fromJson;
 
   @override
   String get description;
@@ -295,6 +297,6 @@ abstract class _QiitaUser implements QiitaUser {
   String get profile_image_url;
   @override
   @JsonKey(ignore: true)
-  _$$_QiitaUserCopyWith<_$_QiitaUser> get copyWith =>
+  _$$QiitaUserImplCopyWith<_$QiitaUserImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

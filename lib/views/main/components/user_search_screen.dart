@@ -27,20 +27,23 @@ class UserSearchScreen extends ConsumerWidget {
           await userSearchModel.opearation(
               muteUids: mainModel.muteUids, mutePostIds: mainModel.mutePostIds);
         },
-        child: ListView.builder(
-            itemCount: userDocs.length,
-            itemBuilder: ((context, index) {
-              // usersの配列から1個1個取得している
-              final userDoc = userDocs[index];
-              final FirestoreUser firestoreUser =
-                  FirestoreUser.fromJson(userDoc.data()!);
-              return ListTile(
-                  title: Text(firestoreUser.userName),
-                  onTap: () async =>
-                      await passiveUserProfileModel.onUserIconPressed(
-                          context: context,
-                          mainModel: mainModel,
-                          passiveUserDoc: userDoc));
-            })));
+        child: Padding(
+          padding: const EdgeInsets.only(top: 60.0),
+          child: ListView.builder(
+              itemCount: userDocs.length,
+              itemBuilder: ((context, index) {
+                // usersの配列から1個1個取得している
+                final userDoc = userDocs[index];
+                final FirestoreUser firestoreUser =
+                    FirestoreUser.fromJson(userDoc.data()!);
+                return ListTile(
+                    title: Text(firestoreUser.userName),
+                    onTap: () async =>
+                        await passiveUserProfileModel.onUserIconPressed(
+                            context: context,
+                            mainModel: mainModel,
+                            passiveUserDoc: userDoc));
+              })),
+        ));
   }
 }

@@ -6,7 +6,7 @@ part of 'reply.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Reply _$$_ReplyFromJson(Map<String, dynamic> json) => _$_Reply(
+_$ReplyImpl _$$ReplyImplFromJson(Map<String, dynamic> json) => _$ReplyImpl(
       createdAt: json['createdAt'],
       reply: json['reply'] as String,
       replyLanguageCode: json['replyLanguageCode'] as String,
@@ -29,7 +29,8 @@ _$_Reply _$$_ReplyFromJson(Map<String, dynamic> json) => _$_Reply(
       updatedAt: json['updatedAt'],
     );
 
-Map<String, dynamic> _$$_ReplyToJson(_$_Reply instance) => <String, dynamic>{
+Map<String, dynamic> _$$ReplyImplToJson(_$ReplyImpl instance) =>
+    <String, dynamic>{
       'createdAt': instance.createdAt,
       'reply': instance.reply,
       'replyLanguageCode': instance.replyLanguageCode,

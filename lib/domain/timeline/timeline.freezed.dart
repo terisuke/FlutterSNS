@@ -81,10 +81,11 @@ class _$TimelineCopyWithImpl<$Res, $Val extends Timeline>
 }
 
 /// @nodoc
-abstract class _$$_TimelineCopyWith<$Res> implements $TimelineCopyWith<$Res> {
-  factory _$$_TimelineCopyWith(
-          _$_Timeline value, $Res Function(_$_Timeline) then) =
-      __$$_TimelineCopyWithImpl<$Res>;
+abstract class _$$TimelineImplCopyWith<$Res>
+    implements $TimelineCopyWith<$Res> {
+  factory _$$TimelineImplCopyWith(
+          _$TimelineImpl value, $Res Function(_$TimelineImpl) then) =
+      __$$TimelineImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -92,11 +93,11 @@ abstract class _$$_TimelineCopyWith<$Res> implements $TimelineCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_TimelineCopyWithImpl<$Res>
-    extends _$TimelineCopyWithImpl<$Res, _$_Timeline>
-    implements _$$_TimelineCopyWith<$Res> {
-  __$$_TimelineCopyWithImpl(
-      _$_Timeline _value, $Res Function(_$_Timeline) _then)
+class __$$TimelineImplCopyWithImpl<$Res>
+    extends _$TimelineCopyWithImpl<$Res, _$TimelineImpl>
+    implements _$$TimelineImplCopyWith<$Res> {
+  __$$TimelineImplCopyWithImpl(
+      _$TimelineImpl _value, $Res Function(_$TimelineImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -107,7 +108,7 @@ class __$$_TimelineCopyWithImpl<$Res>
     Object? postCreatorUid = null,
     Object? postId = null,
   }) {
-    return _then(_$_Timeline(
+    return _then(_$TimelineImpl(
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -130,15 +131,15 @@ class __$$_TimelineCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Timeline implements _Timeline {
-  const _$_Timeline(
+class _$TimelineImpl implements _Timeline {
+  const _$TimelineImpl(
       {required this.createdAt,
       required this.isRead,
       required this.postCreatorUid,
       required this.postId});
 
-  factory _$_Timeline.fromJson(Map<String, dynamic> json) =>
-      _$$_TimelineFromJson(json);
+  factory _$TimelineImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TimelineImplFromJson(json);
 
   @override
   final dynamic createdAt;
@@ -159,7 +160,7 @@ class _$_Timeline implements _Timeline {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Timeline &&
+            other is _$TimelineImpl &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             (identical(other.isRead, isRead) || other.isRead == isRead) &&
             (identical(other.postCreatorUid, postCreatorUid) ||
@@ -179,12 +180,12 @@ class _$_Timeline implements _Timeline {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TimelineCopyWith<_$_Timeline> get copyWith =>
-      __$$_TimelineCopyWithImpl<_$_Timeline>(this, _$identity);
+  _$$TimelineImplCopyWith<_$TimelineImpl> get copyWith =>
+      __$$TimelineImplCopyWithImpl<_$TimelineImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TimelineToJson(
+    return _$$TimelineImplToJson(
       this,
     );
   }
@@ -195,9 +196,10 @@ abstract class _Timeline implements Timeline {
       {required final dynamic createdAt,
       required final bool isRead,
       required final String postCreatorUid,
-      required final String postId}) = _$_Timeline;
+      required final String postId}) = _$TimelineImpl;
 
-  factory _Timeline.fromJson(Map<String, dynamic> json) = _$_Timeline.fromJson;
+  factory _Timeline.fromJson(Map<String, dynamic> json) =
+      _$TimelineImpl.fromJson;
 
   @override
   dynamic get createdAt;
@@ -209,6 +211,6 @@ abstract class _Timeline implements Timeline {
   String get postId;
   @override
   @JsonKey(ignore: true)
-  _$$_TimelineCopyWith<_$_Timeline> get copyWith =>
+  _$$TimelineImplCopyWith<_$TimelineImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -194,9 +194,10 @@ class _$ReplyCopyWithImpl<$Res, $Val extends Reply>
 }
 
 /// @nodoc
-abstract class _$$_ReplyCopyWith<$Res> implements $ReplyCopyWith<$Res> {
-  factory _$$_ReplyCopyWith(_$_Reply value, $Res Function(_$_Reply) then) =
-      __$$_ReplyCopyWithImpl<$Res>;
+abstract class _$$ReplyImplCopyWith<$Res> implements $ReplyCopyWith<$Res> {
+  factory _$$ReplyImplCopyWith(
+          _$ReplyImpl value, $Res Function(_$ReplyImpl) then) =
+      __$$ReplyImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -223,9 +224,11 @@ abstract class _$$_ReplyCopyWith<$Res> implements $ReplyCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ReplyCopyWithImpl<$Res> extends _$ReplyCopyWithImpl<$Res, _$_Reply>
-    implements _$$_ReplyCopyWith<$Res> {
-  __$$_ReplyCopyWithImpl(_$_Reply _value, $Res Function(_$_Reply) _then)
+class __$$ReplyImplCopyWithImpl<$Res>
+    extends _$ReplyCopyWithImpl<$Res, _$ReplyImpl>
+    implements _$$ReplyImplCopyWith<$Res> {
+  __$$ReplyImplCopyWithImpl(
+      _$ReplyImpl _value, $Res Function(_$ReplyImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -252,7 +255,7 @@ class __$$_ReplyCopyWithImpl<$Res> extends _$ReplyCopyWithImpl<$Res, _$_Reply>
     Object? userImageURL = null,
     Object? updatedAt = freezed,
   }) {
-    return _then(_$_Reply(
+    return _then(_$ReplyImpl(
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -339,8 +342,8 @@ class __$$_ReplyCopyWithImpl<$Res> extends _$ReplyCopyWithImpl<$Res, _$_Reply>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Reply implements _Reply {
-  const _$_Reply(
+class _$ReplyImpl implements _Reply {
+  const _$ReplyImpl(
       {required this.createdAt,
       required this.reply,
       required this.replyLanguageCode,
@@ -362,8 +365,8 @@ class _$_Reply implements _Reply {
       required this.userImageURL,
       required this.updatedAt});
 
-  factory _$_Reply.fromJson(Map<String, dynamic> json) =>
-      _$$_ReplyFromJson(json);
+  factory _$ReplyImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ReplyImplFromJson(json);
 
   @override
   final dynamic createdAt;
@@ -415,7 +418,7 @@ class _$_Reply implements _Reply {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Reply &&
+            other is _$ReplyImpl &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             (identical(other.reply, reply) || other.reply == reply) &&
             (identical(other.replyLanguageCode, replyLanguageCode) ||
@@ -482,12 +485,12 @@ class _$_Reply implements _Reply {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ReplyCopyWith<_$_Reply> get copyWith =>
-      __$$_ReplyCopyWithImpl<_$_Reply>(this, _$identity);
+  _$$ReplyImplCopyWith<_$ReplyImpl> get copyWith =>
+      __$$ReplyImplCopyWithImpl<_$ReplyImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ReplyToJson(
+    return _$$ReplyImplToJson(
       this,
     );
   }
@@ -514,9 +517,9 @@ abstract class _Reply implements Reply {
       required final String userNameSentiment,
       required final String uid,
       required final String userImageURL,
-      required final dynamic updatedAt}) = _$_Reply;
+      required final dynamic updatedAt}) = _$ReplyImpl;
 
-  factory _Reply.fromJson(Map<String, dynamic> json) = _$_Reply.fromJson;
+  factory _Reply.fromJson(Map<String, dynamic> json) = _$ReplyImpl.fromJson;
 
   @override
   dynamic get createdAt;
@@ -560,6 +563,6 @@ abstract class _Reply implements Reply {
   dynamic get updatedAt;
   @override
   @JsonKey(ignore: true)
-  _$$_ReplyCopyWith<_$_Reply> get copyWith =>
+  _$$ReplyImplCopyWith<_$ReplyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

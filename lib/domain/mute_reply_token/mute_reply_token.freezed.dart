@@ -98,11 +98,11 @@ class _$MuteReplyTokenCopyWithImpl<$Res, $Val extends MuteReplyToken>
 }
 
 /// @nodoc
-abstract class _$$_MuteReplyTokenCopyWith<$Res>
+abstract class _$$MuteReplyTokenImplCopyWith<$Res>
     implements $MuteReplyTokenCopyWith<$Res> {
-  factory _$$_MuteReplyTokenCopyWith(
-          _$_MuteReplyToken value, $Res Function(_$_MuteReplyToken) then) =
-      __$$_MuteReplyTokenCopyWithImpl<$Res>;
+  factory _$$MuteReplyTokenImplCopyWith(_$MuteReplyTokenImpl value,
+          $Res Function(_$MuteReplyTokenImpl) then) =
+      __$$MuteReplyTokenImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -115,11 +115,11 @@ abstract class _$$_MuteReplyTokenCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_MuteReplyTokenCopyWithImpl<$Res>
-    extends _$MuteReplyTokenCopyWithImpl<$Res, _$_MuteReplyToken>
-    implements _$$_MuteReplyTokenCopyWith<$Res> {
-  __$$_MuteReplyTokenCopyWithImpl(
-      _$_MuteReplyToken _value, $Res Function(_$_MuteReplyToken) _then)
+class __$$MuteReplyTokenImplCopyWithImpl<$Res>
+    extends _$MuteReplyTokenCopyWithImpl<$Res, _$MuteReplyTokenImpl>
+    implements _$$MuteReplyTokenImplCopyWith<$Res> {
+  __$$MuteReplyTokenImplCopyWithImpl(
+      _$MuteReplyTokenImpl _value, $Res Function(_$MuteReplyTokenImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -132,7 +132,7 @@ class __$$_MuteReplyTokenCopyWithImpl<$Res>
     Object? tokenId = null,
     Object? tokenType = null,
   }) {
-    return _then(_$_MuteReplyToken(
+    return _then(_$MuteReplyTokenImpl(
       activeUid: null == activeUid
           ? _value.activeUid
           : activeUid // ignore: cast_nullable_to_non_nullable
@@ -163,8 +163,8 @@ class __$$_MuteReplyTokenCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_MuteReplyToken implements _MuteReplyToken {
-  const _$_MuteReplyToken(
+class _$MuteReplyTokenImpl implements _MuteReplyToken {
+  const _$MuteReplyTokenImpl(
       {required this.activeUid,
       required this.createdAt,
       required this.postCommentReplyId,
@@ -172,8 +172,8 @@ class _$_MuteReplyToken implements _MuteReplyToken {
       required this.tokenId,
       required this.tokenType});
 
-  factory _$_MuteReplyToken.fromJson(Map<String, dynamic> json) =>
-      _$$_MuteReplyTokenFromJson(json);
+  factory _$MuteReplyTokenImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MuteReplyTokenImplFromJson(json);
 
   @override
   final String activeUid;
@@ -197,7 +197,7 @@ class _$_MuteReplyToken implements _MuteReplyToken {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MuteReplyToken &&
+            other is _$MuteReplyTokenImpl &&
             (identical(other.activeUid, activeUid) ||
                 other.activeUid == activeUid) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
@@ -224,12 +224,13 @@ class _$_MuteReplyToken implements _MuteReplyToken {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MuteReplyTokenCopyWith<_$_MuteReplyToken> get copyWith =>
-      __$$_MuteReplyTokenCopyWithImpl<_$_MuteReplyToken>(this, _$identity);
+  _$$MuteReplyTokenImplCopyWith<_$MuteReplyTokenImpl> get copyWith =>
+      __$$MuteReplyTokenImplCopyWithImpl<_$MuteReplyTokenImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MuteReplyTokenToJson(
+    return _$$MuteReplyTokenImplToJson(
       this,
     );
   }
@@ -242,10 +243,10 @@ abstract class _MuteReplyToken implements MuteReplyToken {
       required final String postCommentReplyId,
       required final dynamic postCommentReplyRef,
       required final String tokenId,
-      required final String tokenType}) = _$_MuteReplyToken;
+      required final String tokenType}) = _$MuteReplyTokenImpl;
 
   factory _MuteReplyToken.fromJson(Map<String, dynamic> json) =
-      _$_MuteReplyToken.fromJson;
+      _$MuteReplyTokenImpl.fromJson;
 
   @override
   String get activeUid;
@@ -261,6 +262,6 @@ abstract class _MuteReplyToken implements MuteReplyToken {
   String get tokenType;
   @override
   @JsonKey(ignore: true)
-  _$$_MuteReplyTokenCopyWith<_$_MuteReplyToken> get copyWith =>
+  _$$MuteReplyTokenImplCopyWith<_$MuteReplyTokenImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

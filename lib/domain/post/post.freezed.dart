@@ -201,9 +201,10 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
 }
 
 /// @nodoc
-abstract class _$$_PostCopyWith<$Res> implements $PostCopyWith<$Res> {
-  factory _$$_PostCopyWith(_$_Post value, $Res Function(_$_Post) then) =
-      __$$_PostCopyWithImpl<$Res>;
+abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
+  factory _$$PostImplCopyWith(
+          _$PostImpl value, $Res Function(_$PostImpl) then) =
+      __$$PostImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -231,9 +232,10 @@ abstract class _$$_PostCopyWith<$Res> implements $PostCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res, _$_Post>
-    implements _$$_PostCopyWith<$Res> {
-  __$$_PostCopyWithImpl(_$_Post _value, $Res Function(_$_Post) _then)
+class __$$PostImplCopyWithImpl<$Res>
+    extends _$PostCopyWithImpl<$Res, _$PostImpl>
+    implements _$$PostImplCopyWith<$Res> {
+  __$$PostImplCopyWithImpl(_$PostImpl _value, $Res Function(_$PostImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -261,7 +263,7 @@ class __$$_PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res, _$_Post>
     Object? userImageURL = null,
     Object? updatedAt = freezed,
   }) {
-    return _then(_$_Post(
+    return _then(_$PostImpl(
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -352,8 +354,8 @@ class __$$_PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res, _$_Post>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Post implements _Post {
-  const _$_Post(
+class _$PostImpl implements _Post {
+  const _$PostImpl(
       {required this.createdAt,
       required final List<String> hashTags,
       required this.imageURL,
@@ -377,7 +379,8 @@ class _$_Post implements _Post {
       required this.updatedAt})
       : _hashTags = hashTags;
 
-  factory _$_Post.fromJson(Map<String, dynamic> json) => _$$_PostFromJson(json);
+  factory _$PostImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PostImplFromJson(json);
 
   @override
   final dynamic createdAt;
@@ -437,7 +440,7 @@ class _$_Post implements _Post {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Post &&
+            other is _$PostImpl &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality().equals(other._hashTags, _hashTags) &&
             (identical(other.imageURL, imageURL) ||
@@ -506,12 +509,12 @@ class _$_Post implements _Post {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PostCopyWith<_$_Post> get copyWith =>
-      __$$_PostCopyWithImpl<_$_Post>(this, _$identity);
+  _$$PostImplCopyWith<_$PostImpl> get copyWith =>
+      __$$PostImplCopyWithImpl<_$PostImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PostToJson(
+    return _$$PostImplToJson(
       this,
     );
   }
@@ -539,9 +542,9 @@ abstract class _Post implements Post {
       required final double userNamePositiveScore,
       required final String userNameSentiment,
       required final String userImageURL,
-      required final dynamic updatedAt}) = _$_Post;
+      required final dynamic updatedAt}) = _$PostImpl;
 
-  factory _Post.fromJson(Map<String, dynamic> json) = _$_Post.fromJson;
+  factory _Post.fromJson(Map<String, dynamic> json) = _$PostImpl.fromJson;
 
   @override
   dynamic get createdAt;
@@ -587,5 +590,6 @@ abstract class _Post implements Post {
   dynamic get updatedAt;
   @override
   @JsonKey(ignore: true)
-  _$$_PostCopyWith<_$_Post> get copyWith => throw _privateConstructorUsedError;
+  _$$PostImplCopyWith<_$PostImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

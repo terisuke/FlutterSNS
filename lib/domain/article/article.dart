@@ -11,8 +11,8 @@ abstract class Article with _$Article {
       required int likes_count,
       required bool private,
       required int reactions_count,
-      required String title,
-      required String url,
+      @Default('') String title,
+      @Default('') String url,
       required dynamic user}) = _Article;
   factory Article.fromJson(Map<String, dynamic> json) =>
       _$ArticleFromJson(json);

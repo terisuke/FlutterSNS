@@ -6,8 +6,8 @@ part of 'firestore_user.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_FirestoreUser _$$_FirestoreUserFromJson(Map<String, dynamic> json) =>
-    _$_FirestoreUser(
+_$FirestoreUserImpl _$$FirestoreUserImplFromJson(Map<String, dynamic> json) =>
+    _$FirestoreUserImpl(
       createdAt: json['createdAt'],
       followerCount: json['followerCount'] as int,
       followingCount: json['followingCount'] as int,
@@ -25,7 +25,7 @@ _$_FirestoreUser _$$_FirestoreUserFromJson(Map<String, dynamic> json) =>
       updatedAt: json['updatedAt'],
     );
 
-Map<String, dynamic> _$$_FirestoreUserToJson(_$_FirestoreUser instance) =>
+Map<String, dynamic> _$$FirestoreUserImplToJson(_$FirestoreUserImpl instance) =>
     <String, dynamic>{
       'createdAt': instance.createdAt,
       'followerCount': instance.followerCount,

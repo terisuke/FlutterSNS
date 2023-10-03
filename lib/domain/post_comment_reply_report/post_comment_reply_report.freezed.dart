@@ -156,11 +156,12 @@ class _$PostCommentReplyReportCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PostCommentReplyReportCopyWith<$Res>
+abstract class _$$PostCommentReplyReportImplCopyWith<$Res>
     implements $PostCommentReplyReportCopyWith<$Res> {
-  factory _$$_PostCommentReplyReportCopyWith(_$_PostCommentReplyReport value,
-          $Res Function(_$_PostCommentReplyReport) then) =
-      __$$_PostCommentReplyReportCopyWithImpl<$Res>;
+  factory _$$PostCommentReplyReportImplCopyWith(
+          _$PostCommentReplyReportImpl value,
+          $Res Function(_$PostCommentReplyReportImpl) then) =
+      __$$PostCommentReplyReportImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -181,12 +182,13 @@ abstract class _$$_PostCommentReplyReportCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PostCommentReplyReportCopyWithImpl<$Res>
+class __$$PostCommentReplyReportImplCopyWithImpl<$Res>
     extends _$PostCommentReplyReportCopyWithImpl<$Res,
-        _$_PostCommentReplyReport>
-    implements _$$_PostCommentReplyReportCopyWith<$Res> {
-  __$$_PostCommentReplyReportCopyWithImpl(_$_PostCommentReplyReport _value,
-      $Res Function(_$_PostCommentReplyReport) _then)
+        _$PostCommentReplyReportImpl>
+    implements _$$PostCommentReplyReportImplCopyWith<$Res> {
+  __$$PostCommentReplyReportImplCopyWithImpl(
+      _$PostCommentReplyReportImpl _value,
+      $Res Function(_$PostCommentReplyReportImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -207,7 +209,7 @@ class __$$_PostCommentReplyReportCopyWithImpl<$Res>
     Object? replyPositiveScore = null,
     Object? replySentiment = null,
   }) {
-    return _then(_$_PostCommentReplyReport(
+    return _then(_$PostCommentReplyReportImpl(
       acitiveUid: null == acitiveUid
           ? _value.acitiveUid
           : acitiveUid // ignore: cast_nullable_to_non_nullable
@@ -270,8 +272,8 @@ class __$$_PostCommentReplyReportCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PostCommentReplyReport implements _PostCommentReplyReport {
-  const _$_PostCommentReplyReport(
+class _$PostCommentReplyReportImpl implements _PostCommentReplyReport {
+  const _$PostCommentReplyReportImpl(
       {required this.acitiveUid,
       required this.createdAt,
       required this.others,
@@ -287,8 +289,8 @@ class _$_PostCommentReplyReport implements _PostCommentReplyReport {
       required this.replyPositiveScore,
       required this.replySentiment});
 
-  factory _$_PostCommentReplyReport.fromJson(Map<String, dynamic> json) =>
-      _$$_PostCommentReplyReportFromJson(json);
+  factory _$PostCommentReplyReportImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PostCommentReplyReportImplFromJson(json);
 
   @override
   final String acitiveUid;
@@ -330,7 +332,7 @@ class _$_PostCommentReplyReport implements _PostCommentReplyReport {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PostCommentReplyReport &&
+            other is _$PostCommentReplyReportImpl &&
             (identical(other.acitiveUid, acitiveUid) ||
                 other.acitiveUid == acitiveUid) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
@@ -383,13 +385,13 @@ class _$_PostCommentReplyReport implements _PostCommentReplyReport {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PostCommentReplyReportCopyWith<_$_PostCommentReplyReport> get copyWith =>
-      __$$_PostCommentReplyReportCopyWithImpl<_$_PostCommentReplyReport>(
-          this, _$identity);
+  _$$PostCommentReplyReportImplCopyWith<_$PostCommentReplyReportImpl>
+      get copyWith => __$$PostCommentReplyReportImplCopyWithImpl<
+          _$PostCommentReplyReportImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PostCommentReplyReportToJson(
+    return _$$PostCommentReplyReportImplToJson(
       this,
     );
   }
@@ -410,10 +412,10 @@ abstract class _PostCommentReplyReport implements PostCommentReplyReport {
       required final String replyLanguageCode,
       required final double replyNagativeScore,
       required final double replyPositiveScore,
-      required final String replySentiment}) = _$_PostCommentReplyReport;
+      required final String replySentiment}) = _$PostCommentReplyReportImpl;
 
   factory _PostCommentReplyReport.fromJson(Map<String, dynamic> json) =
-      _$_PostCommentReplyReport.fromJson;
+      _$PostCommentReplyReportImpl.fromJson;
 
   @override
   String get acitiveUid;
@@ -445,6 +447,6 @@ abstract class _PostCommentReplyReport implements PostCommentReplyReport {
   String get replySentiment;
   @override
   @JsonKey(ignore: true)
-  _$$_PostCommentReplyReportCopyWith<_$_PostCommentReplyReport> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$PostCommentReplyReportImplCopyWith<_$PostCommentReplyReportImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

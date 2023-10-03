@@ -81,11 +81,11 @@ class _$FollowingTokenCopyWithImpl<$Res, $Val extends FollowingToken>
 }
 
 /// @nodoc
-abstract class _$$_FollowingTokenCopyWith<$Res>
+abstract class _$$FollowingTokenImplCopyWith<$Res>
     implements $FollowingTokenCopyWith<$Res> {
-  factory _$$_FollowingTokenCopyWith(
-          _$_FollowingToken value, $Res Function(_$_FollowingToken) then) =
-      __$$_FollowingTokenCopyWithImpl<$Res>;
+  factory _$$FollowingTokenImplCopyWith(_$FollowingTokenImpl value,
+          $Res Function(_$FollowingTokenImpl) then) =
+      __$$FollowingTokenImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -93,11 +93,11 @@ abstract class _$$_FollowingTokenCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_FollowingTokenCopyWithImpl<$Res>
-    extends _$FollowingTokenCopyWithImpl<$Res, _$_FollowingToken>
-    implements _$$_FollowingTokenCopyWith<$Res> {
-  __$$_FollowingTokenCopyWithImpl(
-      _$_FollowingToken _value, $Res Function(_$_FollowingToken) _then)
+class __$$FollowingTokenImplCopyWithImpl<$Res>
+    extends _$FollowingTokenCopyWithImpl<$Res, _$FollowingTokenImpl>
+    implements _$$FollowingTokenImplCopyWith<$Res> {
+  __$$FollowingTokenImplCopyWithImpl(
+      _$FollowingTokenImpl _value, $Res Function(_$FollowingTokenImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -108,7 +108,7 @@ class __$$_FollowingTokenCopyWithImpl<$Res>
     Object? tokenId = null,
     Object? tokenType = null,
   }) {
-    return _then(_$_FollowingToken(
+    return _then(_$FollowingTokenImpl(
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -131,17 +131,17 @@ class __$$_FollowingTokenCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_FollowingToken
+class _$FollowingTokenImpl
     with DiagnosticableTreeMixin
     implements _FollowingToken {
-  const _$_FollowingToken(
+  const _$FollowingTokenImpl(
       {required this.createdAt,
       required this.passiveUid,
       required this.tokenId,
       required this.tokenType});
 
-  factory _$_FollowingToken.fromJson(Map<String, dynamic> json) =>
-      _$$_FollowingTokenFromJson(json);
+  factory _$FollowingTokenImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FollowingTokenImplFromJson(json);
 
   @override
   final dynamic createdAt;
@@ -172,7 +172,7 @@ class _$_FollowingToken
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FollowingToken &&
+            other is _$FollowingTokenImpl &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             (identical(other.passiveUid, passiveUid) ||
                 other.passiveUid == passiveUid) &&
@@ -193,12 +193,13 @@ class _$_FollowingToken
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FollowingTokenCopyWith<_$_FollowingToken> get copyWith =>
-      __$$_FollowingTokenCopyWithImpl<_$_FollowingToken>(this, _$identity);
+  _$$FollowingTokenImplCopyWith<_$FollowingTokenImpl> get copyWith =>
+      __$$FollowingTokenImplCopyWithImpl<_$FollowingTokenImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_FollowingTokenToJson(
+    return _$$FollowingTokenImplToJson(
       this,
     );
   }
@@ -209,10 +210,10 @@ abstract class _FollowingToken implements FollowingToken {
       {required final dynamic createdAt,
       required final String passiveUid,
       required final String tokenId,
-      required final String tokenType}) = _$_FollowingToken;
+      required final String tokenType}) = _$FollowingTokenImpl;
 
   factory _FollowingToken.fromJson(Map<String, dynamic> json) =
-      _$_FollowingToken.fromJson;
+      _$FollowingTokenImpl.fromJson;
 
   @override
   dynamic get createdAt;
@@ -224,6 +225,6 @@ abstract class _FollowingToken implements FollowingToken {
   String get tokenType;
   @override
   @JsonKey(ignore: true)
-  _$$_FollowingTokenCopyWith<_$_FollowingToken> get copyWith =>
+  _$$FollowingTokenImplCopyWith<_$FollowingTokenImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
