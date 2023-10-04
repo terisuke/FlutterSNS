@@ -32,18 +32,11 @@ import 'package:udemy_flutter_sns/views/main/search_page.dart';
 import 'package:udemy_flutter_sns/views/main/profile_screen.dart'; // CupertinoWidgetsのためにimport追加
 
 Future<void> main() async {
-  await runZonedGuarded(() async {
+  runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await dotenv.load(fileName: ".env");
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-    await Sentry.init(
-      (options) {
-        options.dsn = dotenv.env['SENTRY_DSN']!;
-      },
-      appRunner: () => runApp(const ProviderScope(child: MyApp())),
-    );
+    runApp(const ProviderScope(child: BootStrap()));
   }, (error, stackTrace) {
-    if (!kIsWeb && Firebase.apps.isNotEmpty) {
+    if (!kIsWeb && Firebase.apps.length > 0) {
       FirebaseCrashlytics.instance.recordError(error, stackTrace);
     } else {
       print('Error occurred, but Firebase is not initialized');
@@ -53,14 +46,58 @@ Future<void> main() async {
   });
 }
 
+class BootStrap extends StatefulWidget {
+  const BootStrap({Key? key}) : super(key: key);
+
+  @override
+  _BootStrapState createState() => _BootStrapState();
+}
+
+class _BootStrapState extends State<BootStrap> {
+  bool _initialized = false;
+
+  Future<void> initializeApp() async {
+    await dotenv.load(fileName: ".env");
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+
+    if (!kIsWeb) {
+      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    }
+
+    Sentry.init(
+      (options) {
+        options.dsn = dotenv.env['SENTRY_DSN']!;
+      },
+      appRunner: () {}, // Sentryの初期化のみ行い、ここでは何も起動しない
+    );
+
+    setState(() {
+      _initialized = true;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initializeApp();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_initialized) {
+      return const MyApp();
+    }
+
+    return Loading();
+  }
+}
+
 class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (!kIsWeb) {
-      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-    }
 
     final User? onceUser = FirebaseAuth.instance.currentUser;
     final ThemeModel themeModel = ref.watch(themeProvider);
