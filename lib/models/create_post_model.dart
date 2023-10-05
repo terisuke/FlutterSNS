@@ -55,10 +55,16 @@ class CreatePostModel extends ChangeNotifier {
         return FlashBar(
           controller: controller,
           content: Form(
-            child: TextFormField(
-              controller: textEditingController,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-              maxLength: 280,
+            child: Row(
+              children: [
+                Flexible(
+                  child: TextFormField(
+                    controller: textEditingController,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    maxLength: 280,
+                  ),
+                ),
+              ],
             ),
           ),
           actions: [
