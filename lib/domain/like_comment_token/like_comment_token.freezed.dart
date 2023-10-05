@@ -105,11 +105,11 @@ class _$LikeCommentTokenCopyWithImpl<$Res, $Val extends LikeCommentToken>
 }
 
 /// @nodoc
-abstract class _$$_LikeCommentTokenCopyWith<$Res>
+abstract class _$$LikeCommentTokenImplCopyWith<$Res>
     implements $LikeCommentTokenCopyWith<$Res> {
-  factory _$$_LikeCommentTokenCopyWith(
-          _$_LikeCommentToken value, $Res Function(_$_LikeCommentToken) then) =
-      __$$_LikeCommentTokenCopyWithImpl<$Res>;
+  factory _$$LikeCommentTokenImplCopyWith(_$LikeCommentTokenImpl value,
+          $Res Function(_$LikeCommentTokenImpl) then) =
+      __$$LikeCommentTokenImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -123,11 +123,11 @@ abstract class _$$_LikeCommentTokenCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_LikeCommentTokenCopyWithImpl<$Res>
-    extends _$LikeCommentTokenCopyWithImpl<$Res, _$_LikeCommentToken>
-    implements _$$_LikeCommentTokenCopyWith<$Res> {
-  __$$_LikeCommentTokenCopyWithImpl(
-      _$_LikeCommentToken _value, $Res Function(_$_LikeCommentToken) _then)
+class __$$LikeCommentTokenImplCopyWithImpl<$Res>
+    extends _$LikeCommentTokenCopyWithImpl<$Res, _$LikeCommentTokenImpl>
+    implements _$$LikeCommentTokenImplCopyWith<$Res> {
+  __$$LikeCommentTokenImplCopyWithImpl(_$LikeCommentTokenImpl _value,
+      $Res Function(_$LikeCommentTokenImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -141,7 +141,7 @@ class __$$_LikeCommentTokenCopyWithImpl<$Res>
     Object? tokenId = null,
     Object? tokenType = null,
   }) {
-    return _then(_$_LikeCommentToken(
+    return _then(_$LikeCommentTokenImpl(
       activeUid: null == activeUid
           ? _value.activeUid
           : activeUid // ignore: cast_nullable_to_non_nullable
@@ -176,8 +176,8 @@ class __$$_LikeCommentTokenCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_LikeCommentToken implements _LikeCommentToken {
-  const _$_LikeCommentToken(
+class _$LikeCommentTokenImpl implements _LikeCommentToken {
+  const _$LikeCommentTokenImpl(
       {required this.activeUid,
       required this.createdAt,
       required this.passiveUid,
@@ -186,8 +186,8 @@ class _$_LikeCommentToken implements _LikeCommentToken {
       required this.tokenId,
       required this.tokenType});
 
-  factory _$_LikeCommentToken.fromJson(Map<String, dynamic> json) =>
-      _$$_LikeCommentTokenFromJson(json);
+  factory _$LikeCommentTokenImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LikeCommentTokenImplFromJson(json);
 
   @override
   final String activeUid;
@@ -213,7 +213,7 @@ class _$_LikeCommentToken implements _LikeCommentToken {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LikeCommentToken &&
+            other is _$LikeCommentTokenImpl &&
             (identical(other.activeUid, activeUid) ||
                 other.activeUid == activeUid) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
@@ -243,12 +243,13 @@ class _$_LikeCommentToken implements _LikeCommentToken {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LikeCommentTokenCopyWith<_$_LikeCommentToken> get copyWith =>
-      __$$_LikeCommentTokenCopyWithImpl<_$_LikeCommentToken>(this, _$identity);
+  _$$LikeCommentTokenImplCopyWith<_$LikeCommentTokenImpl> get copyWith =>
+      __$$LikeCommentTokenImplCopyWithImpl<_$LikeCommentTokenImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_LikeCommentTokenToJson(
+    return _$$LikeCommentTokenImplToJson(
       this,
     );
   }
@@ -262,10 +263,10 @@ abstract class _LikeCommentToken implements LikeCommentToken {
       required final dynamic postCommentRef,
       required final String postCommentId,
       required final String tokenId,
-      required final String tokenType}) = _$_LikeCommentToken;
+      required final String tokenType}) = _$LikeCommentTokenImpl;
 
   factory _LikeCommentToken.fromJson(Map<String, dynamic> json) =
-      _$_LikeCommentToken.fromJson;
+      _$LikeCommentTokenImpl.fromJson;
 
   @override
   String get activeUid;
@@ -283,6 +284,6 @@ abstract class _LikeCommentToken implements LikeCommentToken {
   String get tokenType;
   @override
   @JsonKey(ignore: true)
-  _$$_LikeCommentTokenCopyWith<_$_LikeCommentToken> get copyWith =>
+  _$$LikeCommentTokenImplCopyWith<_$LikeCommentTokenImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

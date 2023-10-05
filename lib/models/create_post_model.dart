@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flash/flash.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:udemy_flutter_sns/constants/chat_api.dart';
 // constants
 import 'package:udemy_flutter_sns/constants/strings.dart';
 import 'package:udemy_flutter_sns/constants/voids.dart' as voids;
@@ -16,86 +17,90 @@ final createPostProvider = ChangeNotifierProvider(((ref) => CreatePostModel()));
 
 class CreatePostModel extends ChangeNotifier {
   final TextEditingController textEditingController = TextEditingController();
-  String text = "";
-  void showPostFlashBar(
-      {required BuildContext context, required MainModel mainModel}) {
-        // NOTE：　最新版(バージョン3系)では恐らく下記のような感じだと思います
-      context.showFlash(
-        builder: (context, controller) {
-          return FlashBar(
-            controller: controller,
-            content: Form(
-              child: TextFormField(
-                controller: textEditingController,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-                onChanged: (value) => text = value,
-                maxLength: 10,
-              ),
-            ),
-            actions: [
-              InkWell(
-                onTap: () async {
-                  if (textEditingController.text.isNotEmpty) {
-                    // メインの動作
-                    await createPost(currentUserDoc: mainModel.currentUserDoc, mainModel: mainModel);
-                    await controller.dismiss();
-                    text = "";
-                  } else {
-                    // 何もしない
-                    await controller.dismiss();
-                  }
-                },
-                child: const Icon(Icons.send),
-              ),
-              InkWell(
-                child: const Icon(Icons.close),
-                onTap: () async => await controller.dismiss(),
-              )
-            ],
-          );
-        },
-        persistent: true,
-      );
-    // context.showFlashBar(
-    //   persistent: true,
-    //   content: Form(
-    //       child: TextFormField(
-    //     controller: textEditingController,
-    //     style: const TextStyle(fontWeight: FontWeight.bold),
-    //     onChanged: (value) => text = value,
-    //     maxLength: 10,
-    //   )),
-    //   title: const Text(createPostTitle),
-    //   primaryActionBuilder: (context, controller, _) {
-    //     return InkWell(
-    //       onTap: () async {
-    //         if (textEditingController.text.isNotEmpty) {
-    //           // メインの動作
-    //           await createPost(mainModel: mainModel);
-    //           await controller.dismiss();
-    //           text = "";
-    //         } else {
-    //           // 何もしない
-    //           await controller.dismiss();
-    //         }
-    //       },
-    //       child: const Icon(Icons.send),
-    //     );
-    //   },
-    //   // 閉じる時の動作
-    //   negativeActionBuilder: (context, controller, _) {
-    //     return InkWell(
-    //       child: const Icon(Icons.close),
-    //       onTap: () async => await controller.dismiss(),
-    //     );
-    //   },
-    // );
+  final ChatAPI chatAPI = ChatAPI(); // Assuming ChatAPI is your API client
+  @override
+  void dispose() {
+    textEditingController.dispose(); // これを忘れるとメモリリークする
+    super.dispose();
   }
 
-  Future<void> createPost({required MainModel mainModel, required  currentUserDoc}) async {
+  Future<void> getSuggestion() async {
+    try {
+      final suggestion =
+          await chatAPI.requestChatAPI(textEditingController.text);
+      textEditingController.text = suggestion; // Or handle as you wish
+      notifyListeners(); // If you wish to reflect changes on UI.
+    } catch (e) {
+      // Handle error accordingly
+      print('Error getting suggestion: $e');
+    }
+  }
+
+  Future<void> reviseText() async {
+    try {
+      final revisedText =
+          await chatAPI.requestRevisionAPI(textEditingController.text);
+      textEditingController.text = revisedText; // Or handle as you wish
+      notifyListeners(); // If you wish to reflect changes on UI.
+    } catch (e) {
+      // Handle error accordingly
+      print('Error revising text: $e');
+    }
+  }
+
+  void showPostFlashBar(
+      {required BuildContext context, required MainModel mainModel}) {
+    context.showFlash(
+      builder: (context, controller) {
+        return FlashBar(
+          controller: controller,
+          content: Form(
+            child: TextFormField(
+              controller: textEditingController,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+              maxLength: 280,
+            ),
+          ),
+          actions: [
+            InkWell(
+              onTap: getSuggestion,
+              child:
+                  const Icon(Icons.lightbulb_outline), // Or any suitable icon
+            ),
+            InkWell(
+              onTap: reviseText,
+              child: const Icon(Icons.edit), // Or any suitable icon
+            ),
+            InkWell(
+              onTap: () {
+                if (textEditingController.text.isNotEmpty) {
+                  createPost(
+                      currentUserDoc: mainModel.currentUserDoc,
+                      mainModel: mainModel);
+                  controller.dismiss();
+                  textEditingController.clear();
+                } else {
+                  controller.dismiss();
+                }
+              },
+              child: const Icon(Icons.send),
+            ),
+            InkWell(
+              child: const Icon(Icons.close),
+              onTap: () => controller.dismiss(),
+            ),
+          ],
+        );
+      },
+      persistent: true,
+    );
+  }
+
+  Future<void> createPost(
+      {required MainModel mainModel,
+      required DocumentSnapshot<Map<String, dynamic>> currentUserDoc}) async {
+    final String text = textEditingController.text;
     final Timestamp now = Timestamp.now();
-    final DocumentSnapshot<Map<String, dynamic>> currentUserDoc =
-        mainModel.currentUserDoc;
     final FirestoreUser firestoreUser = mainModel.firestoreUser;
     final String activeUid = currentUserDoc.id;
     final String postId = returnUuidV4();

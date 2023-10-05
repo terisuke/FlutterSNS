@@ -90,10 +90,11 @@ class _$ReplyLikeCopyWithImpl<$Res, $Val extends ReplyLike>
 }
 
 /// @nodoc
-abstract class _$$_ReplyLikeCopyWith<$Res> implements $ReplyLikeCopyWith<$Res> {
-  factory _$$_ReplyLikeCopyWith(
-          _$_ReplyLike value, $Res Function(_$_ReplyLike) then) =
-      __$$_ReplyLikeCopyWithImpl<$Res>;
+abstract class _$$ReplyLikeImplCopyWith<$Res>
+    implements $ReplyLikeCopyWith<$Res> {
+  factory _$$ReplyLikeImplCopyWith(
+          _$ReplyLikeImpl value, $Res Function(_$ReplyLikeImpl) then) =
+      __$$ReplyLikeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -105,11 +106,11 @@ abstract class _$$_ReplyLikeCopyWith<$Res> implements $ReplyLikeCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ReplyLikeCopyWithImpl<$Res>
-    extends _$ReplyLikeCopyWithImpl<$Res, _$_ReplyLike>
-    implements _$$_ReplyLikeCopyWith<$Res> {
-  __$$_ReplyLikeCopyWithImpl(
-      _$_ReplyLike _value, $Res Function(_$_ReplyLike) _then)
+class __$$ReplyLikeImplCopyWithImpl<$Res>
+    extends _$ReplyLikeCopyWithImpl<$Res, _$ReplyLikeImpl>
+    implements _$$ReplyLikeImplCopyWith<$Res> {
+  __$$ReplyLikeImplCopyWithImpl(
+      _$ReplyLikeImpl _value, $Res Function(_$ReplyLikeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -121,7 +122,7 @@ class __$$_ReplyLikeCopyWithImpl<$Res>
     Object? postCommentReplyRef = freezed,
     Object? postCommentReplyId = null,
   }) {
-    return _then(_$_ReplyLike(
+    return _then(_$ReplyLikeImpl(
       activeUid: null == activeUid
           ? _value.activeUid
           : activeUid // ignore: cast_nullable_to_non_nullable
@@ -148,16 +149,16 @@ class __$$_ReplyLikeCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ReplyLike implements _ReplyLike {
-  const _$_ReplyLike(
+class _$ReplyLikeImpl implements _ReplyLike {
+  const _$ReplyLikeImpl(
       {required this.activeUid,
       required this.createdAt,
       required this.postCommentReplyCreatorUid,
       required this.postCommentReplyRef,
       required this.postCommentReplyId});
 
-  factory _$_ReplyLike.fromJson(Map<String, dynamic> json) =>
-      _$$_ReplyLikeFromJson(json);
+  factory _$ReplyLikeImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ReplyLikeImplFromJson(json);
 
   @override
   final String activeUid;
@@ -179,7 +180,7 @@ class _$_ReplyLike implements _ReplyLike {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ReplyLike &&
+            other is _$ReplyLikeImpl &&
             (identical(other.activeUid, activeUid) ||
                 other.activeUid == activeUid) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
@@ -206,12 +207,12 @@ class _$_ReplyLike implements _ReplyLike {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ReplyLikeCopyWith<_$_ReplyLike> get copyWith =>
-      __$$_ReplyLikeCopyWithImpl<_$_ReplyLike>(this, _$identity);
+  _$$ReplyLikeImplCopyWith<_$ReplyLikeImpl> get copyWith =>
+      __$$ReplyLikeImplCopyWithImpl<_$ReplyLikeImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ReplyLikeToJson(
+    return _$$ReplyLikeImplToJson(
       this,
     );
   }
@@ -223,10 +224,10 @@ abstract class _ReplyLike implements ReplyLike {
       required final dynamic createdAt,
       required final String postCommentReplyCreatorUid,
       required final dynamic postCommentReplyRef,
-      required final String postCommentReplyId}) = _$_ReplyLike;
+      required final String postCommentReplyId}) = _$ReplyLikeImpl;
 
   factory _ReplyLike.fromJson(Map<String, dynamic> json) =
-      _$_ReplyLike.fromJson;
+      _$ReplyLikeImpl.fromJson;
 
   @override
   String get activeUid;
@@ -240,6 +241,6 @@ abstract class _ReplyLike implements ReplyLike {
   String get postCommentReplyId;
   @override
   @JsonKey(ignore: true)
-  _$$_ReplyLikeCopyWith<_$_ReplyLike> get copyWith =>
+  _$$ReplyLikeImplCopyWith<_$ReplyLikeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

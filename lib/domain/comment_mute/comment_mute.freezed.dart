@@ -84,11 +84,11 @@ class _$CommentMuteCopyWithImpl<$Res, $Val extends CommentMute>
 }
 
 /// @nodoc
-abstract class _$$_CommentMuteCopyWith<$Res>
+abstract class _$$CommentMuteImplCopyWith<$Res>
     implements $CommentMuteCopyWith<$Res> {
-  factory _$$_CommentMuteCopyWith(
-          _$_CommentMute value, $Res Function(_$_CommentMute) then) =
-      __$$_CommentMuteCopyWithImpl<$Res>;
+  factory _$$CommentMuteImplCopyWith(
+          _$CommentMuteImpl value, $Res Function(_$CommentMuteImpl) then) =
+      __$$CommentMuteImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -99,11 +99,11 @@ abstract class _$$_CommentMuteCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CommentMuteCopyWithImpl<$Res>
-    extends _$CommentMuteCopyWithImpl<$Res, _$_CommentMute>
-    implements _$$_CommentMuteCopyWith<$Res> {
-  __$$_CommentMuteCopyWithImpl(
-      _$_CommentMute _value, $Res Function(_$_CommentMute) _then)
+class __$$CommentMuteImplCopyWithImpl<$Res>
+    extends _$CommentMuteCopyWithImpl<$Res, _$CommentMuteImpl>
+    implements _$$CommentMuteImplCopyWith<$Res> {
+  __$$CommentMuteImplCopyWithImpl(
+      _$CommentMuteImpl _value, $Res Function(_$CommentMuteImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -114,7 +114,7 @@ class __$$_CommentMuteCopyWithImpl<$Res>
     Object? postCommentId = null,
     Object? postCommentRef = freezed,
   }) {
-    return _then(_$_CommentMute(
+    return _then(_$CommentMuteImpl(
       activeUid: null == activeUid
           ? _value.activeUid
           : activeUid // ignore: cast_nullable_to_non_nullable
@@ -137,15 +137,15 @@ class __$$_CommentMuteCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_CommentMute implements _CommentMute {
-  const _$_CommentMute(
+class _$CommentMuteImpl implements _CommentMute {
+  const _$CommentMuteImpl(
       {required this.activeUid,
       required this.createdAt,
       required this.postCommentId,
       required this.postCommentRef});
 
-  factory _$_CommentMute.fromJson(Map<String, dynamic> json) =>
-      _$$_CommentMuteFromJson(json);
+  factory _$CommentMuteImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CommentMuteImplFromJson(json);
 
   @override
   final String activeUid;
@@ -165,7 +165,7 @@ class _$_CommentMute implements _CommentMute {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CommentMute &&
+            other is _$CommentMuteImpl &&
             (identical(other.activeUid, activeUid) ||
                 other.activeUid == activeUid) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
@@ -187,12 +187,12 @@ class _$_CommentMute implements _CommentMute {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CommentMuteCopyWith<_$_CommentMute> get copyWith =>
-      __$$_CommentMuteCopyWithImpl<_$_CommentMute>(this, _$identity);
+  _$$CommentMuteImplCopyWith<_$CommentMuteImpl> get copyWith =>
+      __$$CommentMuteImplCopyWithImpl<_$CommentMuteImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CommentMuteToJson(
+    return _$$CommentMuteImplToJson(
       this,
     );
   }
@@ -203,10 +203,10 @@ abstract class _CommentMute implements CommentMute {
       {required final String activeUid,
       required final dynamic createdAt,
       required final String postCommentId,
-      required final dynamic postCommentRef}) = _$_CommentMute;
+      required final dynamic postCommentRef}) = _$CommentMuteImpl;
 
   factory _CommentMute.fromJson(Map<String, dynamic> json) =
-      _$_CommentMute.fromJson;
+      _$CommentMuteImpl.fromJson;
 
   @override
   String get activeUid;
@@ -218,6 +218,6 @@ abstract class _CommentMute implements CommentMute {
   dynamic get postCommentRef;
   @override
   @JsonKey(ignore: true)
-  _$$_CommentMuteCopyWith<_$_CommentMute> get copyWith =>
+  _$$CommentMuteImplCopyWith<_$CommentMuteImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

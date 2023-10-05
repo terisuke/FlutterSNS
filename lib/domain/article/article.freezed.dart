@@ -110,10 +110,10 @@ class _$ArticleCopyWithImpl<$Res, $Val extends Article>
 }
 
 /// @nodoc
-abstract class _$$_ArticleCopyWith<$Res> implements $ArticleCopyWith<$Res> {
-  factory _$$_ArticleCopyWith(
-          _$_Article value, $Res Function(_$_Article) then) =
-      __$$_ArticleCopyWithImpl<$Res>;
+abstract class _$$ArticleImplCopyWith<$Res> implements $ArticleCopyWith<$Res> {
+  factory _$$ArticleImplCopyWith(
+          _$ArticleImpl value, $Res Function(_$ArticleImpl) then) =
+      __$$ArticleImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -128,10 +128,11 @@ abstract class _$$_ArticleCopyWith<$Res> implements $ArticleCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ArticleCopyWithImpl<$Res>
-    extends _$ArticleCopyWithImpl<$Res, _$_Article>
-    implements _$$_ArticleCopyWith<$Res> {
-  __$$_ArticleCopyWithImpl(_$_Article _value, $Res Function(_$_Article) _then)
+class __$$ArticleImplCopyWithImpl<$Res>
+    extends _$ArticleCopyWithImpl<$Res, _$ArticleImpl>
+    implements _$$ArticleImplCopyWith<$Res> {
+  __$$ArticleImplCopyWithImpl(
+      _$ArticleImpl _value, $Res Function(_$ArticleImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -146,7 +147,7 @@ class __$$_ArticleCopyWithImpl<$Res>
     Object? url = null,
     Object? user = freezed,
   }) {
-    return _then(_$_Article(
+    return _then(_$ArticleImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -185,19 +186,19 @@ class __$$_ArticleCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Article implements _Article {
-  const _$_Article(
+class _$ArticleImpl implements _Article {
+  const _$ArticleImpl(
       {required this.id,
       required this.comments_count,
       required this.likes_count,
       required this.private,
       required this.reactions_count,
-      required this.title,
-      required this.url,
+      this.title = '',
+      this.url = '',
       required this.user});
 
-  factory _$_Article.fromJson(Map<String, dynamic> json) =>
-      _$$_ArticleFromJson(json);
+  factory _$ArticleImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ArticleImplFromJson(json);
 
   @override
   final String id;
@@ -210,8 +211,10 @@ class _$_Article implements _Article {
   @override
   final int reactions_count;
   @override
+  @JsonKey()
   final String title;
   @override
+  @JsonKey()
   final String url;
   @override
   final dynamic user;
@@ -225,7 +228,7 @@ class _$_Article implements _Article {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Article &&
+            other is _$ArticleImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.comments_count, comments_count) ||
                 other.comments_count == comments_count) &&
@@ -255,12 +258,12 @@ class _$_Article implements _Article {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ArticleCopyWith<_$_Article> get copyWith =>
-      __$$_ArticleCopyWithImpl<_$_Article>(this, _$identity);
+  _$$ArticleImplCopyWith<_$ArticleImpl> get copyWith =>
+      __$$ArticleImplCopyWithImpl<_$ArticleImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ArticleToJson(
+    return _$$ArticleImplToJson(
       this,
     );
   }
@@ -273,11 +276,11 @@ abstract class _Article implements Article {
       required final int likes_count,
       required final bool private,
       required final int reactions_count,
-      required final String title,
-      required final String url,
-      required final dynamic user}) = _$_Article;
+      final String title,
+      final String url,
+      required final dynamic user}) = _$ArticleImpl;
 
-  factory _Article.fromJson(Map<String, dynamic> json) = _$_Article.fromJson;
+  factory _Article.fromJson(Map<String, dynamic> json) = _$ArticleImpl.fromJson;
 
   @override
   String get id;
@@ -297,6 +300,6 @@ abstract class _Article implements Article {
   dynamic get user;
   @override
   @JsonKey(ignore: true)
-  _$$_ArticleCopyWith<_$_Article> get copyWith =>
+  _$$ArticleImplCopyWith<_$ArticleImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -6,7 +6,8 @@ part of 'reply_like.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ReplyLike _$$_ReplyLikeFromJson(Map<String, dynamic> json) => _$_ReplyLike(
+_$ReplyLikeImpl _$$ReplyLikeImplFromJson(Map<String, dynamic> json) =>
+    _$ReplyLikeImpl(
       activeUid: json['activeUid'] as String,
       createdAt: json['createdAt'],
       postCommentReplyCreatorUid: json['postCommentReplyCreatorUid'] as String,
@@ -14,7 +15,7 @@ _$_ReplyLike _$$_ReplyLikeFromJson(Map<String, dynamic> json) => _$_ReplyLike(
       postCommentReplyId: json['postCommentReplyId'] as String,
     );
 
-Map<String, dynamic> _$$_ReplyLikeToJson(_$_ReplyLike instance) =>
+Map<String, dynamic> _$$ReplyLikeImplToJson(_$ReplyLikeImpl instance) =>
     <String, dynamic>{
       'activeUid': instance.activeUid,
       'createdAt': instance.createdAt,

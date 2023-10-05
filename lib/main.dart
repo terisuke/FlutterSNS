@@ -1,7 +1,8 @@
 //dart
 import 'dart:async';
 // flutter
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart'; 
 // options
 import 'firebase_options.dart';
 // packages
@@ -12,6 +13,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:udemy_flutter_sns/constants/others.dart';
+import 'package:sentry/sentry.dart';
 // models
 import 'package:udemy_flutter_sns/models/main_model.dart';
 import 'package:udemy_flutter_sns/models/mute_users_model.dart';
@@ -30,15 +32,11 @@ import 'package:udemy_flutter_sns/views/main/search_page.dart';
 import 'package:udemy_flutter_sns/views/main/profile_screen.dart'; // CupertinoWidgetsのためにimport追加
 
 Future<void> main() async {
-  await runZonedGuarded(() async {
+  runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await dotenv.load(fileName: ".env");
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
-
-    runApp(const ProviderScope(child: MyApp()));
+    runApp(const ProviderScope(child: BootStrap()));
   }, (error, stackTrace) {
-    if (Firebase.apps.isNotEmpty) {
+    if (!kIsWeb && Firebase.apps.length > 0) {
       FirebaseCrashlytics.instance.recordError(error, stackTrace);
     } else {
       print('Error occurred, but Firebase is not initialized');
@@ -48,17 +46,61 @@ Future<void> main() async {
   });
 }
 
+class BootStrap extends StatefulWidget {
+  const BootStrap({Key? key}) : super(key: key);
+
+  @override
+  _BootStrapState createState() => _BootStrapState();
+}
+
+class _BootStrapState extends State<BootStrap> {
+  bool _initialized = false;
+
+  Future<void> initializeApp() async {
+    await dotenv.load(fileName: ".env");
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+
+    if (!kIsWeb) {
+      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    }
+
+    Sentry.init(
+      (options) {
+        options.dsn = dotenv.env['SENTRY_DSN']!;
+      },
+      appRunner: () {}, // Sentryの初期化のみ行い、ここでは何も起動しない
+    );
+
+    setState(() {
+      _initialized = true;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initializeApp();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_initialized) {
+      return const MyApp();
+    }
+
+    return MaterialApp(home: Loading());
+  }
+}
+
 class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // FirebaseCrashlyticsインスタンスをここで設定します。
-    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+
     final User? onceUser = FirebaseAuth.instance.currentUser;
     final ThemeModel themeModel = ref.watch(themeProvider);
-
-    // FutureBuilderは必要ないため、直接MaterialAppを返します。
     return MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
@@ -106,7 +148,6 @@ class MyHomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // MainModelが起動し、init()が実行されます
     final MainModel mainModel = ref.watch(mainProvider);
     final SNSBottomNavigationBarModel snsBottomNavigationBarModel =
         ref.watch(snsBottomNavigationBarProvider);

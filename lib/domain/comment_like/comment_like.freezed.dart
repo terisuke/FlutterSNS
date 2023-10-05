@@ -91,11 +91,11 @@ class _$CommentLikeCopyWithImpl<$Res, $Val extends CommentLike>
 }
 
 /// @nodoc
-abstract class _$$_CommentLikeCopyWith<$Res>
+abstract class _$$CommentLikeImplCopyWith<$Res>
     implements $CommentLikeCopyWith<$Res> {
-  factory _$$_CommentLikeCopyWith(
-          _$_CommentLike value, $Res Function(_$_CommentLike) then) =
-      __$$_CommentLikeCopyWithImpl<$Res>;
+  factory _$$CommentLikeImplCopyWith(
+          _$CommentLikeImpl value, $Res Function(_$CommentLikeImpl) then) =
+      __$$CommentLikeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -107,11 +107,11 @@ abstract class _$$_CommentLikeCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CommentLikeCopyWithImpl<$Res>
-    extends _$CommentLikeCopyWithImpl<$Res, _$_CommentLike>
-    implements _$$_CommentLikeCopyWith<$Res> {
-  __$$_CommentLikeCopyWithImpl(
-      _$_CommentLike _value, $Res Function(_$_CommentLike) _then)
+class __$$CommentLikeImplCopyWithImpl<$Res>
+    extends _$CommentLikeCopyWithImpl<$Res, _$CommentLikeImpl>
+    implements _$$CommentLikeImplCopyWith<$Res> {
+  __$$CommentLikeImplCopyWithImpl(
+      _$CommentLikeImpl _value, $Res Function(_$CommentLikeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -123,7 +123,7 @@ class __$$_CommentLikeCopyWithImpl<$Res>
     Object? postCommentRef = freezed,
     Object? postCommentId = null,
   }) {
-    return _then(_$_CommentLike(
+    return _then(_$CommentLikeImpl(
       activeUid: null == activeUid
           ? _value.activeUid
           : activeUid // ignore: cast_nullable_to_non_nullable
@@ -150,16 +150,16 @@ class __$$_CommentLikeCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_CommentLike implements _CommentLike {
-  const _$_CommentLike(
+class _$CommentLikeImpl implements _CommentLike {
+  const _$CommentLikeImpl(
       {required this.activeUid,
       required this.createdAt,
       required this.postCommentCreatorUid,
       required this.postCommentRef,
       required this.postCommentId});
 
-  factory _$_CommentLike.fromJson(Map<String, dynamic> json) =>
-      _$$_CommentLikeFromJson(json);
+  factory _$CommentLikeImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CommentLikeImplFromJson(json);
 
   @override
   final String activeUid;
@@ -181,7 +181,7 @@ class _$_CommentLike implements _CommentLike {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CommentLike &&
+            other is _$CommentLikeImpl &&
             (identical(other.activeUid, activeUid) ||
                 other.activeUid == activeUid) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
@@ -206,12 +206,12 @@ class _$_CommentLike implements _CommentLike {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CommentLikeCopyWith<_$_CommentLike> get copyWith =>
-      __$$_CommentLikeCopyWithImpl<_$_CommentLike>(this, _$identity);
+  _$$CommentLikeImplCopyWith<_$CommentLikeImpl> get copyWith =>
+      __$$CommentLikeImplCopyWithImpl<_$CommentLikeImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CommentLikeToJson(
+    return _$$CommentLikeImplToJson(
       this,
     );
   }
@@ -223,10 +223,10 @@ abstract class _CommentLike implements CommentLike {
       required final dynamic createdAt,
       required final String postCommentCreatorUid,
       required final dynamic postCommentRef,
-      required final String postCommentId}) = _$_CommentLike;
+      required final String postCommentId}) = _$CommentLikeImpl;
 
   factory _CommentLike.fromJson(Map<String, dynamic> json) =
-      _$_CommentLike.fromJson;
+      _$CommentLikeImpl.fromJson;
 
   @override
   String get activeUid;
@@ -240,6 +240,6 @@ abstract class _CommentLike implements CommentLike {
   String get postCommentId;
   @override
   @JsonKey(ignore: true)
-  _$$_CommentLikeCopyWith<_$_CommentLike> get copyWith =>
+  _$$CommentLikeImplCopyWith<_$CommentLikeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

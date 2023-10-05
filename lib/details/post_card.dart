@@ -106,10 +106,12 @@ class PostCard extends ConsumerWidget {
           ),
           Row(
             children: [
-              Text(
-                post.text,
-                style: const TextStyle(fontSize: 24.0),
-              )
+              Flexible(
+                child: Text(
+                  post.text,
+                  style: const TextStyle(fontSize: 24.0),
+                ),
+              ),
             ],
           ),
           Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [

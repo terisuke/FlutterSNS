@@ -73,21 +73,22 @@ class _$FollowerCopyWithImpl<$Res, $Val extends Follower>
 }
 
 /// @nodoc
-abstract class _$$_FollowerCopyWith<$Res> implements $FollowerCopyWith<$Res> {
-  factory _$$_FollowerCopyWith(
-          _$_Follower value, $Res Function(_$_Follower) then) =
-      __$$_FollowerCopyWithImpl<$Res>;
+abstract class _$$FollowerImplCopyWith<$Res>
+    implements $FollowerCopyWith<$Res> {
+  factory _$$FollowerImplCopyWith(
+          _$FollowerImpl value, $Res Function(_$FollowerImpl) then) =
+      __$$FollowerImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({dynamic createdAt, String followedUid, String followerUid});
 }
 
 /// @nodoc
-class __$$_FollowerCopyWithImpl<$Res>
-    extends _$FollowerCopyWithImpl<$Res, _$_Follower>
-    implements _$$_FollowerCopyWith<$Res> {
-  __$$_FollowerCopyWithImpl(
-      _$_Follower _value, $Res Function(_$_Follower) _then)
+class __$$FollowerImplCopyWithImpl<$Res>
+    extends _$FollowerCopyWithImpl<$Res, _$FollowerImpl>
+    implements _$$FollowerImplCopyWith<$Res> {
+  __$$FollowerImplCopyWithImpl(
+      _$FollowerImpl _value, $Res Function(_$FollowerImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -97,7 +98,7 @@ class __$$_FollowerCopyWithImpl<$Res>
     Object? followedUid = null,
     Object? followerUid = null,
   }) {
-    return _then(_$_Follower(
+    return _then(_$FollowerImpl(
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -116,14 +117,14 @@ class __$$_FollowerCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Follower implements _Follower {
-  const _$_Follower(
+class _$FollowerImpl implements _Follower {
+  const _$FollowerImpl(
       {required this.createdAt,
       required this.followedUid,
       required this.followerUid});
 
-  factory _$_Follower.fromJson(Map<String, dynamic> json) =>
-      _$$_FollowerFromJson(json);
+  factory _$FollowerImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FollowerImplFromJson(json);
 
   @override
   final dynamic createdAt;
@@ -141,7 +142,7 @@ class _$_Follower implements _Follower {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Follower &&
+            other is _$FollowerImpl &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             (identical(other.followedUid, followedUid) ||
                 other.followedUid == followedUid) &&
@@ -157,12 +158,12 @@ class _$_Follower implements _Follower {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FollowerCopyWith<_$_Follower> get copyWith =>
-      __$$_FollowerCopyWithImpl<_$_Follower>(this, _$identity);
+  _$$FollowerImplCopyWith<_$FollowerImpl> get copyWith =>
+      __$$FollowerImplCopyWithImpl<_$FollowerImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_FollowerToJson(
+    return _$$FollowerImplToJson(
       this,
     );
   }
@@ -172,9 +173,10 @@ abstract class _Follower implements Follower {
   const factory _Follower(
       {required final dynamic createdAt,
       required final String followedUid,
-      required final String followerUid}) = _$_Follower;
+      required final String followerUid}) = _$FollowerImpl;
 
-  factory _Follower.fromJson(Map<String, dynamic> json) = _$_Follower.fromJson;
+  factory _Follower.fromJson(Map<String, dynamic> json) =
+      _$FollowerImpl.fromJson;
 
   @override
   dynamic get createdAt;
@@ -184,6 +186,6 @@ abstract class _Follower implements Follower {
   String get followerUid;
   @override
   @JsonKey(ignore: true)
-  _$$_FollowerCopyWith<_$_Follower> get copyWith =>
+  _$$FollowerImplCopyWith<_$FollowerImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

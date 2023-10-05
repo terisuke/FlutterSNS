@@ -6,18 +6,20 @@ part of 'like_comment_token.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_LikeCommentToken _$$_LikeCommentTokenFromJson(Map<String, dynamic> json) =>
-    _$_LikeCommentToken(
+_$LikeCommentTokenImpl _$$LikeCommentTokenImplFromJson(
+        Map<String, dynamic> json) =>
+    _$LikeCommentTokenImpl(
       activeUid: json['activeUid'] as String,
       createdAt: json['createdAt'],
       passiveUid: json['passiveUid'] as String,
       postCommentRef: json['postCommentRef'],
-      postCommentId: json['postCommentId'] as String,
+      postCommentId: json['postCommentId'] ?? '',
       tokenId: json['tokenId'] as String,
       tokenType: json['tokenType'] as String,
     );
 
-Map<String, dynamic> _$$_LikeCommentTokenToJson(_$_LikeCommentToken instance) =>
+Map<String, dynamic> _$$LikeCommentTokenImplToJson(
+        _$LikeCommentTokenImpl instance) =>
     <String, dynamic>{
       'activeUid': instance.activeUid,
       'createdAt': instance.createdAt,

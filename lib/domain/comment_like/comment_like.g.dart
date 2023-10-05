@@ -6,8 +6,8 @@ part of 'comment_like.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CommentLike _$$_CommentLikeFromJson(Map<String, dynamic> json) =>
-    _$_CommentLike(
+_$CommentLikeImpl _$$CommentLikeImplFromJson(Map<String, dynamic> json) =>
+    _$CommentLikeImpl(
       activeUid: json['activeUid'] as String,
       createdAt: json['createdAt'],
       postCommentCreatorUid: json['postCommentCreatorUid'] as String,
@@ -15,7 +15,7 @@ _$_CommentLike _$$_CommentLikeFromJson(Map<String, dynamic> json) =>
       postCommentId: json['postCommentId'] as String,
     );
 
-Map<String, dynamic> _$$_CommentLikeToJson(_$_CommentLike instance) =>
+Map<String, dynamic> _$$CommentLikeImplToJson(_$CommentLikeImpl instance) =>
     <String, dynamic>{
       'activeUid': instance.activeUid,
       'createdAt': instance.createdAt,
