@@ -13,7 +13,7 @@ _$LikeCommentTokenImpl _$$LikeCommentTokenImplFromJson(
       createdAt: json['createdAt'],
       passiveUid: json['passiveUid'] as String,
       postCommentRef: json['postCommentRef'],
-      postCommentId: json['postCommentId'] as String,
+      postCommentId: json['postCommentId'] ?? '',
       tokenId: json['tokenId'] as String,
       tokenType: json['tokenType'] as String,
     );

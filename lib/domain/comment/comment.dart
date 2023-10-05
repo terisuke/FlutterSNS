@@ -14,7 +14,7 @@ abstract class Comment with _$Comment {
     required String commentSentiment,
     required int likeCount,
     required dynamic postRef,
-    required String postCommentId,
+    @Default('') postCommentId,
     required int postCommentReplyCount,
     required int reportCount,
     required int muteCount,

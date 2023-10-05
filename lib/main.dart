@@ -89,7 +89,7 @@ class _BootStrapState extends State<BootStrap> {
       return const MyApp();
     }
 
-    return Loading();
+    return MaterialApp(home: Loading());
   }
 }
 

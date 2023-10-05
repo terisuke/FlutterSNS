@@ -28,7 +28,7 @@ mixin _$Comment {
   String get commentSentiment => throw _privateConstructorUsedError;
   int get likeCount => throw _privateConstructorUsedError;
   dynamic get postRef => throw _privateConstructorUsedError;
-  String get postCommentId => throw _privateConstructorUsedError;
+  dynamic get postCommentId => throw _privateConstructorUsedError;
   int get postCommentReplyCount => throw _privateConstructorUsedError;
   int get reportCount => throw _privateConstructorUsedError;
   int get muteCount => throw _privateConstructorUsedError;
@@ -60,7 +60,7 @@ abstract class $CommentCopyWith<$Res> {
       String commentSentiment,
       int likeCount,
       dynamic postRef,
-      String postCommentId,
+      dynamic postCommentId,
       int postCommentReplyCount,
       int reportCount,
       int muteCount,
@@ -95,7 +95,7 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
     Object? commentSentiment = null,
     Object? likeCount = null,
     Object? postRef = freezed,
-    Object? postCommentId = null,
+    Object? postCommentId = freezed,
     Object? postCommentReplyCount = null,
     Object? reportCount = null,
     Object? muteCount = null,
@@ -141,10 +141,10 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
           ? _value.postRef
           : postRef // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      postCommentId: null == postCommentId
+      postCommentId: freezed == postCommentId
           ? _value.postCommentId
           : postCommentId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as dynamic,
       postCommentReplyCount: null == postCommentReplyCount
           ? _value.postCommentReplyCount
           : postCommentReplyCount // ignore: cast_nullable_to_non_nullable
@@ -209,7 +209,7 @@ abstract class _$$CommentImplCopyWith<$Res> implements $CommentCopyWith<$Res> {
       String commentSentiment,
       int likeCount,
       dynamic postRef,
-      String postCommentId,
+      dynamic postCommentId,
       int postCommentReplyCount,
       int reportCount,
       int muteCount,
@@ -242,7 +242,7 @@ class __$$CommentImplCopyWithImpl<$Res>
     Object? commentSentiment = null,
     Object? likeCount = null,
     Object? postRef = freezed,
-    Object? postCommentId = null,
+    Object? postCommentId = freezed,
     Object? postCommentReplyCount = null,
     Object? reportCount = null,
     Object? muteCount = null,
@@ -288,10 +288,8 @@ class __$$CommentImplCopyWithImpl<$Res>
           ? _value.postRef
           : postRef // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      postCommentId: null == postCommentId
-          ? _value.postCommentId
-          : postCommentId // ignore: cast_nullable_to_non_nullable
-              as String,
+      postCommentId:
+          freezed == postCommentId ? _value.postCommentId! : postCommentId,
       postCommentReplyCount: null == postCommentReplyCount
           ? _value.postCommentReplyCount
           : postCommentReplyCount // ignore: cast_nullable_to_non_nullable
@@ -352,7 +350,7 @@ class _$CommentImpl implements _Comment {
       required this.commentSentiment,
       required this.likeCount,
       required this.postRef,
-      required this.postCommentId,
+      this.postCommentId = '',
       required this.postCommentReplyCount,
       required this.reportCount,
       required this.muteCount,
@@ -385,7 +383,8 @@ class _$CommentImpl implements _Comment {
   @override
   final dynamic postRef;
   @override
-  final String postCommentId;
+  @JsonKey()
+  final dynamic postCommentId;
   @override
   final int postCommentReplyCount;
   @override
@@ -432,8 +431,8 @@ class _$CommentImpl implements _Comment {
             (identical(other.likeCount, likeCount) ||
                 other.likeCount == likeCount) &&
             const DeepCollectionEquality().equals(other.postRef, postRef) &&
-            (identical(other.postCommentId, postCommentId) ||
-                other.postCommentId == postCommentId) &&
+            const DeepCollectionEquality()
+                .equals(other.postCommentId, postCommentId) &&
             (identical(other.postCommentReplyCount, postCommentReplyCount) ||
                 other.postCommentReplyCount == postCommentReplyCount) &&
             (identical(other.reportCount, reportCount) ||
@@ -468,7 +467,7 @@ class _$CommentImpl implements _Comment {
         commentSentiment,
         likeCount,
         const DeepCollectionEquality().hash(postRef),
-        postCommentId,
+        const DeepCollectionEquality().hash(postCommentId),
         postCommentReplyCount,
         reportCount,
         muteCount,
@@ -506,7 +505,7 @@ abstract class _Comment implements Comment {
       required final String commentSentiment,
       required final int likeCount,
       required final dynamic postRef,
-      required final String postCommentId,
+      final dynamic postCommentId,
       required final int postCommentReplyCount,
       required final int reportCount,
       required final int muteCount,
@@ -538,7 +537,7 @@ abstract class _Comment implements Comment {
   @override
   dynamic get postRef;
   @override
-  String get postCommentId;
+  dynamic get postCommentId;
   @override
   int get postCommentReplyCount;
   @override

@@ -16,7 +16,7 @@ _$CommentImpl _$$CommentImplFromJson(Map<String, dynamic> json) =>
       commentSentiment: json['commentSentiment'] as String,
       likeCount: json['likeCount'] as int,
       postRef: json['postRef'],
-      postCommentId: json['postCommentId'] as String,
+      postCommentId: json['postCommentId'] ?? '',
       postCommentReplyCount: json['postCommentReplyCount'] as int,
       reportCount: json['reportCount'] as int,
       muteCount: json['muteCount'] as int,

@@ -9,7 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart' as fluttertoast;
 import 'package:udemy_flutter_sns/constants/bools.dart';
 import 'package:udemy_flutter_sns/constants/strings.dart';
 Function func = () {
-  return null;
+  
 };
 void showFlash(
     {required BuildContext context,
