@@ -1,4 +1,4 @@
-package com.example.udemy_flutter_sns
+package com.udemy_flutter_sns
 
 import io.flutter.embedding.android.FlutterActivity
 
