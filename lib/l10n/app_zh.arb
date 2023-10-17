@@ -1,0 +1,10 @@
+{
+    "@@locale": "zh",
+    "deleteUser": "删除用户",
+    "deleteUserAlertMsg": "你确定吗？",
+    "userDeletedMsg": "用户已删除！！",
+    "signup": "注册",
+    "loading": "加载中",
+    "logoutedMsg": "您已登出！！祝您天天开心！",
+    "requiresRecentLoginMsg": "请重新验证"
+}

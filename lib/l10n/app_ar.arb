@@ -1,0 +1,10 @@
+{
+    "@@locale": "ar",
+    "deleteUser": "حذف المستخدم",
+    "deleteUserAlertMsg": "هل أنت متأكد؟",
+    "userDeletedMsg": "تم حذف المستخدم!!",
+    "signup": "تسجيل",
+    "loading": "جار التحميل",
+    "logoutedMsg": "لقد قمت بتسجيل الخروج!! أتمنى لك يومًا سعيدًا!",
+    "requiresRecentLoginMsg": "يرجى إعادة المصادقة"
+}
