@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "488478065875",
+    "firebase_url": "https://fir-flutter-77794-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "fir-flutter-77794",
+    "storage_bucket": "fir-flutter-77794.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488478065875:android:a863c3d5c87a280e86c026",
+        "android_client_info": {
+          "package_name": "com.muskuerade"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJ0yii_ltiQ1-3R_YBta7sbGAd-2njyRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

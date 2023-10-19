@@ -24,8 +24,6 @@ class DefaultFirebaseOptions {
         return android;
       case TargetPlatform.iOS:
         return ios;
-      case TargetPlatform.macOS:
-        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -65,21 +63,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCGwf695JYvUwwHRrq9tqzxSInxz2hb99g',
-    appId: '1:488478065875:ios:da3c8054833e889c86c026',
+    appId: '1:488478065875:ios:ce123167aa98c1ef86c026',
     messagingSenderId: '488478065875',
     projectId: 'fir-flutter-77794',
     databaseURL: 'https://fir-flutter-77794-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'fir-flutter-77794.appspot.com',
-    iosBundleId: 'com.example.udemyFlutterSns',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCGwf695JYvUwwHRrq9tqzxSInxz2hb99g',
-    appId: '1:488478065875:ios:93421f26d228f8aa86c026',
-    messagingSenderId: '488478065875',
-    projectId: 'fir-flutter-77794',
-    databaseURL: 'https://fir-flutter-77794-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'fir-flutter-77794.appspot.com',
-    iosBundleId: 'com.example.udemyFlutterSns.RunnerTests',
+    iosBundleId: 'com.muskuerade',
   );
 }
