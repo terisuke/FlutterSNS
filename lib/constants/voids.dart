@@ -145,16 +145,19 @@ void showFlash(
  
 }
   Future<void> showFluttertoast({required String msg}) async {
-    // flashにToastが定義されているので分ける
-    await fluttertoast.Fluttertoast.showToast(
-        msg: msg,
-        toastLength: fluttertoast.Toast.LENGTH_SHORT,
-        gravity: fluttertoast.ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.purple,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
+try {
+        await fluttertoast.Fluttertoast.showToast(
+            msg: msg,
+            toastLength: fluttertoast.Toast.LENGTH_SHORT,
+            gravity: fluttertoast.ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.purple,
+            textColor: Colors.white,
+            fontSize: 16.0);
+    } catch (e) {
+        print("Error in showToast: $e");  // エラーログ追加
+    }
+}
 
   void showFlashDialog(
       {required BuildContext context,

@@ -6,5 +6,6 @@
     "signup": "signup",
     "loading": "Loading",
     "logoutedMsg": "You logouted!!. Hava a nice day!",
-    "requiresRecentLoginMsg": "Please Reauthenticate"
+    "requiresRecentLoginMsg": "Please Reauthenticate",
+    "emptyform": "Email address or password has not been entered."
 }

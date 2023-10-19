@@ -1,4 +1,5 @@
 {
     "dart.flutterSdkPath": ".fvm/flutter_sdk",
-    "cmake.sourceDirectory": "/Users/teradakousuke/Developer/udemy_flutter_sns/linux"
+    "cmake.sourceDirectory": "/Users/teradakousuke/Developer/udemy_flutter_sns/linux",
+    "C_Cpp.errorSquiggles": "disabled"
 }

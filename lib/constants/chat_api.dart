@@ -6,7 +6,16 @@ import 'package:http/http.dart' as http;
 class ChatAPI {
   String? _apiKey;
 
-  String get apiKey => _apiKey ??= dotenv.env['OPEN_API_KEY']!;
+  String get apiKey {
+    if (_apiKey == null) {
+      final key = dotenv.env['OPEN_API_KEY'];
+      if (key == null) {
+        throw Exception('API key not found in .env file.');
+      }
+      _apiKey = key;
+    }
+    return _apiKey!;
+  }
   Future<String> requestChatAPI(String text) async {
     final headers = {
       "Content-Type": "application/json",

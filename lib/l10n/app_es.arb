@@ -6,5 +6,6 @@
     "signup": "registrarse",
     "loading": "Cargando",
     "logoutedMsg": "¡Has cerrado sesión! ¡Que tengas un buen día!",
-    "requiresRecentLoginMsg": "Por favor, vuelve a autenticarte"
+    "requiresRecentLoginMsg": "Por favor, vuelve a autenticarte",
+    "emptyform": "No se ha ingresado la dirección de correo electrónico o la contraseña."
 }

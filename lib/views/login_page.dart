@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // packages
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:udemy_flutter_sns/details/forget_password_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 // components
 import 'package:udemy_flutter_sns/details/rounded_text_field.dart';
 import 'package:udemy_flutter_sns/details/rounded_password_field.dart';
@@ -13,10 +14,16 @@ import 'package:udemy_flutter_sns/models/login_model.dart';
 import 'package:udemy_flutter_sns/constants/strings.dart';
 import 'package:udemy_flutter_sns/constants/routes.dart' as routes;
 
+final Uri _url = Uri.parse('https://fir-flutter-77794.web.app/privacypolicy.html');
 class LoginPage extends ConsumerWidget {
   const LoginPage({
     Key? key,
   }) : super(key: key);
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+    throw Exception('Could not launch $_url');
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -55,7 +62,8 @@ class LoginPage extends ConsumerWidget {
           TextButton(
               onPressed: () => routes.toSignupPage(context: context),
               child: const Text(noAccountMsg)),
-          const ForgetPasswordText()
+          const ForgetPasswordText(),
+          ElevatedButton(onPressed: _launchUrl, child: const Text('Privacy Policy'))
         ],
       ),
     );

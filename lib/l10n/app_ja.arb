@@ -6,5 +6,6 @@
     "signup": "サインアップ",
     "loading": "ローディング",
     "logoutedMsg": "ログアウトが完了しました。お疲れ様でした",
-    "requiresRecentLoginMsg": "再認証を行ってください"
+    "requiresRecentLoginMsg": "再認証を行ってください",
+    "emptyform": "メールアドレスまたはパスワードが入力されていません"
 }
