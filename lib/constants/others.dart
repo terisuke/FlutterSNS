@@ -8,13 +8,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:udemy_flutter_sns/constants/strings.dart';
 
 Future<XFile> returnXFile() async {
-  final ImagePicker picker = ImagePicker();
-  // Pick an image
-  final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-  return image!;
+  PermissionStatus status = await Permission.photos.status;
+  if (!status.isGranted) {
+    status = await Permission.photos.request();
+  }
+  if (status.isGranted) {
+    final ImagePicker picker = ImagePicker();
+    // Pick an image
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    return image!;
+  } else {
+    // パーミッションが拒否された場合のエラーハンドリング
+    throw Exception('Photo access permission denied');
+  }
 }
 
 Future<CroppedFile?> returnCroppedFile({required XFile? xFile}) async {
