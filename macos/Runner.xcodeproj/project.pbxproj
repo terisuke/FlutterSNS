@@ -185,19 +185,6 @@
 			path = Runner;
 			sourceTree = "<group>";
 		};
-		C06D39CC7C454EFEF684720D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				AC1FB12891E23B249C681794 /* Pods-Runner.debug.xcconfig */,
-				CD0D091F155F6828B686EE84 /* Pods-Runner.release.xcconfig */,
-				BA94B5878F0BFC7C576187D6 /* Pods-Runner.profile.xcconfig */,
-				14713885774891548DD1932D /* Pods-RunnerTests.debug.xcconfig */,
-				FD3220ABE4293F32B605C82A /* Pods-RunnerTests.release.xcconfig */,
-				13FC1B752E4D04FBD2C8357D /* Pods-RunnerTests.profile.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		D73912EC22F37F3D000D13A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -705,7 +692,7 @@
 		};
 		33CC10FC2044A3C60003C045 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BA94B5878F0BFC7C576187D6 /* Pods-Runner.profile.xcconfig */;
+			baseConfigurationReference = 2B079D554084E5FD47EDDE78 /* Pods-Runner.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -728,7 +715,7 @@
 		};
 		33CC10FD2044A3C60003C045 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BA94B5878F0BFC7C576187D6 /* Pods-Runner.profile.xcconfig */;
+			baseConfigurationReference = A4FFE5DFD6C6406D42DBA441 /* Pods-Runner.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

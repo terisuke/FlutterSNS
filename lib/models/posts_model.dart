@@ -69,8 +69,7 @@ class PostsModel extends ChangeNotifier {
     final String activeUid = currentUserDoc.id;
     final deleteLikePostToken = mainModel.likePostTokens
         .where((element) => element.postId == postId)
-        .toList()
-        .first;
+        .toList()[0];
     mainModel.likePostTokens.remove(deleteLikePostToken);
     notifyListeners();
     // 自分がいいねしたことの印を削除
